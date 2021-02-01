@@ -85,12 +85,12 @@ export default function AlignItemsList(props) {
             ></textarea>
             <label for="floatingTextarea2">Add your response</label>
           </div>
-          <Link to={`/successPage`}>
-            {" "}
-            <button type="submit" className="btn btn-primary">
-              Submit response
-            </button>
-          </Link>
+          {/* <Link to={`/successPage`}>
+            {" "} */}
+          <button type="submit" className="btn btn-primary">
+            Submit response
+          </button>
+          {/* </Link> */}
         </form>
         <p>Question date: {question.date}</p>
         Mark as solved:{" "}

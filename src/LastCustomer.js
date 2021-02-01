@@ -47,7 +47,7 @@ export default function LastCustomer() {
           </div>
         </div>
       ) : (
-        "Loading..."
+        "Nothing to show"
       )}
     </React.Fragment>
   );

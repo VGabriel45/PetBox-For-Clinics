@@ -155,7 +155,7 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            VetDb <PetsIcon />
+            PetBox <PetsIcon />
           </Typography>
           <IconButton color="inherit">
             <SimplePopover />

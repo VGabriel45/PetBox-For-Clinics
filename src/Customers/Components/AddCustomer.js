@@ -17,8 +17,6 @@ export default function AddPersons(props) {
       gender: data.get("gender"),
       age: data.get("age"),
     });
-
-    props.history.push("/customers");
   }
 
   return (
