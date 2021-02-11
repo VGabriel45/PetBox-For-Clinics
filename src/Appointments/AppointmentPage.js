@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import authHeader from "../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 export default function AppointmentPage(props) {
   const {
     match: { params },
   } = props;
+  const history = useHistory();
   const customerId = params.customerId;
   const appointmentId = params.appointmentId;
   const [appointment, setappointment] = useState({});
@@ -43,6 +45,7 @@ export default function AppointmentPage(props) {
       `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}`,
       { headers: authHeader() }
     );
+    history.push("/appointments");
   }
 
   function formatDateWithoutTime(date) {
@@ -79,6 +82,13 @@ export default function AppointmentPage(props) {
               className="btn btn-primary btn-sm"
             >
               Change to declined
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={deleteAppointment}
+            >
+              Delete appointment
             </Button>
           </div>
         ) : appointment.declined ? (
