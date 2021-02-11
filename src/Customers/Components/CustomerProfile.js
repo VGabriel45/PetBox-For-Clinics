@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 export default function CustomerProfile(props) {
+  const history = useHistory();
   const [customer, setcustomer] = useState({});
   const [pets, setpets] = useState([]);
   const [appointments, setappointments] = useState([]);
@@ -39,11 +41,12 @@ export default function CustomerProfile(props) {
   async function deleteCustomer() {
     await axios.delete(
       `http://localhost:8080/customers/${customerId}`,
+      { headers: authHeader() },
       {
         data: { customer },
-      },
-      { headers: authHeader() }
+      }
     );
+    history.push("/customers");
   }
 
   async function updateCustomer() {
