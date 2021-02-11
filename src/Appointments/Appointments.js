@@ -51,6 +51,11 @@ export default function CustomizedTables() {
       .then((res) => setappointments(res.data));
   }
 
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleDateString();
+  }
+
   useEffect(() => {
     getAppointments();
   }, []);
@@ -99,11 +104,9 @@ export default function CustomizedTables() {
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {app.dateOfAppointment}
+                  {formatDateWithoutTime(app.dateOfAppointment)}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {app.dateOfAppointment}
-                </StyledTableCell>
+                <StyledTableCell align="right">{app.hour}</StyledTableCell>
                 <StyledTableCell align="right">
                   <Link
                     to={`customers/${app.customer.id}/appointments/${app.id}`}
@@ -112,11 +115,13 @@ export default function CustomizedTables() {
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {!app.accepted && !app.declined
-                    ? "Waiting"
-                    : app.accepted
-                    ? "Accepted"
-                    : "Declined"}
+                  {!app.accepted && !app.declined ? (
+                    <p style={{ color: "orange" }}>Waiting</p>
+                  ) : app.accepted ? (
+                    <p style={{ color: "green" }}>Accepted</p>
+                  ) : (
+                    <p style={{ color: "red" }}>Declined</p>
+                  )}
                 </StyledTableCell>
                 {console.log(app)}
               </StyledTableRow>
