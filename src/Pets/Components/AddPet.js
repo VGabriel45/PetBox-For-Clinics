@@ -23,10 +23,11 @@ export default function AddPet(props) {
         race: data.get("race"),
         age: data.get("age"),
         color: data.get("color"),
+        // picture: data.get("picture"),
       },
       { headers: authHeader() }
     );
-    history.push("/pets");
+    // history.push("/pets");
   }
 
   return (
@@ -105,6 +106,15 @@ export default function AddPet(props) {
               className="form-control"
               id="color"
               name="color"
+            />
+          </div>
+          <div className="mb-3">
+            <label for="picture">Add a picture:</label>
+            <input
+              type="file"
+              id="picture"
+              name="picture"
+              accept="image/png, image/jpeg"
             />
           </div>
           <button type="submit" className="btn btn-primary">

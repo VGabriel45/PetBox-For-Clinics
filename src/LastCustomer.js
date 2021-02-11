@@ -30,20 +30,25 @@ export default function LastCustomer() {
       });
   }
 
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleString();
+  }
+
   useEffect(() => {
     getCustomer();
   }, []);
 
   return (
     <React.Fragment>
-      <Title>Last Customer</Title>
+      <Title>Last Added Customer</Title>
       {lastcustomer ? (
         <div>
           <Typography component="p" variant="h4">
             {lastcustomer.firstName} {lastcustomer.lastName}
           </Typography>
           <Typography color="textSecondary" className={classes.depositContext}>
-            on {lastcustomer.lastSeen}
+            on {formatDateWithoutTime(lastcustomer.lastSeen)}
           </Typography>
           <div>
             <Link href={`/customers/${lastcustomer.id}`}>View details</Link>

@@ -26,10 +26,13 @@ export default function PetDetails(props) {
   }
 
   async function updatePet() {
-    await axios.put(`/customers/${customerId}/pets/${petId}`, {
-      pet,
-      headers: authHeader(),
-    });
+    await axios.put(
+      `/customers/${customerId}/pets/${petId}`,
+      {
+        pet,
+      },
+      { headers: authHeader() }
+    );
   }
 
   useEffect(() => {
