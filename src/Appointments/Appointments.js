@@ -92,7 +92,7 @@ export default function CustomizedTables() {
               <StyledTableCell align="right">Date</StyledTableCell>
               <StyledTableCell align="right">Hour</StyledTableCell>
               <StyledTableCell align="right">Reason</StyledTableCell>
-              <StyledTableCell align="right">State</StyledTableCell>
+              <StyledTableCell align="right">Status</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
