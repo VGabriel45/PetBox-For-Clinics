@@ -13,6 +13,7 @@ import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
+import authHeader from "../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,11 +44,10 @@ export default function CustomizedTables() {
   const [appointments, setappointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  // var [appointment, setAppointment] = useState({});
 
   async function getAppointments() {
     await axios
-      .get("http://localhost:8080/appointments")
+      .get("http://localhost:8080/appointments", { headers: authHeader() })
       .then((res) => setappointments(res.data));
   }
 

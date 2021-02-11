@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import authHeader from "../../Services/auth-header";
 
 export default function CustomerProfile(props) {
   const [customer, setcustomer] = useState({});
@@ -13,31 +14,35 @@ export default function CustomerProfile(props) {
 
   async function getCustomer() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}`)
+      .get(`http://localhost:8080/customers/${customerId}`, {
+        headers: authHeader(),
+      })
       .then((res) => setcustomer(res.data));
   }
 
   async function getCustomerPets() {
     await axios
       .get(`http://localhost:8080/customers/${customerId}/pets`)
-      .then((res) => setpets(res.data));
+      .then((res) => setpets(res.data), { headers: authHeader() });
   }
 
   async function getCustomerAppointments() {
     await axios
       .get(`http://localhost:8080/customers/${customerId}/appointments`)
-      .then((res) => setappointments(res.data));
+      .then((res) => setappointments(res.data), { headers: authHeader() });
   }
 
   async function deleteCustomer() {
     await axios.delete(`http://localhost:8080/customers/${customerId}`, {
       data: { customer },
+      headers: authHeader(),
     });
   }
 
   async function updateCustomer() {
     await axios.put(`http://localhost:8080/customers/${customerId}`, {
       customer,
+      headers: authHeader(),
     });
   }
 

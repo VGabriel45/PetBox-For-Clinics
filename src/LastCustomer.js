@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "./Title";
 import axios from "axios";
+import authHeader from "./Services/auth-header";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -21,7 +22,9 @@ export default function LastCustomer() {
 
   async function getCustomer() {
     await axios
-      .get("http://localhost:8080/customers/lastCustomer")
+      .get("http://localhost:8080/customers/lastCustomer", {
+        headers: authHeader(),
+      })
       .then((res) => {
         setlastcustomer(res.data);
       });

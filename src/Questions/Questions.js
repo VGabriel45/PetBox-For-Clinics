@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import authHeader from "../Services/auth-header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ export default function AlignItemsList() {
 
   async function getQuestions() {
     await axios
-      .get("http://localhost:8080/questions")
+      .get("http://localhost:8080/questions", { headers: authHeader() })
       .then((res) => setquestions(res.data));
   }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import authHeader from "../../Services/auth-header";
 
 export default function PetDetails(props) {
   const {
@@ -11,16 +12,24 @@ export default function PetDetails(props) {
 
   async function getPet() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/pets/${petId}`)
+      .get(`http://localhost:8080/customers/${customerId}/pets/${petId}`, {
+        headers: authHeader(),
+      })
       .then((res) => setpet(res.data));
   }
 
   async function deletePet() {
-    await axios.delete(`http://localhost:8080/customers/${customerId}/pets/${petId}`);
+    await axios.delete(
+      `http://localhost:8080/customers/${customerId}/pets/${petId}`,
+      { headers: authHeader() }
+    );
   }
 
   async function updatePet() {
-    await axios.put(`/customers/${customerId}/pets/${petId}`,{pet});
+    await axios.put(`/customers/${customerId}/pets/${petId}`, {
+      pet,
+      headers: authHeader(),
+    });
   }
 
   useEffect(() => {

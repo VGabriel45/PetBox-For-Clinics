@@ -24,6 +24,7 @@ import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
 import Register from "./Auth/register.component";
 import Login from "./Auth/login.component";
+import Profile from "./ClientUI.js/Profile";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -90,9 +91,13 @@ export default function App() {
 
           <Route path="/home" component={WelcomePage} />
 
+          <Route path="/" component={WelcomePage} exact />
+
           <Route path="/register" component={Register} />
 
           <Route path="/login" component={Login} />
+
+          <Route path="/myProfile/:id" exact component={Profile} />
         </Switch>
       </Router>
     </div>

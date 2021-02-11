@@ -22,6 +22,8 @@ export default class Login extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
+    this.currentUser = AuthService.getCurrentUser();
+
     this.state = {
       username: "",
       password: "",
@@ -42,6 +44,10 @@ export default class Login extends Component {
     });
   }
 
+  async redirectUser() {
+    await this.props.history.push(`/`);
+  }
+
   handleLogin(e) {
     e.preventDefault();
 
@@ -56,8 +62,7 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/profile");
-          window.location.reload();
+          this.redirectUser();
         },
         (error) => {
           const resMessage =
@@ -78,6 +83,8 @@ export default class Login extends Component {
         loading: false,
       });
     }
+
+    // this.props.history.push(`/myProfile / ${this.currentUser.id}`);
   }
 
   render() {

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
+import authHeader from "../Services/auth-header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,14 +29,16 @@ export default function AlignItemsList(props) {
 
   async function markAsSolved() {
     await axios.get(
-      `http://localhost:8080/customers/${customerId}/questions/${questionId}/setSolved`
+      `http://localhost:8080/customers/${customerId}/questions/${questionId}/setSolved`,
+      { headers: authHeader() }
     );
   }
 
   async function getQuestion() {
     await axios
       .get(
-        `http://localhost:8080/customers/${customerId}/questions/${questionId}`
+        `http://localhost:8080/customers/${customerId}/questions/${questionId}`,
+        { headers: authHeader() }
       )
       .then((res) => setquestion(res.data));
   }
@@ -52,6 +55,7 @@ export default function AlignItemsList(props) {
       `http://localhost:8080/customers/${customerId}/questions/${questionId}/setResponse`,
       {
         response: data.get("response"),
+        headers: authHeader(),
       }
     );
   }

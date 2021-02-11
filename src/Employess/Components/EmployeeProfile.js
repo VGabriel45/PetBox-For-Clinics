@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import authHeader from "../../Services/auth-header";
+import { useHistory, userHistory } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 
 export default function EmployeeProfile(props) {
   const [employee, setEmployee] = useState({});
+  const history = useHistory();
+
   const {
     match: { params },
   } = props;
@@ -11,20 +16,31 @@ export default function EmployeeProfile(props) {
 
   async function getEmployee() {
     await axios
-      .get(`http://localhost:8080/employees/${employeeId}`)
+      .get(`http://localhost:8080/employees/${employeeId}`, {
+        headers: authHeader(),
+      })
       .then((res) => setEmployee(res.data));
   }
 
   async function deleteEmployee() {
-    await axios.delete(`http://localhost:8080/employees/${employeeId}`, {
-      data: { employee },
-    });
+    await axios.delete(
+      `http://localhost:8080/employees/${employeeId}`,
+      { headers: authHeader() },
+      {
+        data: { employee },
+      }
+    );
+    history.push("/dash");
   }
 
   async function updateEmployee() {
-    await axios.put(`http://localhost:8080/employees/${employeeId}`, {
-      employee,
-    });
+    await axios.put(
+      `http://localhost:8080/employees/${employeeId}`,
+      {
+        employee,
+      },
+      { headers: authHeader() }
+    );
   }
 
   useEffect(() => {
@@ -41,7 +57,7 @@ export default function EmployeeProfile(props) {
       <br />
       Address: {employee.address}
       <br />
-      Phone number: {employee.role}
+      Phone number: {employee.phoneNumber}
       <br />
       Contract started on: {employee.contractStartingDate}
       <br />

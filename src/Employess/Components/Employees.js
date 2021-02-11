@@ -12,6 +12,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
+import authHeader from "../../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,7 +46,7 @@ export default function Employees() {
 
   async function getEmployees() {
     await axios
-      .get("http://localhost:8080/employees")
+      .get("http://localhost:8080/employees", { headers: authHeader() })
       .then((res) => setemployees(res.data));
   }
 

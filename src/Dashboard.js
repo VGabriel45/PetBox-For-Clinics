@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -22,6 +22,7 @@ import Appointments from "./Appointments/Appointments";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddPersons from "./Customers/Components/AddCustomer";
 import SimplePopover from "./Notification/Components/SimplePopover";
+import authService from "./Services/auth.service";
 
 function Copyright() {
   return (
@@ -118,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  const [currentUser, setcurrentUser] = useState(authService.getCurrentUser());
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {

@@ -3,8 +3,9 @@ import Navbar from "../Navbar/Navbar";
 
 export default function WelcomePage() {
   return (
-    <div>
+    <React.Fragment>
       <Navbar />
-    </div>
+      Welcome
+    </React.Fragment>
   );
 }

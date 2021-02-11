@@ -1,24 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
+import authHeader from "../../Services/auth-header";
+import { useHistory, useParams } from "react-router-dom";
 
 export default function AddEmployee() {
+  const history = useHistory();
   function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post("http://localhost:8080/employees", {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      address: data.get("address"),
-      phoneNumber: data.get("phoneNumber"),
-      gender: data.get("gender"),
-      age: data.get("age"),
-      role: data.get("role"),
-      contractStartingDate: data.get("startDate"),
-      contractEndingDate: data.get("endDate"),
-      salary: data.get("salary"),
-    });
+    axios.post(
+      "http://localhost:8080/employees",
+      {
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        address: data.get("address"),
+        phoneNumber: data.get("phoneNumber"),
+        gender: data.get("gender"),
+        age: data.get("age"),
+        role: data.get("role"),
+        contractStartingDate: data.get("startDate"),
+        contractEndingDate: data.get("endDate"),
+        salary: data.get("salary"),
+      },
+      { headers: authHeader() }
+    );
+    history.push(`/employees`);
   }
 
   return (

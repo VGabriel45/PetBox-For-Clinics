@@ -1,24 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
+import authHeader from "../../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 export default function AddPet(props) {
   const {
     match: { params },
   } = props;
   const customerId = params.customerId;
+  const history = useHistory();
 
   function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post(`http://localhost:8080/customers/${customerId}/pets`, {
-      name: data.get("name"),
-      gender: data.get("gender"),
-      race: data.get("race"),
-      age: data.get("age"),
-      color: data.get("color"),
-    });
+    axios.post(
+      `http://localhost:8080/customers/${customerId}/pets`,
+      {
+        name: data.get("name"),
+        gender: data.get("gender"),
+        race: data.get("race"),
+        age: data.get("age"),
+        color: data.get("color"),
+      },
+      { headers: authHeader() }
+    );
+    history.push("/pets");
   }
 
   return (
