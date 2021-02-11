@@ -1,22 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import authHeader from "../../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
-export default function AddPersons(props) {
+export default function UpdateCustomer(props) {
+  const {
+    match: { params },
+  } = props;
+  const customerId = params.customerId;
+  const [customer, setcustomer] = useState({});
+  const history = useHistory();
+
+  async function getCustomer() {
+    await axios
+      .get(`http://localhost:8080/customers/${customerId}`, {
+        headers: authHeader(),
+      })
+      .then((res) => setcustomer(res.data));
+  }
+
+  const onChangeHandler = (e) => {
+    setcustomer({
+      ...customer,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    getCustomer();
+  }, []);
+
   function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post("http://localhost:8080/customers", {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      address: data.get("address"),
-      phoneNumber: data.get("phoneNumber"),
-      gender: data.get("gender"),
-      age: data.get("age"),
-      lastSeen: new Date(),
-    });
+    axios.put(
+      `http://localhost:8080/customers/${customerId}`,
+      {
+        id: customerId,
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        address: data.get("address"),
+        phoneNumber: data.get("phoneNumber"),
+        gender: data.get("gender"),
+        age: data.get("age"),
+        lastSeen: new Date(),
+      },
+      { headers: authHeader() }
+    );
+    history.push(`/customers/${customerId}`);
   }
 
   return (
@@ -29,7 +63,7 @@ export default function AddPersons(props) {
         marginTop: "5%",
       }}
     >
-      <h1>Add customer</h1>
+      <h1>Update customer data</h1>
       <form
         className="form-signin"
         method="post"
@@ -45,6 +79,8 @@ export default function AddPersons(props) {
             className="form-control"
             id="firstName"
             name="firstName"
+            value={customer.firstName}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="mb-3">
@@ -56,6 +92,8 @@ export default function AddPersons(props) {
             className="form-control"
             id="lastName"
             name="lastName"
+            value={customer.lastName}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="mb-3">
@@ -67,6 +105,8 @@ export default function AddPersons(props) {
             className="form-control"
             id="phoneNumber"
             name="phoneNumber"
+            value={customer.phoneNumber}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="mb-3">
@@ -78,6 +118,8 @@ export default function AddPersons(props) {
             aria-label=".form-select-sm example"
             id="gender"
             name="gender"
+            value={customer.gender}
+            onChange={onChangeHandler}
           >
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -94,6 +136,8 @@ export default function AddPersons(props) {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             name="email"
+            value={customer.email}
+            onChange={onChangeHandler}
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
@@ -108,13 +152,22 @@ export default function AddPersons(props) {
             className="form-control"
             id="address"
             name="address"
+            value={customer.address}
+            onChange={onChangeHandler}
           />
         </div>
         <div className="mb-3">
           <label htmlFor="age" className="form-label">
             Age
           </label>
-          <input type="text" className="form-control" id="age" name="age" />
+          <input
+            type="text"
+            className="form-control"
+            id="age"
+            name="age"
+            value={customer.age}
+            onChange={onChangeHandler}
+          />
         </div>
 
         <button type="submit" className="btn btn-primary">

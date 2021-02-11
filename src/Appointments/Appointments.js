@@ -75,13 +75,6 @@ export default function CustomizedTables() {
     }
   };
 
-  // const confirmAppointment = (event) => {
-  //   setAppointment = event.target.value;
-  //   appointment.confirmed = true;
-  //   console.log(appointment.confirmed);
-  //   axios.put("http://localhost:8080/appointments", app);
-  // };
-
   const displayAppointments = (appointments) => {
     return (
       <TableContainer component={Paper}>
