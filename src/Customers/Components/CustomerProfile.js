@@ -72,6 +72,8 @@ export default function CustomerProfile(props) {
 
   return (
     <div>
+      Username: {customer.username}
+      <br />
       First name: {customer.firstName}
       <br />
       Last name : {customer.lastName}
