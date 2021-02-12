@@ -63,6 +63,7 @@ export default function UpdateCustomer(props) {
         marginTop: "5%",
       }}
     >
+      <Link to={`/customers/${customerId}`}>Back to customer</Link>
       <h1>Update customer data</h1>
       <form
         className="form-signin"

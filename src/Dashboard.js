@@ -189,7 +189,7 @@ export default function Dashboard() {
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <img
-                  src="https://veryimportantpets.ro/wp-content/uploads/2019/10/pets-hanging-1.png"
+                  src="https://elringtons.com.au/wp-content/uploads/2017/10/pets.jpg"
                   alt="Logo"
                   style={{ height: "100%" }}
                 />

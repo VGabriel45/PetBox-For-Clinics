@@ -72,7 +72,8 @@ export default function CustomerProfile(props) {
 
   return (
     <div>
-      {console.log(customer)}
+      <Link to="/dash">Back to dashboard</Link>
+      <br />
       Username: {customer.username}
       <br />
       First name: {customer.firstName}
