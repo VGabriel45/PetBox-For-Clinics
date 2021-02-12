@@ -7,6 +7,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import axios from "axios";
 import Badge from "@material-ui/core/Badge";
 import { Link } from "react-router-dom";
+import authHeader from "../../Services/auth-header";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -29,10 +30,10 @@ export default function SimplePopover() {
 
   async function getData() {
     await axios
-      .get("http://localhost:8080/questions")
+      .get("http://localhost:8080/questions", { headers: authHeader() })
       .then((res) => setquestions(!res.data.seen ? res.data : ""));
     await axios
-      .get("http://localhost:8080/appointments")
+      .get("http://localhost:8080/appointments", { headers: authHeader() })
       .then((res) => setappointments(!res.data.seen ? res.data : ""));
   }
 
@@ -57,7 +58,8 @@ export default function SimplePopover() {
     questions.length > 0
       ? questions.forEach((q) => {
           axios.get(
-            `http://localhost:8080/customers/${q.customer.id}/questions/${q.id}/setSeen`
+            `http://localhost:8080/customers/${q.customer.id}/questions/${q.id}/setSeen`,
+            { headers: authHeader() }
           );
         })
       : console.log("No question");
@@ -65,7 +67,8 @@ export default function SimplePopover() {
     appointments.length > 0
       ? appointments.forEach((a) => {
           axios.get(
-            `http://localhost:8080/customers/${a.customer.id}/appointments/${a.id}/setSeen`
+            `http://localhost:8080/customers/${a.customer.id}/appointments/${a.id}/setSeen`,
+            { headers: authHeader() }
           );
         })
       : console.log("No appointment");
@@ -73,13 +76,13 @@ export default function SimplePopover() {
 
   async function getNumberOfUnseenQuestions() {
     return await axios
-      .get("http://localhost:8080/questions/seen")
+      .get("http://localhost:8080/questions/seen", { headers: authHeader() })
       .then((res) => setNumberOfUnseenQuestions(res.data));
   }
 
   async function getNumberOfUnseenAppointments() {
     return await axios
-      .get("http://localhost:8080/appointments/seen")
+      .get("http://localhost:8080/appointments/seen", { headers: authHeader() })
       .then((res) => setNumberOfUnseenAppointments(res.data));
   }
 

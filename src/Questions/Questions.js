@@ -41,6 +41,7 @@ export default function AlignItemsList() {
       <h1 style={{ textAlign: "center", marginTop: "2%" }}>
         Questions asked by customers
       </h1>
+      <Link to="/dash">Back to dashboard</Link>
       <Paper
         elevation={3}
         style={{

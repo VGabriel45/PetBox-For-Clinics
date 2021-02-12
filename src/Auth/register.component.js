@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import { Link } from "react-router-dom";
 
 import AuthService from "../Services/auth.service";
 import { Container } from "@material-ui/core";
@@ -175,6 +176,7 @@ export default class Register extends Component {
           marginTop: "5%",
         }}
       >
+        <Link to="/dash">Back to dashboard</Link>
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
@@ -246,13 +248,13 @@ export default class Register extends Component {
                 </label>
                 <select
                   className="form-select form-select-sm mb-3"
-                  value={this.state.gender}
+                  // value={this.state.gender}
                   onChange={this.onChangeGender}
                   name="gender"
                   aria-label=".form-select-sm example"
                   id="gender"
                 >
-                  <option value="male">Male</option>
+                  <option defaultValue="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>

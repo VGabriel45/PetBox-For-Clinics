@@ -149,6 +149,7 @@ export default function GetAllPets() {
     <React.Fragment>
       <Container maxWidth="lg">
         <h1>Pets</h1>
+        <Link to="/dash">Back to dashboard</Link>
         <div>
           <div>{search}</div>
           {content}

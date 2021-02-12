@@ -72,6 +72,7 @@ export default function CustomerProfile(props) {
 
   return (
     <div>
+      {console.log(customer)}
       Username: {customer.username}
       <br />
       First name: {customer.firstName}

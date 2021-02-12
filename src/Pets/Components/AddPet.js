@@ -11,11 +11,11 @@ export default function AddPet(props) {
   const customerId = params.customerId;
   const history = useHistory();
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post(
+    await axios.post(
       `http://localhost:8080/customers/${customerId}/pets`,
       {
         name: data.get("name"),
@@ -23,11 +23,16 @@ export default function AddPet(props) {
         race: data.get("race"),
         age: data.get("age"),
         color: data.get("color"),
+        type: data.get("type"),
         // picture: data.get("picture"),
       },
       { headers: authHeader() }
     );
-    // history.push("/pets");
+    redirect();
+  }
+
+  function redirect() {
+    history.push("/pets");
   }
 
   return (
@@ -66,9 +71,9 @@ export default function AddPet(props) {
             >
               <option value="dog">Dog</option>
               <option value="cat">Cat</option>
-              <option value="cat">Hamster</option>
-              <option value="cat">Rabbit</option>
-              <option value="cat">Bird</option>
+              <option value="hamster">Hamster</option>
+              <option value="rabbit">Rabbit</option>
+              <option value="bird">Bird</option>
             </select>
           </div>
           <div className="mb-3">

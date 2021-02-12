@@ -23,6 +23,7 @@ import PetsIcon from "@material-ui/icons/Pets";
 import AddPersons from "./Customers/Components/AddCustomer";
 import SimplePopover from "./Notification/Components/SimplePopover";
 import authService from "./Services/auth.service";
+import Register from "./Auth/register.component";
 
 function Copyright() {
   return (
@@ -201,7 +202,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper} style={{ height: "100%" }}>
-                <AddPersons />
+                <Register />
               </Paper>
             </Grid>
           </Grid>

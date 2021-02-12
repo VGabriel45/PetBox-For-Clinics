@@ -72,6 +72,7 @@ export default function GetAllPets(props) {
 
   return (
     <Container>
+      <Link to="/dash">Back to dashboard</Link>
       {pets.length > 0 ? (
         <div>
           <h1>Pets</h1>{" "}

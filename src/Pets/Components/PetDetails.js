@@ -41,7 +41,9 @@ export default function PetDetails(props) {
 
   return (
     <div>
-      <h1>Pet name: {pet.name}</h1>
+      <h1>
+        Pet name: {pet.name} - {pet.type}
+      </h1>
       <h1>Pet race: {pet.race}</h1>
       <h1>Pet age: {pet.age}</h1>
       <h1>Pet color: {pet.color}</h1>

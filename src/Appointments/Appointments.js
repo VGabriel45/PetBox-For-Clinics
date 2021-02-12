@@ -78,6 +78,7 @@ export default function CustomizedTables() {
   const displayAppointments = (appointments) => {
     return (
       <TableContainer component={Paper}>
+        <Link to="/dash">Back to dashboard</Link>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
