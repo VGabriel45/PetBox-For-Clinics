@@ -101,7 +101,6 @@ export default function Employees() {
                 <StyledTableCell align="left">Last Name</StyledTableCell>
                 <StyledTableCell align="left">Age</StyledTableCell>
                 <StyledTableCell align="left">Role</StyledTableCell>
-                <StyledTableCell align="left">Salary</StyledTableCell>
                 <StyledTableCell align="left">Phone number</StyledTableCell>
                 <StyledTableCell align="left">Address</StyledTableCell>
               </TableRow>
@@ -115,7 +114,6 @@ export default function Employees() {
                   <StyledTableCell align="left">{em.lastName}</StyledTableCell>
                   <StyledTableCell align="left">{em.age}</StyledTableCell>
                   <StyledTableCell align="left">{em.role}</StyledTableCell>
-                  <StyledTableCell align="left">{em.salary}</StyledTableCell>
                   <StyledTableCell align="left">
                     {em.phoneNumber}
                   </StyledTableCell>

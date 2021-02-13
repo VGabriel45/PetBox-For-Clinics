@@ -26,6 +26,7 @@ import Register from "./Auth/register.component";
 import Login from "./Auth/login.component";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
+import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -90,6 +91,13 @@ export default function App() {
             component={EmployeeProfile}
             exact
           />
+
+          <Route
+            path="/employees/:employeeId/updateEmployee"
+            exact
+            component={UpdateEmployee}
+          />
+
           <Route path="/addEmployee" exact component={AddEmployee} />
 
           <Route path="/appointments" component={Appointments} />

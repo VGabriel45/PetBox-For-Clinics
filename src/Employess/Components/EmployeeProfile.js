@@ -23,24 +23,15 @@ export default function EmployeeProfile(props) {
   }
 
   async function deleteEmployee() {
-    await axios.delete(
-      `http://localhost:8080/employees/${employeeId}`,
-      { headers: authHeader() },
-      {
-        data: { employee },
-      }
-    );
-    history.push("/dash");
+    await axios.delete(`http://localhost:8080/employees/${employeeId}`, {
+      headers: authHeader(),
+    });
+    // history.push("/dash");
   }
 
-  async function updateEmployee() {
-    await axios.put(
-      `http://localhost:8080/employees/${employeeId}`,
-      {
-        employee,
-      },
-      { headers: authHeader() }
-    );
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleString();
   }
 
   useEffect(() => {
@@ -53,26 +44,29 @@ export default function EmployeeProfile(props) {
       <br />
       Last name : {employee.lastName}
       <br />
+      Email : {employee.email}
+      <br />
       Gender : {employee.gender}
       <br />
       Address: {employee.address}
       <br />
       Phone number: {employee.phoneNumber}
       <br />
-      Contract started on: {employee.contractStartingDate}
+      Contract started on:{" "}
+      {formatDateWithoutTime(employee.contractStartingDate)}
       <br />
-      Contract ends on: {employee.contractEndingDate}
+      Contract ends on: {formatDateWithoutTime(employee.contractEndingDate)}
       <br />
-      Currently working as an {employee.role}
+      Currently working as a {employee.role}
       <br />
       Current salary: {employee.salary}$
       <br />
       <button className="btn btn-danger" onClick={deleteEmployee}>
         Delete
       </button>
-      <button className="btn btn-warning" onClick={updateEmployee}>
-        Edit
-      </button>
+      <Link to={`/employees/${employeeId}/updateEmployee`}>
+        <button className="btn btn-warning">Edit</button>
+      </Link>
     </div>
   );
 }

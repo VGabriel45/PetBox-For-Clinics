@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import authHeader from "../../Services/auth-header";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 
 export default function AddEmployee() {
   const history = useHistory();
@@ -17,6 +17,7 @@ export default function AddEmployee() {
         lastName: data.get("lastName"),
         address: data.get("address"),
         phoneNumber: data.get("phoneNumber"),
+        email: data.get("email"),
         gender: data.get("gender"),
         age: data.get("age"),
         role: data.get("role"),
@@ -26,7 +27,7 @@ export default function AddEmployee() {
       },
       { headers: authHeader() }
     );
-    history.push(`/employees`);
+    // history.push(`/employees`);
   }
 
   return (
@@ -41,6 +42,7 @@ export default function AddEmployee() {
         }}
       >
         <h1>Add employee</h1>
+        <Link to="/dash">Back to dashboard</Link>
         <form
           className="form-signin"
           method="post"
@@ -67,6 +69,17 @@ export default function AddEmployee() {
               className="form-control"
               id="lastName"
               name="lastName"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="email"
+              name="email"
             />
           </div>
           <div className="mb-3">
