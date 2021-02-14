@@ -8,6 +8,7 @@ import axios from "axios";
 import Badge from "@material-ui/core/Badge";
 import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
+import "react-notifications/lib/notifications.css";
 
 const useStyles = makeStyles((theme) => ({
   typography: {
