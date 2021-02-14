@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import authHeader from "../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlignItemsList(props) {
+  const history = useHistory();
   const classes = useStyles();
   const [question, setquestion] = useState({});
   const [response, setresponse] = useState();
@@ -70,6 +72,8 @@ export default function AlignItemsList(props) {
       },
       { headers: authHeader() }
     );
+    history.push("/questions");
+    window.location.reload("/questions");
   }
 
   useEffect(() => {
