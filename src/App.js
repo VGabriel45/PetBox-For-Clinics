@@ -26,6 +26,7 @@ import Register from "./Auth/register.component";
 import Login from "./Auth/login.component";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
+import UpdatePet from "./Pets/Components/UpdatePet";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -75,6 +76,12 @@ export default function App() {
             path="/customers/:customerId/pets/:petId"
             exact
             component={PetDetails}
+          />
+
+          <Route
+            path="/customers/:customerId/pets/:petId/updatePet"
+            exact
+            component={UpdatePet}
           />
 
           <Route path="/questions" exact component={Reports} />

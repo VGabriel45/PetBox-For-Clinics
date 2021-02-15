@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authHeader from "../../Services/auth-header";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function PetDetails(props) {
   const {
@@ -8,6 +10,7 @@ export default function PetDetails(props) {
   } = props;
   const petId = params.petId;
   const customerId = params.customerId;
+  const history = useHistory();
   const [pet, setpet] = useState({});
 
   async function getPet() {
@@ -23,16 +26,8 @@ export default function PetDetails(props) {
       `http://localhost:8080/customers/${customerId}/pets/${petId}`,
       { headers: authHeader() }
     );
-  }
-
-  async function updatePet() {
-    await axios.put(
-      `/customers/${customerId}/pets/${petId}`,
-      {
-        pet,
-      },
-      { headers: authHeader() }
-    );
+    history.push("/pets");
+    window.location.reload("/pets");
   }
 
   useEffect(() => {
@@ -50,9 +45,9 @@ export default function PetDetails(props) {
       <button className="btn btn-danger" onClick={deletePet}>
         Delete
       </button>
-      <button className="btn btn-warning" onClick={updatePet}>
-        Edit
-      </button>
+      <Link to={`/customers/${customerId}/pets/${petId}/updatePet`}>
+        <button className="btn btn-warning">Edit</button>
+      </Link>
     </div>
   );
 }
