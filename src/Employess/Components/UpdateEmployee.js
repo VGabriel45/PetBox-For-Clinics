@@ -54,7 +54,8 @@ export default function UpdateEmployee(props) {
       },
       { headers: authHeader() }
     );
-    // history.push(`/customers/${customerId}`);
+    history.push(`/employees/${employeeId}`);
+    window.location.reload(`/employees/${employeeId}`);
   }
 
   return (
