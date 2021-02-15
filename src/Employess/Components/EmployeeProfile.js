@@ -26,7 +26,8 @@ export default function EmployeeProfile(props) {
     await axios.delete(`http://localhost:8080/employees/${employeeId}`, {
       headers: authHeader(),
     });
-    // history.push("/dash");
+    history.push(`/employees/${employeeId}`);
+    window.location.reload(`/employees/${employeeId}`);
   }
 
   function formatDateWithoutTime(date) {
