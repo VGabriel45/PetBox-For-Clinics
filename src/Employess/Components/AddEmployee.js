@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import authHeader from "../../Services/auth-header";
 import { useHistory, useParams, Link } from "react-router-dom";
+import AuthService from "../../Services/auth.service";
 
 export default function AddEmployee() {
   const history = useHistory();
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
   function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
     axios.post(
-      "http://localhost:8080/employees",
+      `http://localhost:8080/clinic/${currentUser.id}/employees`,
       {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),

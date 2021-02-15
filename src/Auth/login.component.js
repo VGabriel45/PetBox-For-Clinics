@@ -45,7 +45,7 @@ export default class Login extends Component {
   }
 
   async redirectUser() {
-    await this.props.history.push(`/`);
+    await this.props.history.push(`/dash`);
   }
 
   handleLogin(e) {

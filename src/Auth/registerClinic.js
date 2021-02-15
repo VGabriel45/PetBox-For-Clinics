@@ -4,7 +4,6 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import AuthService from "../Services/auth.service";
 import { Container } from "@material-ui/core";
@@ -55,60 +54,18 @@ export default class Register extends Component {
     this.handleRegister = this.handleRegister.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
-    this.onChangeFirstName = this.onChangeFirstName.bind(this);
-    this.onChangeLastName = this.onChangeLastName.bind(this);
-    this.onChangeGender = this.onChangeGender.bind(this);
-    this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
-    this.onChangeAddress = this.onChangeAddress.bind(this);
-    const currentUser = AuthService.getCurrentUser();
-    // this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
       username: "",
-      firstName: "",
-      lastName: "",
       email: "",
-      phoneNumber: "",
-      address: "",
-      gender: "",
-      successful: false,
-      message: "",
+      password: "",
     };
   }
 
   onChangeUsername(e) {
     this.setState({
       username: e.target.value,
-    });
-  }
-
-  onChangeFirstName(e) {
-    this.setState({
-      firstName: e.target.value,
-    });
-  }
-
-  onChangeLastName(e) {
-    this.setState({
-      lastName: e.target.value,
-    });
-  }
-
-  onChangePhoneNumber(e) {
-    this.setState({
-      phoneNumber: e.target.value,
-    });
-  }
-
-  onChangeAddress(e) {
-    this.setState({
-      address: e.target.value,
-    });
-  }
-
-  onChangeGender(e) {
-    this.setState({
-      gender: e.target.value,
     });
   }
 
@@ -124,6 +81,10 @@ export default class Register extends Component {
     });
   }
 
+  async redirectUser() {
+    await this.props.history.push(`/clinicLogin`);
+  }
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -135,14 +96,10 @@ export default class Register extends Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      AuthService.register(
+      AuthService.registerClinic(
         this.state.username,
         this.state.email,
-        this.state.address,
-        this.state.phoneNumber,
-        this.state.gender,
-        this.state.firstName,
-        this.state.lastName
+        this.state.password
       ).then(
         (response) => {
           this.setState({
@@ -162,7 +119,8 @@ export default class Register extends Component {
             successful: false,
             message: resMessage,
           });
-        }
+        },
+        this.redirectUser()
       );
     }
   }
@@ -178,7 +136,6 @@ export default class Register extends Component {
           marginTop: "5%",
         }}
       >
-        <Link to="/dash">Back to dashboard</Link>
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
@@ -194,7 +151,7 @@ export default class Register extends Component {
           {!this.state.successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Clinic name</label>
                 <Input
                   type="text"
                   className="form-control"
@@ -203,63 +160,6 @@ export default class Register extends Component {
                   onChange={this.onChangeUsername}
                   validations={[required, vusername]}
                 />
-              </div>
-
-              <div className="mb-3">
-                <label htmlFor="firstName" className="form-label">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.firstName}
-                  name="firstName"
-                  onChange={this.onChangeFirstName}
-                  id="firstName"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="lastName" className="form-label">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  value={this.state.lastName}
-                  onChange={this.onChangeLastName}
-                  id="lastName"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="phoneNumber" className="form-label">
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.phoneNumber}
-                  onChange={this.onChangePhoneNumber}
-                  id="phoneNumber"
-                  name="phoneNumber"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="gender" className="form-label">
-                  Gender
-                </label>
-                <select
-                  className="form-select form-select-sm mb-3"
-                  value={this.state.gender}
-                  onChange={this.onChangeGender}
-                  name="gender"
-                  aria-label=".form-select-sm example"
-                  id="gender"
-                >
-                  <option defaultValue="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
               </div>
               <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">
@@ -280,22 +180,23 @@ export default class Register extends Component {
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor="address" className="form-label">
-                  Address
+                <label htmlFor="password" className="form-label">
+                  Password
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
-                  value={this.state.address}
-                  onChange={this.onChangeAddress}
-                  id="address"
-                  name="address"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  validations={[required, vpassword]}
+                  id="password"
+                  name="password"
                 />
               </div>
 
               <div className="form-group">
                 <button className="btn btn-primary btn-block">
-                  Add customer
+                  Register your clinic
                 </button>
               </div>
             </div>

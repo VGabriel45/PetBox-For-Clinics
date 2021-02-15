@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import authHeader from "../../Services/auth-header";
 import { useHistory } from "react-router-dom";
+import AuthService from "../../Services/auth.service";
 
 export default function AddPet(props) {
   const {
@@ -10,13 +11,14 @@ export default function AddPet(props) {
   } = props;
   const customerId = params.customerId;
   const history = useHistory();
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
     await axios.post(
-      `http://localhost:8080/customers/${customerId}/pets`,
+      `http://localhost:8080/clinic/${currentUser.id}/customers/${customerId}/pets`,
       {
         name: data.get("name"),
         gender: data.get("gender"),
