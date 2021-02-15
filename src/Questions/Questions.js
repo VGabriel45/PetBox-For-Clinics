@@ -52,43 +52,47 @@ export default function AlignItemsList() {
         }}
       >
         <List className={classes.root}>
-          {questions.map((question) => (
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                {console.log(questions)}
-              </ListItemAvatar>
-              <Link
-                to={`/customers/${question.customer.id}/questions/${question.id}`}
-              >
-                <ListItemText
-                  key={question.id}
-                  primary={question.text}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                      >
-                        <small key={question.id}>
-                          <Link
-                            to={`/customers/${question.customer.id}`}
-                            key={question.id}
-                          >
-                            {question.author}
-                          </Link>
-                        </small>
-                      </Typography>
-                      {" - "}
-                      {question.date}
-                    </React.Fragment>
-                  }
-                />
-              </Link>
-            </ListItem>
-          ))}
+          {questions.map((question) =>
+            !question.solved ? (
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  {console.log(questions)}
+                </ListItemAvatar>
+                <Link
+                  to={`/customers/${question.customer.id}/questions/${question.id}`}
+                >
+                  <ListItemText
+                    key={question.id}
+                    primary={question.text}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          className={classes.inline}
+                          color="textPrimary"
+                        >
+                          <small key={question.id}>
+                            <Link
+                              to={`/customers/${question.customer.id}`}
+                              key={question.id}
+                            >
+                              {question.author}
+                            </Link>
+                          </small>
+                        </Typography>
+                        {" - "}
+                        {question.date}
+                      </React.Fragment>
+                    }
+                  />
+                </Link>
+              </ListItem>
+            ) : (
+              ""
+            )
+          )}
 
           <Divider variant="inset" component="li" />
         </List>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import authHeader from "../Services/auth-header";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export default function AppointmentPage(props) {
   const {
@@ -59,6 +59,8 @@ export default function AppointmentPage(props) {
 
   return (
     <div>
+      <Link to="/appointments">Back to appointments</Link>
+      <br />
       Appointment author:{" "}
       <h1>
         {appointment.customer
