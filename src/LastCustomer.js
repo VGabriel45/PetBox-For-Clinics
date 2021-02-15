@@ -6,6 +6,12 @@ import Title from "./Title";
 import axios from "axios";
 import authHeader from "./Services/auth-header";
 
+import "react-notifications/lib/notifications.css";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+
 function preventDefault(event) {
   event.preventDefault();
 }
@@ -30,6 +36,27 @@ export default function LastCustomer() {
       });
   }
 
+  function createNotification(type, message) {
+    return () => {
+      switch (type) {
+        case "info":
+          NotificationManager.info(message);
+          break;
+        case "success":
+          NotificationManager.success(message);
+          break;
+        case "warning":
+          NotificationManager.warning(message, 3000);
+          break;
+        case "error":
+          NotificationManager.error(message, 5000, () => {
+            alert("callback");
+          });
+          break;
+      }
+    };
+  }
+
   function formatDateWithoutTime(date) {
     var parsedDate = new Date(date);
     return parsedDate.toLocaleString();
@@ -41,6 +68,7 @@ export default function LastCustomer() {
 
   return (
     <React.Fragment>
+      <NotificationContainer />
       <Title>Last Added Customer</Title>
       {lastcustomer ? (
         <div>
@@ -50,9 +78,24 @@ export default function LastCustomer() {
           <Typography color="textSecondary" className={classes.depositContext}>
             on {formatDateWithoutTime(lastcustomer.lastSeen)}
           </Typography>
+          <br />
           <div>
-            <Link href={`/customers/${lastcustomer.id}`}>View details</Link>
+            <Link
+              onClick={createNotification(
+                "info",
+                `${lastcustomer.firstName} ${
+                  lastcustomer.lastName
+                } was the last added customer in our database on ${formatDateWithoutTime(
+                  lastcustomer.lastSeen
+                )}`
+              )}
+            >
+              Help
+              <br />
+            </Link>
+            <br />
           </div>
+          <a href={`/customers/${lastcustomer.id}`}>See profile</a>
         </div>
       ) : (
         "Nothing to show"

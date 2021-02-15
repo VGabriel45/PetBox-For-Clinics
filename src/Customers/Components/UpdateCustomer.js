@@ -51,6 +51,7 @@ export default function UpdateCustomer(props) {
       { headers: authHeader() }
     );
     history.push(`/customers/${customerId}`);
+    window.location.reload(`/customers/${customerId}`);
   }
 
   return (

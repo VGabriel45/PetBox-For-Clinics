@@ -26,11 +26,8 @@ import Register from "./Auth/register.component";
 import Login from "./Auth/login.component";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
-<<<<<<< HEAD
 import UpdateEmployee from "./Employess/Components/UpdateEmployee";
-=======
 import UpdatePet from "./Pets/Components/UpdatePet";
->>>>>>> 7a1966b8b943a1952f587f82da217880695efdf7
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());

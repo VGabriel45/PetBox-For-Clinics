@@ -46,6 +46,7 @@ export default function AppointmentPage(props) {
       { headers: authHeader() }
     );
     history.push("/appointments");
+    window.location.reload("/appointments");
   }
 
   function formatDateWithoutTime(date) {

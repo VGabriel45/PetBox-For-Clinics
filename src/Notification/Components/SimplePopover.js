@@ -8,21 +8,12 @@ import axios from "axios";
 import Badge from "@material-ui/core/Badge";
 import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
-import "react-notifications/lib/notifications.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
-import { io } from "socket.io-client";
-
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
 }));
-
-
 
 export default function SimplePopover() {
   const classes = useStyles();
@@ -44,27 +35,6 @@ export default function SimplePopover() {
     await axios
       .get("http://localhost:8080/appointments", { headers: authHeader() })
       .then((res) => setappointments(!res.data.seen ? res.data : ""));
-  }
-
-  function createNotification(type, message) {
-    return () => {
-      switch (type) {
-        case "info":
-          NotificationManager.info(message);
-          break;
-        case "success":
-          NotificationManager.success(message);
-          break;
-        case "warning":
-          NotificationManager.warning(message, 3000);
-          break;
-        case "error":
-          NotificationManager.error(message, 5000, () => {
-            alert("callback");
-          });
-          break;
-      }
-    };
   }
 
   useEffect(() => {
@@ -119,7 +89,6 @@ export default function SimplePopover() {
 
   return (
     <div>
-      {console.log(questions)}
       <Badge
         badgeContent={numberOfUnseenQuestions + numberOfUnseenAppointments}
         color="secondary"
