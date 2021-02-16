@@ -73,7 +73,7 @@ export default function LastCustomer() {
       {lastcustomer ? (
         <div>
           <Typography component="p" variant="h4">
-            {lastcustomer.firstName} {lastcustomer.lastName}
+            {lastcustomer.username}
           </Typography>
           <Typography color="textSecondary" className={classes.depositContext}>
             on {formatDateWithoutTime(lastcustomer.lastSeen)}

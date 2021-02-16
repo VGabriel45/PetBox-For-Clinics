@@ -82,7 +82,7 @@ export default class Register extends Component {
   }
 
   async redirectUser() {
-    await this.props.history.push(`/clinicLogin`);
+    await this.props.history.push(`/login`);
   }
 
   handleRegister(e) {

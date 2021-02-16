@@ -71,6 +71,7 @@ export default function SimplePopover() {
             `http://localhost:8080/customers/${a.customer.id}/appointments/${a.id}/setSeen`,
             { headers: authHeader() }
           );
+          setNumberOfUnseenAppointments(0);
         })
       : console.log("No appointment");
   }

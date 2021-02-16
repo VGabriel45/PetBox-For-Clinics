@@ -13,6 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import authHeader from "../../Services/auth-header";
+import AuthService from "../../Services/auth.service";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,10 +44,11 @@ export default function GetAllPets() {
   const [pets, setpets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function getPets() {
     await axios
-      .get("http://localhost:8080/pets", { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/pets`, { headers: authHeader() })
       .then((res) => setpets(res.data));
   }
 
