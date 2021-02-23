@@ -45,7 +45,7 @@ export default function CustomizedTables() {
 
   async function getCustomers() {
     await axios
-      .get("http://localhost:8080/customers")
+      .get("https://petbox-backend.herokuapp.com/customers")
       .then((res) => setcustomers(res.data));
   }
 
