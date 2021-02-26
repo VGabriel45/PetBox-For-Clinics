@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -11,6 +11,13 @@ import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import HelpIcon from "@material-ui/icons/Help";
+import AuthService from "./Services/auth.service";
+
+const currentUser = AuthService.getCurrentUser();
+
+function logOut() {
+  AuthService.logout();
+}
 
 export const mainListItems = (
   <div>
@@ -67,24 +74,21 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
+    {currentUser && currentUser.roles.includes("ROLE_ADMIN") ? (
+      <div className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to={"/profile"} className="nav-link">
+            {currentUser.username}
+          </Link>
+        </li>
+        <li className="nav-item">
+          <a href="/login" className="nav-link" onClick={logOut}>
+            LogOut
+          </a>
+        </li>
+      </div>
+    ) : (
+      ""
+    )}
   </div>
 );

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import authHeader from "../../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 export default function CustomerProfile(props) {
+  const history = useHistory();
   const [customer, setcustomer] = useState({});
   const [pets, setpets] = useState([]);
   const [appointments, setappointments] = useState([]);
@@ -13,32 +16,52 @@ export default function CustomerProfile(props) {
 
   async function getCustomer() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}`)
+      .get(`http://localhost:8080/customers/${customerId}`, {
+        headers: authHeader(),
+      })
       .then((res) => setcustomer(res.data));
   }
 
   async function getCustomerPets() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/pets`)
+      .get(`http://localhost:8080/customers/${customerId}/pets`, {
+        headers: authHeader(),
+      })
       .then((res) => setpets(res.data));
   }
 
   async function getCustomerAppointments() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/appointments`)
+      .get(`http://localhost:8080/customers/${customerId}/appointments`, {
+        headers: authHeader(),
+      })
       .then((res) => setappointments(res.data));
   }
 
   async function deleteCustomer() {
-    await axios.delete(`http://localhost:8080/customers/${customerId}`, {
-      data: { customer },
-    });
+    await axios.delete(
+      `http://localhost:8080/customers/${customerId}`,
+      { headers: authHeader() },
+      {
+        data: { customer },
+      }
+    );
+    history.push("/customers");
   }
 
   async function updateCustomer() {
-    await axios.put(`http://localhost:8080/customers/${customerId}`, {
-      customer,
-    });
+    await axios.put(
+      `http://localhost:8080/customers/${customerId}`,
+      {
+        customer,
+      },
+      { headers: authHeader() }
+    );
+  }
+
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleString();
   }
 
   useEffect(() => {
@@ -49,6 +72,10 @@ export default function CustomerProfile(props) {
 
   return (
     <div>
+      <Link to="/dash">Back to dashboard</Link>
+      <br />
+      Username: {customer.username}
+      <br />
       First name: {customer.firstName}
       <br />
       Last name : {customer.lastName}
@@ -57,7 +84,7 @@ export default function CustomerProfile(props) {
       <br />
       Address: {customer.address}
       <br />
-      Last seen at: {customer.lastSeen}
+      Last seen at: {formatDateWithoutTime(customer.lastSeen)}
       <br />
       <ul>
         Pets:
@@ -83,9 +110,9 @@ export default function CustomerProfile(props) {
       <button className="btn btn-danger" onClick={deleteCustomer}>
         Delete
       </button>
-      <button className="btn btn-warning" onClick={updateCustomer}>
-        Edit
-      </button>
+      <Link to={`/customers/${customerId}/updateCustomer`}>
+        <button className="btn btn-warning">Edit</button>
+      </Link>
     </div>
   );
 }

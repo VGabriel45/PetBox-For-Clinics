@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -22,6 +22,8 @@ import Appointments from "./Appointments/Appointments";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddPersons from "./Customers/Components/AddCustomer";
 import SimplePopover from "./Notification/Components/SimplePopover";
+import authService from "./Services/auth.service";
+import Register from "./Auth/register.component";
 
 function Copyright() {
   return (
@@ -118,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  const [currentUser, setcurrentUser] = useState(authService.getCurrentUser());
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -155,7 +158,7 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            VetDb <PetsIcon />
+            PetBox <PetsIcon />
           </Typography>
           <IconButton color="inherit">
             <SimplePopover />
@@ -186,7 +189,7 @@ export default function Dashboard() {
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <img
-                  src="https://veryimportantpets.ro/wp-content/uploads/2019/10/pets-hanging-1.png"
+                  src="https://elringtons.com.au/wp-content/uploads/2017/10/pets.jpg"
                   alt="Logo"
                   style={{ height: "100%" }}
                 />
@@ -199,7 +202,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper} style={{ height: "100%" }}>
-                <AddPersons />
+                <Register />
               </Paper>
             </Grid>
           </Grid>

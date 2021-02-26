@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Container } from "@material-ui/core";
+import authHeader from "../../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -59,7 +60,9 @@ export default function GetAllPets(props) {
 
   async function getPets() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/pets`)
+      .get(`http://localhost:8080/customers/${customerId}/pets`, {
+        headers: authHeader(),
+      })
       .then((res) => setpets(res.data));
   }
 
@@ -69,6 +72,7 @@ export default function GetAllPets(props) {
 
   return (
     <Container>
+      <Link to="/dash">Back to dashboard</Link>
       {pets.length > 0 ? (
         <div>
           <h1>Pets</h1>{" "}

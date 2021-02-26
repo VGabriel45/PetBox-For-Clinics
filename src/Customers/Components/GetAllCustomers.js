@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import authHeader from "../../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -45,7 +46,7 @@ export default function CustomizedTables() {
 
   async function getCustomers() {
     await axios
-      .get("http://localhost:8080/customers")
+      .get("http://localhost:8080/customers", { headers: authHeader() })
       .then((res) => setcustomers(res.data));
   }
 
@@ -71,6 +72,7 @@ export default function CustomizedTables() {
   const displayCustomers = (customers) => {
     return (
       <TableContainer component={Paper}>
+        <Link to="/dash">Back to dashboard</Link>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>

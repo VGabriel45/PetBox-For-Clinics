@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import authHeader from "../Services/auth-header";
+import { useHistory, Link } from "react-router-dom";
 
 export default function AppointmentPage(props) {
   const {
     match: { params },
   } = props;
+  const history = useHistory();
   const customerId = params.customerId;
   const appointmentId = params.appointmentId;
   const [appointment, setappointment] = useState({});
@@ -13,7 +16,8 @@ export default function AppointmentPage(props) {
   async function getAppointment() {
     await axios
       .get(
-        `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}`
+        `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}`,
+        { headers: authHeader() }
       )
       .then((res) => setappointment(res.data));
   }
@@ -21,21 +25,33 @@ export default function AppointmentPage(props) {
   function acceptAppointment() {
     // set accept boolean of appointment to true with a put request
     axios.get(
-      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/accept`
+      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/accept`,
+      { headers: authHeader() }
     );
+    window.location.reload();
   }
 
   function declineAppointment() {
     // set accept boolean of appointment to false with a put request
     axios.get(
-      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/decline`
+      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/decline`,
+      { headers: authHeader() }
     );
+    window.location.reload();
   }
 
   function deleteAppointment() {
     axios.delete(
-      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}`
+      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}`,
+      { headers: authHeader() }
     );
+    history.push("/appointments");
+    window.location.reload("/appointments");
+  }
+
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleDateString();
   }
 
   useEffect(() => {
@@ -44,6 +60,8 @@ export default function AppointmentPage(props) {
 
   return (
     <div>
+      <Link to="/appointments">Back to appointments</Link>
+      <br />
       Appointment author:{" "}
       <h1>
         {appointment.customer
@@ -51,7 +69,11 @@ export default function AppointmentPage(props) {
           : ""}
       </h1>
       Reason of appointment: <h2>{appointment.reason}</h2>
-      Date of appointment: <h3>{appointment.dateOfAppointment}</h3>
+      Date of appointment:{" "}
+      <h3>
+        {formatDateWithoutTime(appointment.dateOfAppointment)} - At{" "}
+        {appointment.hour}
+      </h3>
       <div>
         {appointment.accepted ? (
           <div>
@@ -63,6 +85,13 @@ export default function AppointmentPage(props) {
               className="btn btn-primary btn-sm"
             >
               Change to declined
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={deleteAppointment}
+            >
+              Delete appointment
             </Button>
           </div>
         ) : appointment.declined ? (

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import authHeader from "../../Services/auth-header";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function PetDetails(props) {
   const {
@@ -7,20 +10,24 @@ export default function PetDetails(props) {
   } = props;
   const petId = params.petId;
   const customerId = params.customerId;
+  const history = useHistory();
   const [pet, setpet] = useState({});
 
   async function getPet() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/pets/${petId}`)
+      .get(`http://localhost:8080/customers/${customerId}/pets/${petId}`, {
+        headers: authHeader(),
+      })
       .then((res) => setpet(res.data));
   }
 
   async function deletePet() {
-    await axios.delete(`http://localhost:8080/customers/${customerId}/pets/${petId}`);
-  }
-
-  async function updatePet() {
-    await axios.put(`/customers/${customerId}/pets/${petId}`,{pet});
+    await axios.delete(
+      `http://localhost:8080/customers/${customerId}/pets/${petId}`,
+      { headers: authHeader() }
+    );
+    history.push("/pets");
+    window.location.reload("/pets");
   }
 
   useEffect(() => {
@@ -29,16 +36,18 @@ export default function PetDetails(props) {
 
   return (
     <div>
-      <h1>Pet name: {pet.name}</h1>
+      <h1>
+        Pet name: {pet.name} - {pet.type}
+      </h1>
       <h1>Pet race: {pet.race}</h1>
       <h1>Pet age: {pet.age}</h1>
       <h1>Pet color: {pet.color}</h1>
       <button className="btn btn-danger" onClick={deletePet}>
         Delete
       </button>
-      <button className="btn btn-warning" onClick={updatePet}>
-        Edit
-      </button>
+      <Link to={`/customers/${customerId}/pets/${petId}/updatePet`}>
+        <button className="btn btn-warning">Edit</button>
+      </Link>
     </div>
   );
 }

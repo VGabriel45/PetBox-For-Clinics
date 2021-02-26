@@ -12,6 +12,7 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import authHeader from "../../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -31,18 +32,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -57,7 +46,7 @@ export default function GetAllPets() {
 
   async function getPets() {
     await axios
-      .get("http://localhost:8080/pets")
+      .get("http://localhost:8080/pets", { headers: authHeader() })
       .then((res) => setpets(res.data));
   }
 
@@ -156,6 +145,7 @@ export default function GetAllPets() {
     <React.Fragment>
       <Container maxWidth="lg">
         <h1>Pets</h1>
+        <Link to="/dash">Back to dashboard</Link>
         <div>
           <div>{search}</div>
           {content}

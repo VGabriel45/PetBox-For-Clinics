@@ -1,24 +1,38 @@
 import React from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
+import authHeader from "../../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 export default function AddPet(props) {
   const {
     match: { params },
   } = props;
   const customerId = params.customerId;
+  const history = useHistory();
 
-  function submitForm(e) {
+  async function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post(`http://localhost:8080/customers/${customerId}/pets`, {
-      name: data.get("name"),
-      gender: data.get("gender"),
-      race: data.get("race"),
-      age: data.get("age"),
-      color: data.get("color"),
-    });
+    await axios.post(
+      `http://localhost:8080/customers/${customerId}/pets`,
+      {
+        name: data.get("name"),
+        gender: data.get("gender"),
+        race: data.get("race"),
+        age: data.get("age"),
+        color: data.get("color"),
+        type: data.get("type"),
+        // picture: data.get("picture"),
+      },
+      { headers: authHeader() }
+    );
+    redirect();
+  }
+
+  function redirect() {
+    history.push("/pets");
   }
 
   return (
@@ -57,9 +71,9 @@ export default function AddPet(props) {
             >
               <option value="dog">Dog</option>
               <option value="cat">Cat</option>
-              <option value="cat">Hamster</option>
-              <option value="cat">Rabbit</option>
-              <option value="cat">Bird</option>
+              <option value="hamster">Hamster</option>
+              <option value="rabbit">Rabbit</option>
+              <option value="bird">Bird</option>
             </select>
           </div>
           <div className="mb-3">
@@ -97,6 +111,15 @@ export default function AddPet(props) {
               className="form-control"
               id="color"
               name="color"
+            />
+          </div>
+          <div className="mb-3">
+            <label for="picture">Add a picture:</label>
+            <input
+              type="file"
+              id="picture"
+              name="picture"
+              accept="image/png, image/jpeg"
             />
           </div>
           <button type="submit" className="btn btn-primary">

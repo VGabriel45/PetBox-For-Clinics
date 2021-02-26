@@ -1,4 +1,6 @@
 import "./App.css";
+
+import React, { useState } from "react";
 import GetAllPersons from "./Customers/Components/GetAllCustomers";
 import GetAllPets from "./Pets/Components/GetAllPets";
 import GetPetsOfCustomer from "./Pets/Components/GetPetsOfCustomer";
@@ -18,13 +20,23 @@ import QuestionPage from "./Questions/QuestionPage";
 import SuccesPage from "./SuccessPage/SuccesPage";
 import CustomerProfile from "./Customers/Components/CustomerProfile";
 
-function App() {
+import AuthService from "./Services/auth.service";
+import WelcomePage from "./ClientUI.js/WelcomePage";
+import Register from "./Auth/register.component";
+import Login from "./Auth/login.component";
+import Profile from "./ClientUI.js/Profile";
+import UpdateCustomer from "./Customers/Components/UpdateCustomer";
+import UpdateEmployee from "./Employess/Components/UpdateEmployee";
+import UpdatePet from "./Pets/Components/UpdatePet";
+
+export default function App() {
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
+
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/dash" component={Dashboard} />
-          <Route path="/" exact component={Dashboard} />
 
           <Route path="/customers" exact component={GetAllPersons} />
           <Route
@@ -32,7 +44,7 @@ function App() {
             exact
             component={CustomerProfile}
           />
-          <Route path="/addCustomer" exact component={AddCustomer} />
+          <Route path="/addCustomer" exact component={Register} />
           <Route
             path="/customers/:customerId/pets/:petId"
             exact
@@ -50,6 +62,12 @@ function App() {
           />
 
           <Route
+            path="/customers/:customerId/updateCustomer"
+            exact
+            component={UpdateCustomer}
+          />
+
+          <Route
             path="/customers/:customerId/addPet"
             exact
             component={AddPet}
@@ -59,6 +77,12 @@ function App() {
             path="/customers/:customerId/pets/:petId"
             exact
             component={PetDetails}
+          />
+
+          <Route
+            path="/customers/:customerId/pets/:petId/updatePet"
+            exact
+            component={UpdatePet}
           />
 
           <Route path="/questions" exact component={Reports} />
@@ -74,15 +98,30 @@ function App() {
             component={EmployeeProfile}
             exact
           />
+
+          <Route
+            path="/employees/:employeeId/updateEmployee"
+            exact
+            component={UpdateEmployee}
+          />
+
           <Route path="/addEmployee" exact component={AddEmployee} />
 
           <Route path="/appointments" component={Appointments} />
 
           <Route path="/successPage" component={SuccesPage} />
+
+          <Route path="/home" component={WelcomePage} />
+
+          <Route path="/" component={WelcomePage} exact />
+
+          <Route path="/register" component={Register} />
+
+          <Route path="/login" component={Login} />
+
+          <Route path="/myProfile/:id" exact component={Profile} />
         </Switch>
       </Router>
     </div>
   );
 }
-
-export default App;

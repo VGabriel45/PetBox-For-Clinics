@@ -5,6 +5,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
+import authHeader from "../Services/auth-header";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlignItemsList(props) {
+  const history = useHistory();
   const classes = useStyles();
-  const [question, setquestion] = useState([]);
+  const [question, setquestion] = useState({});
   const [response, setresponse] = useState();
   const {
     match: { params },
@@ -27,33 +30,50 @@ export default function AlignItemsList(props) {
   const questionId = params.questionId;
 
   async function markAsSolved() {
-    await axios.get(
-      `http://localhost:8080/customers/${customerId}/questions/${questionId}/setSolved`
+    await axios.put(
+      `http://localhost:8080/customers/${customerId}/questions/${questionId}/setSolved`,
+      { headers: authHeader() }
     );
   }
 
   async function getQuestion() {
     await axios
       .get(
-        `http://localhost:8080/customers/${customerId}/questions/${questionId}`
+        `http://localhost:8080/customers/${customerId}/questions/${questionId}`,
+        { headers: authHeader() }
       )
       .then((res) => setquestion(res.data));
   }
 
   function handleChange(event) {
     setresponse(event.target.value);
+    console.log(question);
+  }
+
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleString();
   }
 
   function submitForm(e) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.get(
+    axios.put(
       `http://localhost:8080/customers/${customerId}/questions/${questionId}/setResponse`,
       {
-        response: data.get("response"),
-      }
+        date: question.date,
+        solved: true,
+        text: question.text,
+        author: question.author,
+        seen: true,
+        response: response,
+        customer: question.customer,
+      },
+      { headers: authHeader() }
     );
+    history.push("/questions");
+    window.location.reload("/questions");
   }
 
   useEffect(() => {
@@ -62,17 +82,20 @@ export default function AlignItemsList(props) {
 
   return (
     <Container>
+      <Link to="/dash">Back to dashboard</Link>
       <p>
         Question author{" "}
         <small>
           <Link to={`http://localhost:8080/customers/${customerId}`}>
-            {question.author}
+            <strong>{question.author}</strong>
           </Link>
         </small>
       </p>
       <Paper>
-        <p>Question: {question.text}</p>
-        Response: <small>{response}</small>
+        <p>
+          Question: <strong>{question.text}</strong>
+        </p>
+        Response: <strong>{question.response}</strong>
         <form className="form-signin" method="post" onSubmit={submitForm}>
           <div class="form-floating">
             <textarea
@@ -83,24 +106,29 @@ export default function AlignItemsList(props) {
               onChange={handleChange}
               name="response"
             ></textarea>
-            <label for="floatingTextarea2">Add your response</label>
+            <label for="floatingTextarea1">
+              {question.response ? "Already responded" : "Add response"}
+            </label>
           </div>
-          <Link to={`/successPage`}>
-            {" "}
-            <button type="submit" className="btn btn-primary">
-              Submit response
-            </button>
-          </Link>
+          {/* <Link to={`/successPage`}>
+            {" "} */}
+          <button type="submit" className="btn btn-primary">
+            Submit response
+          </button>
+          {/* </Link> */}
         </form>
-        <p>Question date: {question.date}</p>
-        Mark as solved:{" "}
+        <br />
+        <p>
+          Question date: <strong>{formatDateWithoutTime(question.date)}</strong>
+        </p>
+        {/* Mark as solved:{" "}
         <Checkbox
           checked={question.solved ? true : false}
           onClick={markAsSolved}
           name="checkedB"
           color="primary"
         />
-        {console.log(question.solved)}
+        {console.log(question.solved)} */}
       </Paper>
     </Container>
   );

@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import authHeader from "../Services/auth-header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ export default function AlignItemsList() {
 
   async function getQuestions() {
     await axios
-      .get("http://localhost:8080/questions")
+      .get("http://localhost:8080/questions", { headers: authHeader() })
       .then((res) => setquestions(res.data));
   }
 
@@ -35,11 +36,56 @@ export default function AlignItemsList() {
     getQuestions();
   }, []);
 
+  function showQuestions() {
+    return questions.map((question) =>
+      !question.solved ? (
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            {console.log(questions)}
+          </ListItemAvatar>
+          <Link
+            to={`/customers/${question.customer.id}/questions/${question.id}`}
+          >
+            <ListItemText
+              key={question.id}
+              primary={question.text}
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    <small key={question.id}>
+                      <Link
+                        to={`/customers/${question.customer.id}`}
+                        key={question.id}
+                      >
+                        {question.author}
+                      </Link>
+                    </small>
+                  </Typography>
+                  {" - "}
+                  {question.date}
+                </React.Fragment>
+              }
+            />
+          </Link>
+        </ListItem>
+      ) : (
+        ""
+      )
+    );
+  }
+
   return (
     <React.Fragment>
       <h1 style={{ textAlign: "center", marginTop: "2%" }}>
         Questions asked by customers
       </h1>
+      <Link to="/dash">Back to dashboard</Link>
       <Paper
         elevation={3}
         style={{
@@ -50,44 +96,7 @@ export default function AlignItemsList() {
         }}
       >
         <List className={classes.root}>
-          {questions.map((question) => (
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                {console.log(questions)}
-              </ListItemAvatar>
-              <Link
-                to={`/customers/${question.customer.id}/questions/${question.id}`}
-              >
-                <ListItemText
-                  key={question.id}
-                  primary={question.text}
-                  secondary={
-                    <React.Fragment>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                      >
-                        <small key={question.id}>
-                          <Link
-                            to={`/customers/${question.customer.id}`}
-                            key={question.id}
-                          >
-                            {question.author}
-                          </Link>
-                        </small>
-                      </Typography>
-                      {" - "}
-                      {question.date}
-                    </React.Fragment>
-                  }
-                />
-              </Link>
-            </ListItem>
-          ))}
-
+          {showQuestions()}
           <Divider variant="inset" component="li" />
         </List>
       </Paper>

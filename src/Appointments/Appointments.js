@@ -13,6 +13,7 @@ import axios from "axios";
 import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
+import authHeader from "../Services/auth-header";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,12 +44,16 @@ export default function CustomizedTables() {
   const [appointments, setappointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  // var [appointment, setAppointment] = useState({});
 
   async function getAppointments() {
     await axios
-      .get("http://localhost:8080/appointments")
+      .get("http://localhost:8080/appointments", { headers: authHeader() })
       .then((res) => setappointments(res.data));
+  }
+
+  function formatDateWithoutTime(date) {
+    var parsedDate = new Date(date);
+    return parsedDate.toLocaleDateString();
   }
 
   useEffect(() => {
@@ -70,16 +75,10 @@ export default function CustomizedTables() {
     }
   };
 
-  // const confirmAppointment = (event) => {
-  //   setAppointment = event.target.value;
-  //   appointment.confirmed = true;
-  //   console.log(appointment.confirmed);
-  //   axios.put("http://localhost:8080/appointments", app);
-  // };
-
   const displayAppointments = (appointments) => {
     return (
       <TableContainer component={Paper}>
+        <Link to="/dash">Back to dashboard</Link>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -87,7 +86,7 @@ export default function CustomizedTables() {
               <StyledTableCell align="right">Date</StyledTableCell>
               <StyledTableCell align="right">Hour</StyledTableCell>
               <StyledTableCell align="right">Reason</StyledTableCell>
-              <StyledTableCell align="right">State</StyledTableCell>
+              <StyledTableCell align="right">Status</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,11 +98,9 @@ export default function CustomizedTables() {
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {app.dateOfAppointment}
+                  {formatDateWithoutTime(app.dateOfAppointment)}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {app.dateOfAppointment}
-                </StyledTableCell>
+                <StyledTableCell align="right">{app.hour}</StyledTableCell>
                 <StyledTableCell align="right">
                   <Link
                     to={`customers/${app.customer.id}/appointments/${app.id}`}
@@ -112,11 +109,13 @@ export default function CustomizedTables() {
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {!app.accepted && !app.declined
-                    ? "Waiting"
-                    : app.accepted
-                    ? "Accepted"
-                    : "Declined"}
+                  {!app.accepted && !app.declined ? (
+                    <p style={{ color: "orange" }}>Waiting</p>
+                  ) : app.accepted ? (
+                    <p style={{ color: "green" }}>Accepted</p>
+                  ) : (
+                    <p style={{ color: "red" }}>Declined</p>
+                  )}
                 </StyledTableCell>
                 {console.log(app)}
               </StyledTableRow>
