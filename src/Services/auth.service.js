@@ -48,7 +48,7 @@ class AuthService {
   }
 
   registerClinic(username, email, password) {
-    return axios.post("/clinic/signup", {
+    return axios.post("/api/auth/clinic/signup", {
       username,
       email,
       password,
