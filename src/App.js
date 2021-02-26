@@ -22,7 +22,8 @@ import CustomerProfile from "./Customers/Components/CustomerProfile";
 
 import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
-import Register from "./Auth/register.component";
+import RegisterCustomer from "./Auth/register.component";
+import registerClinic from "./Auth/registerClinic";
 import Login from "./Auth/login.component";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
@@ -44,7 +45,7 @@ export default function App() {
             exact
             component={CustomerProfile}
           />
-          <Route path="/addCustomer" exact component={Register} />
+          <Route path="/addCustomer" exact component={RegisterCustomer} />
           <Route
             path="/customers/:customerId/pets/:petId"
             exact
@@ -115,7 +116,7 @@ export default function App() {
 
           <Route path="/" component={WelcomePage} exact />
 
-          <Route path="/register" component={Register} />
+          <Route path="/register" component={registerClinic} />
 
           <Route path="/login" component={Login} />
 

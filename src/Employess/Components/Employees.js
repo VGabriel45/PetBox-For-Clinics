@@ -13,6 +13,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import authHeader from "../../Services/auth-header";
+import AuthService from "../../Services/auth.service";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,10 +44,11 @@ export default function Employees() {
   const [employees, setemployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function getEmployees() {
     await axios
-      .get("http://localhost:8080/employees", { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/employees`, { headers: authHeader() })
       .then((res) => setemployees(res.data));
   }
 

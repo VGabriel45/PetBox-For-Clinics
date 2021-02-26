@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import authHeader from "../Services/auth-header";
+import AuthService from "../Services/auth.service";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,10 +26,13 @@ const useStyles = makeStyles((theme) => ({
 export default function AlignItemsList() {
   const classes = useStyles();
   const [questions, setquestions] = useState([]);
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function getQuestions() {
     await axios
-      .get("http://localhost:8080/questions", { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/questions`, {
+        headers: authHeader(),
+      })
       .then((res) => setquestions(res.data));
   }
 

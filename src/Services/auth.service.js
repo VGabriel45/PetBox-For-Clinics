@@ -3,7 +3,6 @@ import axios from "axios";
 const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
-  debugger;
   login(username, password) {
     return axios
       .post(API_URL + "signin", {
@@ -23,16 +22,36 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, email, address, phoneNumber, gender, firstName, lastName, lastSeen) {
-    return axios.post(API_URL + "signup", {
+  register(
+    username,
+    email,
+    address,
+    phoneNumber,
+    gender,
+    firstName,
+    lastName,
+    lastSeen
+  ) {
+    return axios.post(
+      API_URL + `clinic/${this.getCurrentUser().id}/signupCustomer`,
+      {
+        username,
+        email,
+        address,
+        phoneNumber,
+        gender,
+        firstName,
+        lastName,
+        lastSeen,
+      }
+    );
+  }
+
+  registerClinic(username, email, password) {
+    return axios.post(API_URL + "clinic/signup", {
       username,
       email,
-      address,
-      phoneNumber,
-      gender,
-      firstName,
-      lastName,
-      lastSeen
+      password,
     });
   }
 

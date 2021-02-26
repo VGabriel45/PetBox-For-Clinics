@@ -13,6 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import authHeader from "../../Services/auth-header";
+import AuthService from "../../Services/auth.service";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -43,10 +44,13 @@ export default function CustomizedTables() {
   const [customers, setcustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function getCustomers() {
     await axios
-      .get("http://localhost:8080/customers", { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/customers`, {
+        headers: authHeader(),
+      })
       .then((res) => setcustomers(res.data));
   }
 
