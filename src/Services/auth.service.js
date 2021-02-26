@@ -5,7 +5,7 @@ const API_URL = "https://safe-mountain-15379.herokuapp.com/api/auth/";
 class AuthService {
   login(username, password) {
     return axios
-      .post("/api/auth/signin", {
+      .post("https://safe-mountain-15379.herokuapp.com/api/auth/signin", {
         username,
         password,
       })
