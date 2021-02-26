@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://petbox-backend.herokuapp.com/api/auth/";
+const API_URL = "https://petbox-backend.herokuapp.com/";
 
 class AuthService {
   login(username, password) {
