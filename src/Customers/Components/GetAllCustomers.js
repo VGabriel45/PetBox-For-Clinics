@@ -48,7 +48,7 @@ export default function CustomizedTables() {
 
   async function getCustomers() {
     await axios
-      .get(`http://localhost:8080/clinic/${currentUser.id}/customers`, {
+      .get(`/clinic/${currentUser.id}/customers`, {
         headers: authHeader(),
       })
       .then((res) => setcustomers(res.data));

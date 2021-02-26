@@ -15,7 +15,7 @@ export default function UpdateCustomer(props) {
 
   async function getCustomer() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}`, {
+      .get(`/customers/${customerId}`, {
         headers: authHeader(),
       })
       .then((res) => setcustomer(res.data));
@@ -37,7 +37,7 @@ export default function UpdateCustomer(props) {
     const data = new FormData(e.target);
 
     axios.put(
-      `http://localhost:8080/customers/${customerId}`,
+      `/customers/${customerId}`,
       {
         id: customerId,
         firstName: data.get("firstName"),

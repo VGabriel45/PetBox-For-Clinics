@@ -5,7 +5,7 @@ const API_URL = "https://safe-mountain-15379.herokuapp.com/api/auth/";
 class AuthService {
   login(username, password) {
     return axios
-      .post("/signin", {
+      .post("/api/auth/signin", {
         username,
         password,
       })
@@ -32,19 +32,16 @@ class AuthService {
     lastName,
     lastSeen
   ) {
-    return axios.post(
-       `/clinic/${this.getCurrentUser().id}/signupCustomer`,
-      {
-        username,
-        email,
-        address,
-        phoneNumber,
-        gender,
-        firstName,
-        lastName,
-        lastSeen,
-      }
-    );
+    return axios.post(`/clinic/${this.getCurrentUser().id}/signupCustomer`, {
+      username,
+      email,
+      address,
+      phoneNumber,
+      gender,
+      firstName,
+      lastName,
+      lastSeen,
+    });
   }
 
   registerClinic(username, email, password) {
