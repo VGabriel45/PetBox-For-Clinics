@@ -48,9 +48,12 @@ export default function CustomizedTables() {
 
   async function getCustomers() {
     await axios
-      .get(`/clinic/${currentUser.id}/customers`, {
-        headers: authHeader(),
-      })
+      .get(
+        `https://safe-mountain-15379.herokuapp.com/clinic/${currentUser.id}/customers`,
+        {
+          headers: authHeader(),
+        }
+      )
       .then((res) => setcustomers(res.data));
   }
 
