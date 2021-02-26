@@ -8,7 +8,7 @@ export default function AddPersons(props) {
     e.preventDefault();
     const data = new FormData(e.target);
 
-    axios.post("http://localhost:8080/customers", {
+    axios.post("/customers", {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       address: data.get("address"),

@@ -16,7 +16,7 @@ export default function CustomerProfile(props) {
 
   async function getCustomer() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}`, {
+      .get(`/customers/${customerId}`, {
         headers: authHeader(),
       })
       .then((res) => setcustomer(res.data));
@@ -24,7 +24,7 @@ export default function CustomerProfile(props) {
 
   async function getCustomerPets() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/pets`, {
+      .get(`/customers/${customerId}/pets`, {
         headers: authHeader(),
       })
       .then((res) => setpets(res.data));
@@ -32,7 +32,7 @@ export default function CustomerProfile(props) {
 
   async function getCustomerAppointments() {
     await axios
-      .get(`http://localhost:8080/customers/${customerId}/appointments`, {
+      .get(`/customers/${customerId}/appointments`, {
         headers: authHeader(),
       })
       .then((res) => setappointments(res.data));
@@ -40,7 +40,7 @@ export default function CustomerProfile(props) {
 
   async function deleteCustomer() {
     await axios.delete(
-      `http://localhost:8080/customers/${customerId}`,
+      `/customers/${customerId}`,
       { headers: authHeader() },
       {
         data: { customer },
@@ -51,7 +51,7 @@ export default function CustomerProfile(props) {
 
   async function updateCustomer() {
     await axios.put(
-      `http://localhost:8080/customers/${customerId}`,
+      `/customers/${customerId}`,
       {
         customer,
       },
