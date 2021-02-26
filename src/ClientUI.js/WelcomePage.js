@@ -7,7 +7,7 @@ export default function WelcomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/clinics")
+      .get("https://safe-mountain-15379.herokuapp.com/clinics")
       .then((res) => setclinics(res.data));
   }, []);
 
