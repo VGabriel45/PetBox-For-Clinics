@@ -78,12 +78,12 @@ export const secondaryListItems = (
       <div className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link to={"/profile"} className="nav-link">
-            {currentUser.clinicName}
+            {currentUser.username}
           </Link>
         </li>
         <li className="nav-item">
           <a href="/login" className="nav-link" onClick={logOut}>
-            LogOut
+            LogOut from {currentUser.username}
           </a>
         </li>
       </div>

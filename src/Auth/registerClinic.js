@@ -104,13 +104,6 @@ export default class Register extends Component {
 
     this.form.validateAll();
 
-    let data = new FormData();
-    data.append("file", this.state.image);
-    axios.post(
-      `http://localhost:8080/upload/clinic/${this.state.username}`,
-      data
-    );
-
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.registerClinic(
         this.state.username,
@@ -139,6 +132,13 @@ export default class Register extends Component {
         this.redirectUser()
       );
     }
+
+    let data = new FormData();
+    data.append("file", this.state.image);
+    axios.post(
+      `http://localhost:8080/upload/clinic/${this.state.username}`,
+      data
+    );
   }
 
   render() {
