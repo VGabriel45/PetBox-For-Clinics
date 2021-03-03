@@ -34,8 +34,8 @@ export default function Navbar() {
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto my-2 my-lg-0">
               <li class="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
+                <Link to={"/dash"} className="nav-link">
+                  Dasboard
                 </Link>
               </li>
               {currentUser ? (

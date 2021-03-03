@@ -26,6 +26,9 @@ export default function PetDetails(props) {
       `http://localhost:8080/customers/${customerId}/pets/${petId}`,
       { headers: authHeader() }
     );
+    axios.delete(`http://localhost:8080/delete/${pet.name}`, {
+      headers: authHeader(),
+    });
     history.push("/pets");
     window.location.reload("/pets");
   }
@@ -42,6 +45,14 @@ export default function PetDetails(props) {
       <h1>Pet race: {pet.race}</h1>
       <h1>Pet age: {pet.age}</h1>
       <h1>Pet color: {pet.color}</h1>
+      <div className="mt-5" style={{ width: "50%" }}>
+        <img
+          src={`data:image/png;base64,${pet.image}`}
+          class="img-responsive"
+          style={{ width: "50%" }}
+          alt=""
+        />
+      </div>
       <button className="btn btn-danger" onClick={deletePet}>
         Delete
       </button>

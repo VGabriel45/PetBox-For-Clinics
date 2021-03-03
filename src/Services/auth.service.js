@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "https://safe-mountain-15379.herokuapp.com/api/auth/";
+const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
   login(username, password) {
     return axios
-      .post("https://safe-mountain-15379.herokuapp.com/api/auth/signin", {
+      .post(`${API_URL}signin`, {
         username,
         password,
       })
@@ -32,20 +32,23 @@ class AuthService {
     lastName,
     lastSeen
   ) {
-    return axios.post(`/clinic/${this.getCurrentUser().id}/signupCustomer`, {
-      username,
-      email,
-      address,
-      phoneNumber,
-      gender,
-      firstName,
-      lastName,
-      lastSeen,
-    });
+    return axios.post(
+      `${API_URL}clinic/${this.getCurrentUser().id}/signupCustomer`,
+      {
+        username,
+        email,
+        address,
+        phoneNumber,
+        gender,
+        firstName,
+        lastName,
+        lastSeen,
+      }
+    );
   }
 
   registerClinic(username, email, password) {
-    return axios.post("/api/auth/clinic/signup", {
+    return axios.post(`${API_URL}api/auth/clinic/signup`, {
       username,
       email,
       password,
