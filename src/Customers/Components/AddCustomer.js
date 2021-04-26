@@ -17,6 +17,12 @@ export default function AddPersons(props) {
       age: data.get("age"),
       lastSeen: new Date(),
     });
+    let imageData = new FormData();
+    imageData.append("file", data.get("image"));
+    axios.post(
+      `http://localhost:8080/upload/customer/${data.get("name")}`,
+      imageData
+    );
   }
 
   return (
@@ -115,6 +121,9 @@ export default function AddPersons(props) {
             Age
           </label>
           <input type="text" className="form-control" id="age" name="age" />
+        </div>
+        <div>
+          <input type="file" className="form-control" name="image" />
         </div>
 
         <button type="submit" className="btn btn-primary">

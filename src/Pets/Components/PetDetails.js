@@ -34,6 +34,9 @@ export default function PetDetails(props) {
       `http://localhost:8080/customers/${customerId}/pets/${petId}`,
       { headers: authHeader() }
     );
+    axios.delete(`http://localhost:8080/delete/${pet.name}`, {
+      headers: authHeader(),
+    });
     history.push("/pets");
     window.location.reload("/pets");
   }

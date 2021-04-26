@@ -30,6 +30,12 @@ export default function AddPet(props) {
       },
       { headers: authHeader() }
     );
+    let imageData = new FormData();
+    imageData.append("file", data.get("image"));
+    axios.post(
+      `http://localhost:8080/upload/pet/${data.get("name")}`,
+      imageData
+    );
     redirect();
   }
 
@@ -115,13 +121,21 @@ export default function AddPet(props) {
               name="color"
             />
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label for="picture">Add a picture:</label>
             <input
               type="file"
               id="picture"
               name="picture"
               accept="image/png, image/jpeg"
+            />
+          </div> */}
+          <div>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              className="form-control"
             />
           </div>
           <button type="submit" className="btn btn-primary">

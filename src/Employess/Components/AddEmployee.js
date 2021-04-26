@@ -13,7 +13,7 @@ export default function AddEmployee() {
     const data = new FormData(e.target);
 
     axios.post(
-      `http://localhost:8080/clinic/${currentUser.id}/employees`,
+      `/clinic/${currentUser.id}/employees`,
       {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),

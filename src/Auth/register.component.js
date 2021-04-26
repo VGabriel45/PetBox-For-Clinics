@@ -61,6 +61,7 @@ export default class Register extends Component {
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
     const currentUser = AuthService.getCurrentUser();
+    this.onChangeImage = this.onChangeImage.bind(this);
     // this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
@@ -71,6 +72,7 @@ export default class Register extends Component {
       phoneNumber: "",
       address: "",
       gender: "",
+      image: "",
       successful: false,
       message: "",
     };
@@ -124,6 +126,12 @@ export default class Register extends Component {
     });
   }
 
+  onChangeImage(e) {
+    this.setState({
+      image: e.target.files[0],
+    });
+  }
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -165,6 +173,12 @@ export default class Register extends Component {
         }
       );
     }
+    let imageData = new FormData();
+    imageData.append("file", this.state.image);
+    axios.post(
+      `http://localhost:8080/upload/customer/${this.state.username}`,
+      imageData
+    );
   }
 
   render() {
@@ -290,6 +304,14 @@ export default class Register extends Component {
                   onChange={this.onChangeAddress}
                   id="address"
                   name="address"
+                />
+              </div>
+              <div>
+                <input
+                  type="file"
+                  className="form-control"
+                  name="image"
+                  onChange={this.onChangeImage}
                 />
               </div>
 

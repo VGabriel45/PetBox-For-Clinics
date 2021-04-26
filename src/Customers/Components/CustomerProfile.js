@@ -12,17 +12,20 @@ export default function CustomerProfile(props) {
   const [pets, setpets] = useState([]);
   const [appointments, setappointments] = useState([]);
   const [customerImage, setcustomerImage] = useState();
+  const [loading, setloading] = useState();
   const {
     match: { params },
   } = props;
   const customerId = params.customerId;
 
   async function getCustomer() {
+    setloading(true);
     await axios
       .get(`http://localhost:8080/customers/${customerId}`, {
         headers: authHeader(),
       })
       .then((res) => setcustomer(res.data));
+    setloading(false);
   }
 
   async function getCustomerPets() {
@@ -55,6 +58,9 @@ export default function CustomerProfile(props) {
         data: { customer },
       }
     );
+    axios.delete(`http://localhost:8080/delete/${customer.username}`, {
+      headers: authHeader(),
+    });
     history.push("/customers");
   }
 

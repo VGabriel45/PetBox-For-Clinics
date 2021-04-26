@@ -16,14 +16,14 @@ export default function EmployeeProfile(props) {
 
   async function getEmployee() {
     await axios
-      .get(`http://localhost:8080/employees/${employeeId}`, {
+      .get(`/employees/${employeeId}`, {
         headers: authHeader(),
       })
       .then((res) => setEmployee(res.data));
   }
 
   async function deleteEmployee() {
-    await axios.delete(`http://localhost:8080/employees/${employeeId}`, {
+    await axios.delete(`/employees/${employeeId}`, {
       headers: authHeader(),
     });
     history.push(`/employees/${employeeId}`);

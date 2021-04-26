@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import AuthService from "../Services/auth.service";
 import { Container } from "@material-ui/core";
@@ -55,11 +56,13 @@ export default class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
 
     this.state = {
       username: "",
       email: "",
       password: "",
+      image: "",
     };
   }
 
@@ -78,6 +81,12 @@ export default class Register extends Component {
   onChangePassword(e) {
     this.setState({
       password: e.target.value,
+    });
+  }
+
+  onChangeImage(e) {
+    this.setState({
+      image: e.target.files[0],
     });
   }
 
@@ -123,6 +132,13 @@ export default class Register extends Component {
         this.redirectUser()
       );
     }
+
+    let data = new FormData();
+    data.append("file", this.state.image);
+    axios.post(
+      `http://localhost:8080/upload/clinic/${this.state.username}`,
+      data
+    );
   }
 
   render() {
@@ -191,6 +207,14 @@ export default class Register extends Component {
                   validations={[required, vpassword]}
                   id="password"
                   name="password"
+                />
+              </div>
+              <div>
+                <Input
+                  type="file"
+                  className="form-control"
+                  name="image"
+                  onChange={this.onChangeImage}
                 />
               </div>
 
