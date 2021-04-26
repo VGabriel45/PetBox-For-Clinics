@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
 import { useHistory } from "react-router-dom";
 
+import firebase from "../../Firebase/firebase";
+
 export default function CustomerProfile(props) {
   const history = useHistory();
   const [customer, setcustomer] = useState({});
   const [pets, setpets] = useState([]);
   const [appointments, setappointments] = useState([]);
+  const [customerImage, setcustomerImage] = useState();
   const {
     match: { params },
   } = props;
@@ -28,6 +31,12 @@ export default function CustomerProfile(props) {
         headers: authHeader(),
       })
       .then((res) => setpets(res.data));
+  }
+
+  async function getCustomerImage() {
+    let storageRef = firebase.storage().ref();
+    let fileRef = storageRef.child(await customerId);
+    setcustomerImage(await fileRef.getDownloadURL());
   }
 
   async function getCustomerAppointments() {
@@ -68,6 +77,7 @@ export default function CustomerProfile(props) {
     getCustomer();
     getCustomerPets();
     getCustomerAppointments();
+    getCustomerImage();
   }, []);
 
   return (
@@ -85,6 +95,8 @@ export default function CustomerProfile(props) {
       Address: {customer.address}
       <br />
       Last seen at: {formatDateWithoutTime(customer.lastSeen)}
+      <br />
+      {customerImage ? <img src={customerImage} alt="customerImage" style={{ width: "200px" }} /> : "No image"}
       <br />
       <ul>
         Pets:

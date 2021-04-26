@@ -49,6 +49,10 @@ export default function AppointmentPage(props) {
     window.location.reload("/appointments");
   }
 
+  function markAsSeen() {
+    axios.get(`http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/setSeen`, { headers: authHeader() });
+  }
+
   function formatDateWithoutTime(date) {
     var parsedDate = new Date(date);
     return parsedDate.toLocaleDateString();
@@ -56,6 +60,7 @@ export default function AppointmentPage(props) {
 
   useEffect(() => {
     getAppointment();
+    markAsSeen();
   }, []);
 
   return (
@@ -97,23 +102,23 @@ export default function AppointmentPage(props) {
         ) : appointment.declined ? (
           ""
         ) : (
-          <div>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={acceptAppointment}
-            >
-              Accept
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={acceptAppointment}
+                >
+                  Accept
             </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={declineAppointment}
-            >
-              Decline
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={declineAppointment}
+                >
+                  Decline
             </Button>
-          </div>
-        )}
+              </div>
+            )}
         {appointment.declined ? (
           <div>
             <h2>This appointment has been declined.</h2>
@@ -133,8 +138,8 @@ export default function AppointmentPage(props) {
             </Button>
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </div>
       {console.log(appointment.reason)}
     </div>
