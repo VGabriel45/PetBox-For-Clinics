@@ -60,7 +60,7 @@ export default class Register extends Component {
     this.onChangeGender = this.onChangeGender.bind(this);
     this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
     this.onChangeAddress = this.onChangeAddress.bind(this);
-    const currentUser = AuthService.getCurrentUser();
+    this.currentUser = AuthService.getCurrentUser();
     this.onChangeImage = this.onChangeImage.bind(this);
     // this.onChangePassword = this.onChangePassword.bind(this);
 
@@ -144,7 +144,7 @@ export default class Register extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.register(
-        this.state.username,
+        this.state.username + ` - ${this.currentUser.username}`,
         this.state.email,
         this.state.address,
         this.state.phoneNumber,

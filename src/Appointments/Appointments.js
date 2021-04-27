@@ -14,6 +14,8 @@ import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import authHeader from "../Services/auth-header";
+import AuthService from "../Services/auth.service";
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,10 +46,11 @@ export default function CustomizedTables() {
   const [appointments, setappointments] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
 
   async function getAppointments() {
     await axios
-      .get("http://localhost:8080/appointments", { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/appointments`, { headers: authHeader() })
       .then((res) => setappointments(res.data));
   }
 
@@ -114,8 +117,8 @@ export default function CustomizedTables() {
                   ) : app.accepted ? (
                     <p style={{ color: "green" }}>Accepted</p>
                   ) : (
-                    <p style={{ color: "red" }}>Declined</p>
-                  )}
+                        <p style={{ color: "red" }}>Declined</p>
+                      )}
                 </StyledTableCell>
                 {console.log(app)}
               </StyledTableRow>
