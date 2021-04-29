@@ -59,14 +59,6 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
-
-  async uploadImage(e, clinicName) {
-    const file = await e.target.files[0];
-    let storageRef = firebase.storage().ref();
-    let fileRef = storageRef.child(clinicName);
-    await fileRef.put(file);
-  }
-
 }
 
 export default new AuthService();

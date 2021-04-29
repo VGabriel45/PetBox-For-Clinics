@@ -84,7 +84,7 @@ export default function LastCustomer({ clinicId }) {
               onClick={createNotification(
                 "info",
                 `${lastcustomer.firstName} ${
-                lastcustomer.lastName
+                  lastcustomer.lastName
                 } was the last added customer in our database on ${formatDateWithoutTime(
                   lastcustomer.lastSeen
                 )}`
@@ -98,8 +98,8 @@ export default function LastCustomer({ clinicId }) {
           <a href={`/customers/${lastcustomer.id}`}>See profile</a>
         </div>
       ) : (
-          "Nothing to show"
-        )}
+        "Nothing to show"
+      )}
     </React.Fragment>
   );
 }
