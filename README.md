@@ -4,3 +4,6 @@ PetBox is a platform for veterinarian clinics, it comes as a solution for data m
 
 The application is divided in 2 parts, the Admin Side and the Client Side, admin side is for clinics to manage their business and client side is for normal users, as a customer I am going to be asked if I agree to be registered on PetBox for the specific clinic, after that I will receive an email with my password and username and from there begins the login process. On the client side we can see our profile, appointments details, questions asked and pet details.
 
+![](images/Screenshot%202021-04-29%20at%2013.24.15.png)
+
+
