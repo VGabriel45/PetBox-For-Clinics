@@ -4,6 +4,8 @@ import authHeader from "../../Services/auth-header";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
+import "../../Styles/PetDetailsPage.css";
+
 import firebase from "../../Firebase/firebase";
 
 export default function PetDetails(props) {
@@ -52,22 +54,26 @@ export default function PetDetails(props) {
   }, [petImage]);
 
   return (
-    <div>
-      <h1>
-        Pet name: {pet.name} - {pet.type}
-      </h1>
-      <h1>Pet race: {pet.race}</h1>
-      <h1>Pet age: {pet.age}</h1>
-      <h1>Pet color: {pet.color}</h1>
-      {petImage ? <img src={petImage} alt="" /> : 'No image'}
+    <div className="container">
+      <div className="petDetailsDiv">
+        <h1>
+          Pet name: {pet.name} - {pet.type}
+        </h1>
+        <h1>Pet race: {pet.race}</h1>
+        <h1>Pet age: {pet.age}</h1>
+        <h1>Pet color: {pet.color}</h1>
+        <div className="petImageDiv">
+          {petImage ? <img src={petImage} alt="" className="petImage" /> : 'No image'}
+        </div>
 
-      <br />
-      <button className="btn btn-danger" onClick={deletePet}>
-        Delete
+        <br />
+        <button className="btn btn-danger" onClick={deletePet}>
+          Delete
       </button>
-      <Link to={`/customers/${customerId}/pets/${petId}/updatePet`}>
-        <button className="btn btn-warning">Edit</button>
-      </Link>
+        <Link to={`/customers/${customerId}/pets/${petId}/updatePet`}>
+          <button className="btn btn-warning">Edit</button>
+        </Link>
+      </div>
     </div>
   );
 }

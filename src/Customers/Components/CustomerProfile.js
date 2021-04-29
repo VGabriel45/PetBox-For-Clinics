@@ -96,6 +96,8 @@ export default function CustomerProfile(props) {
       <br />
       Last name : {customer.lastName}
       <br />
+      Email address : {customer.email}
+      <br />
       Gender : {customer.gender}
       <br />
       Address: {customer.address}

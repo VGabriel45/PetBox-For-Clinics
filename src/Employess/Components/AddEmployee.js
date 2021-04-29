@@ -13,7 +13,7 @@ export default function AddEmployee() {
     const data = new FormData(e.target);
 
     axios.post(
-      `/clinic/${currentUser.id}/employees`,
+      `http://localhost:8080/clinic/${currentUser.id}/employees`,
       {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
@@ -29,7 +29,7 @@ export default function AddEmployee() {
       },
       { headers: authHeader() }
     );
-    // history.push(`/employees`);
+    history.push(`/employees`);
   }
 
   return (

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authHeader from "../../Services/auth-header";
-import { useHistory, userHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
 export default function EmployeeProfile(props) {
+
+  let API_URL = "http://localhost:8080";
+
   const [employee, setEmployee] = useState({});
   const history = useHistory();
 
@@ -16,18 +19,18 @@ export default function EmployeeProfile(props) {
 
   async function getEmployee() {
     await axios
-      .get(`/employees/${employeeId}`, {
+      .get(`${API_URL}/employees/${employeeId}`, {
         headers: authHeader(),
       })
       .then((res) => setEmployee(res.data));
   }
 
   async function deleteEmployee() {
-    await axios.delete(`/employees/${employeeId}`, {
+    await axios.delete(`${API_URL}/employees/${employeeId}`, {
       headers: authHeader(),
     });
-    history.push(`/employees/${employeeId}`);
-    window.location.reload(`/employees/${employeeId}`);
+    history.push(`${API_URL}/employees/${employeeId}`);
+    window.location.reload(`${API_URL}/employees/${employeeId}`);
   }
 
   function formatDateWithoutTime(date) {

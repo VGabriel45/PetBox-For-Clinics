@@ -306,15 +306,6 @@ export default class Register extends Component {
                   name="address"
                 />
               </div>
-              <div>
-                <input
-                  type="file"
-                  className="form-control"
-                  name="image"
-                  onChange={this.onChangeImage}
-                />
-              </div>
-
               <div className="form-group">
                 <button className="btn btn-primary btn-block">
                   Add customer

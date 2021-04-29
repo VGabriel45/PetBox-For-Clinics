@@ -3,7 +3,6 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import AuthService from "../Services/auth.service";
@@ -85,9 +84,7 @@ export default class Register extends Component {
   }
 
   onChangeImage(e) {
-    this.setState({
-      image: e.target.files[0],
-    });
+    AuthService.uploadImage(e, this.state.username);
   }
 
   async redirectUser() {

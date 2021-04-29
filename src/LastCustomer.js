@@ -22,13 +22,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LastCustomer() {
+export default function LastCustomer({ clinicId }) {
   const classes = useStyles();
   const [lastcustomer, setlastcustomer] = useState();
 
   async function getCustomer() {
     await axios
-      .get("http://localhost:8080/customers/lastCustomer", {
+      .get("http://localhost:8080/customers/lastCustomer" + "/" + clinicId, {
         headers: authHeader(),
       })
       .then((res) => {
@@ -84,7 +84,7 @@ export default function LastCustomer() {
               onClick={createNotification(
                 "info",
                 `${lastcustomer.firstName} ${
-                  lastcustomer.lastName
+                lastcustomer.lastName
                 } was the last added customer in our database on ${formatDateWithoutTime(
                   lastcustomer.lastSeen
                 )}`
@@ -98,8 +98,8 @@ export default function LastCustomer() {
           <a href={`/customers/${lastcustomer.id}`}>See profile</a>
         </div>
       ) : (
-        "Nothing to show"
-      )}
+          "Nothing to show"
+        )}
     </React.Fragment>
   );
 }

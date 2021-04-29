@@ -17,7 +17,7 @@ import Link from "@material-ui/core/Link";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { mainListItems, secondaryListItems } from "./listItems";
-import Deposits from "./LastCustomer";
+import LastCustomer from "./LastCustomer";
 import Appointments from "./Appointments/Appointments";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddPersons from "./Customers/Components/AddCustomer";
@@ -197,7 +197,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits />
+                <LastCustomer clinicId={currentUser.id} />
               </Paper>
             </Grid>
             <Grid item xs={12}>

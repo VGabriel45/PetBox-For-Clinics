@@ -37,7 +37,7 @@ export default function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/dash" component={Dashboard} />
+          <Route path="/dash" exact component={Dashboard} />
 
           <Route path="/customers" exact component={GetAllPersons} />
           <Route

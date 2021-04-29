@@ -13,6 +13,8 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import HelpIcon from "@material-ui/icons/Help";
 import AuthService from "./Services/auth.service";
 
+import firebase from "./Firebase/firebase";
+
 const currentUser = AuthService.getCurrentUser();
 
 function logOut() {
@@ -72,6 +74,13 @@ export const mainListItems = (
   </div>
 );
 
+const uploadImage = async (e) => {
+  const file = await e.target.files[0];
+  let storageRef = firebase.storage().ref();
+  let fileRef = storageRef.child(currentUser.username);
+  await fileRef.put(file);
+}
+
 export const secondaryListItems = (
   <div>
     {currentUser && currentUser.roles.includes("ROLE_ADMIN") ? (
@@ -86,9 +95,10 @@ export const secondaryListItems = (
             LogOut from {currentUser.username}
           </a>
         </li>
+        <input type="file" onChange={uploadImage} />
       </div>
     ) : (
-      ""
-    )}
+        ""
+      )}
   </div>
 );
