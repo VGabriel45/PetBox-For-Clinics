@@ -4,9 +4,9 @@ import authHeader from "../../Services/auth-header";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import "../../Styles/PetDetailsPage.css";
-
 import firebase from "../../Firebase/firebase";
+import PetPageHTML from "./PetPageHTML";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 export default function PetDetails(props) {
   const {
@@ -18,6 +18,9 @@ export default function PetDetails(props) {
 
   const history = useHistory();
   const [pet, setpet] = useState({});
+  const [owner, setowner] = useState({});
+  const [meds, setmeds] = useState([]);
+  const [healthProblems, sethealthProblems] = useState([]);
   const [petImage, setpetImage] = useState();
 
   async function getPet() {
@@ -27,8 +30,38 @@ export default function PetDetails(props) {
       })
       .then((res) => {
         setpet(res.data);
-        getPetImage(res.data.id)
+        getPetImage(res.data.id);
+      });
+  }
+
+  async function getPetOwner() {
+    await axios
+      .get(`http://localhost:8080/customers/${customerId}`, {
+        headers: authHeader(),
       })
+      .then((res) => {
+        setowner(res.data);
+      });
+  }
+
+  async function getPetMedicaments() {
+    await axios
+      .get(`http://localhost:8080/meds/pet/${petId}`, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        setmeds(res.data);
+      });
+  }
+
+  async function getHealthProblems() {
+    await axios
+      .get(`http://localhost:8080/healthProblems/pet/${petId}`, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        sethealthProblems(res.data);
+      });
   }
 
   async function deletePet() {
@@ -51,29 +84,22 @@ export default function PetDetails(props) {
 
   useEffect(() => {
     getPet();
+    getPetOwner();
+    getPetMedicaments();
+    getHealthProblems();
   }, [petImage]);
 
   return (
-    <div className="container">
-      <div className="petDetailsDiv">
-        <h1>
-          Pet name: {pet.name} - {pet.type}
-        </h1>
-        <h1>Pet race: {pet.race}</h1>
-        <h1>Pet age: {pet.age}</h1>
-        <h1>Pet color: {pet.color}</h1>
-        <div className="petImageDiv">
-          {petImage ? <img src={petImage} alt="" className="petImage" /> : 'No image'}
-        </div>
-
-        <br />
-        <button className="btn btn-danger" onClick={deletePet}>
-          Delete
-      </button>
-        <Link to={`/customers/${customerId}/pets/${petId}/updatePet`}>
-          <button className="btn btn-warning">Edit</button>
-        </Link>
-      </div>
-    </div>
+    <React.Fragment>
+      <NavigationBar />
+      <PetPageHTML
+        pet={pet}
+        petImage={petImage}
+        petOwner={owner}
+        meds={meds}
+        healthProblems={healthProblems}
+        customerId={customerId}
+      />
+    </React.Fragment>
   );
 }

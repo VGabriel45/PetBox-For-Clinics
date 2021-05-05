@@ -3,6 +3,10 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import authHeader from "../Services/auth-header";
 import { useHistory, Link } from "react-router-dom";
+import AppointmentComponent from "./AppointmentComponent";
+import firebase from "../Firebase/firebase";
+
+import "../Styles/AppointmentPage.css";
 
 export default function AppointmentPage(props) {
   const {
@@ -12,6 +16,7 @@ export default function AppointmentPage(props) {
   const customerId = params.customerId;
   const appointmentId = params.appointmentId;
   const [appointment, setappointment] = useState({});
+  const [customerImage, setcustomerImage] = useState("");
 
   async function getAppointment() {
     await axios
@@ -50,7 +55,10 @@ export default function AppointmentPage(props) {
   }
 
   function markAsSeen() {
-    axios.get(`http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/setSeen`, { headers: authHeader() });
+    axios.get(
+      `http://localhost:8080/customers/${customerId}/appointments/${appointmentId}/setSeen`,
+      { headers: authHeader() }
+    );
   }
 
   function formatDateWithoutTime(date) {
@@ -58,90 +66,101 @@ export default function AppointmentPage(props) {
     return parsedDate.toLocaleDateString();
   }
 
+  async function getCustomerImage() {
+    let storageRef = firebase.storage().ref();
+    let fileRef = storageRef.child(await customerId);
+    setcustomerImage(await fileRef.getDownloadURL());
+  }
+
   useEffect(() => {
     getAppointment();
     markAsSeen();
+    getCustomerImage();
   }, []);
 
   return (
     <div>
-      <Link to="/appointments">Back to appointments</Link>
-      <br />
-      Appointment author:{" "}
-      <h1>
-        {appointment.customer
-          ? appointment.customer.firstName + " " + appointment.customer.lastName
-          : ""}
-      </h1>
-      Reason of appointment: <h2>{appointment.reason}</h2>
-      Date of appointment:{" "}
-      <h3>
-        {formatDateWithoutTime(appointment.dateOfAppointment)} - At{" "}
-        {appointment.hour}
-      </h3>
-      <div>
-        {appointment.accepted ? (
-          <div>
-            <h2>This appointment has been accepted.</h2>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={declineAppointment}
-              className="btn btn-primary btn-sm"
-            >
-              Change to declined
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={deleteAppointment}
-            >
-              Delete appointment
-            </Button>
-          </div>
-        ) : appointment.declined ? (
-          ""
-        ) : (
-              <div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={acceptAppointment}
-                >
-                  Accept
-            </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={declineAppointment}
-                >
-                  Decline
-            </Button>
+      <div className="container box" style={{ width: "40%", marginTop: "10%" }}>
+        <br />
+        <Link to="/appointments">Back to appointments</Link>
+        <br />
+        <br />
+        <AppointmentComponent
+          appointment={appointment}
+          customerImage={customerImage}
+          date={formatDateWithoutTime(appointment.dateOfAppointment)}
+        />
+        <br />
+        <div>
+          {appointment.accepted ? (
+            <div>
+              <div class="notification is-primary">
+                <h2>This appointment has been accepted.</h2>
               </div>
-            )}
-        {appointment.declined ? (
-          <div>
-            <h2>This appointment has been declined.</h2>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={acceptAppointment}
-            >
-              Change to accepted
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={deleteAppointment}
-            >
-              Delete appointment
-            </Button>
-          </div>
-        ) : (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={declineAppointment}
+                style={{ marginRight: "235px" }}
+                // className="btn btn-primary btn-sm"
+              >
+                Change to declined
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={deleteAppointment}
+              >
+                Delete appointment
+              </Button>
+            </div>
+          ) : appointment.declined ? (
+            ""
+          ) : (
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={acceptAppointment}
+              >
+                Accept
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={declineAppointment}
+              >
+                Decline
+              </Button>
+            </div>
+          )}
+          {appointment.declined ? (
+            <div>
+              <div class="notification is-danger">
+                <h2>This appointment has been declined.</h2>
+              </div>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={acceptAppointment}
+                style={{ marginRight: "230px" }}
+              >
+                Change to accepted
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={deleteAppointment}
+              >
+                Delete appointment
+              </Button>
+            </div>
+          ) : (
             ""
           )}
+        </div>
+        {console.log(appointment.reason)}
       </div>
-      {console.log(appointment.reason)}
     </div>
   );
 }

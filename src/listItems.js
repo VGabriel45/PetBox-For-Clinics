@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PetsIcon from "@material-ui/icons/Pets";
 import PeopleIcon from "@material-ui/icons/People";
 import SpellcheckIcon from "@material-ui/icons/Spellcheck";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import HelpIcon from "@material-ui/icons/Help";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AuthService from "./Services/auth.service";
 
 import firebase from "./Firebase/firebase";
@@ -79,26 +78,24 @@ const uploadImage = async (e) => {
   let storageRef = firebase.storage().ref();
   let fileRef = storageRef.child(currentUser.username);
   await fileRef.put(file);
-}
+};
 
 export const secondaryListItems = (
   <div>
     {currentUser && currentUser.roles.includes("ROLE_ADMIN") ? (
       <div className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link to={"/profile"} className="nav-link">
-            {currentUser.username}
+        <ListItem button>
+          <ListItemIcon>
+            <ExitToAppIcon />
+          </ListItemIcon>
+          <Link to="/login" onClick={logOut}>
+            <ListItemText primary="Logout" />
           </Link>
-        </li>
-        <li className="nav-item">
-          <a href="/login" className="nav-link" onClick={logOut}>
-            LogOut from {currentUser.username}
-          </a>
-        </li>
-        <input type="file" onChange={uploadImage} />
+        </ListItem>
+        {/* <input type="file" onChange={uploadImage} /> */}
       </div>
     ) : (
-        ""
-      )}
+      ""
+    )}
   </div>
 );

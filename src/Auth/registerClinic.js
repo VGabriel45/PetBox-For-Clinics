@@ -7,6 +7,7 @@ import axios from "axios";
 
 import AuthService from "../Services/auth.service";
 import { Container } from "@material-ui/core";
+import NavigationBar from "../Navbar/NavigationBar";
 
 const required = (value) => {
   if (!value) {
@@ -140,111 +141,115 @@ export default class Register extends Component {
 
   render() {
     return (
-      <Container
-        style={{
-          border: "white",
-          height: "100%",
-          width: "50%",
-          margin: "auto",
-          marginTop: "5%",
-        }}
-      >
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
-        <Form
-          onSubmit={this.handleRegister}
-          ref={(c) => {
-            this.form = c;
+      <React.Fragment>
+        <NavigationBar />
+        <Container
+          style={{
+            border: "white",
+            height: "100%",
+            width: "50%",
+            margin: "auto",
+            marginTop: "5%",
           }}
+          className="box"
         >
-          {!this.state.successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Clinic name</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChangeUsername}
-                  validations={[required, vusername]}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                  id="exampleInputEmail1"
-                  validations={[required, email]}
-                  aria-describedby="emailHelp"
-                  name="email"
-                />
-                <div id="emailHelp" className="form-text">
-                  We'll never share your email with anyone else.
+          <img
+            src="https://cdn4.iconfinder.com/data/icons/pet-shop-14/500/pet_10-512.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
+
+          <Form
+            onSubmit={this.handleRegister}
+            ref={(c) => {
+              this.form = c;
+            }}
+          >
+            {!this.state.successful && (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="username">Clinic name</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.onChangeUsername}
+                    validations={[required, vusername]}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputEmail1" className="form-label">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    value={this.state.email}
+                    onChange={this.onChangeEmail}
+                    id="exampleInputEmail1"
+                    validations={[required, email]}
+                    aria-describedby="emailHelp"
+                    name="email"
+                  />
+                  <div id="emailHelp" className="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    value={this.state.password}
+                    onChange={this.onChangePassword}
+                    validations={[required, vpassword]}
+                    id="password"
+                    name="password"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="file"
+                    className="form-control"
+                    name="image"
+                    onChange={this.onChangeImage}
+                  />
+                </div>
+                <br />
+                <div className="form-group">
+                  <button className="btn btn-primary btn-block">
+                    Register your clinic
+                  </button>
                 </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.onChangePassword}
-                  validations={[required, vpassword]}
-                  id="password"
-                  name="password"
-                />
-              </div>
-              <div>
-                <Input
-                  type="file"
-                  className="form-control"
-                  name="image"
-                  onChange={this.onChangeImage}
-                />
-              </div>
+            )}
 
+            {this.state.message && (
               <div className="form-group">
-                <button className="btn btn-primary btn-block">
-                  Register your clinic
-                </button>
+                <div
+                  className={
+                    this.state.successful
+                      ? "alert alert-success"
+                      : "alert alert-danger"
+                  }
+                  role="alert"
+                >
+                  {this.state.message}
+                </div>
               </div>
-            </div>
-          )}
-
-          {this.state.message && (
-            <div className="form-group">
-              <div
-                className={
-                  this.state.successful
-                    ? "alert alert-success"
-                    : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {this.state.message}
-              </div>
-            </div>
-          )}
-          <CheckButton
-            style={{ display: "none" }}
-            ref={(c) => {
-              this.checkBtn = c;
-            }}
-          />
-        </Form>
-      </Container>
+            )}
+            <CheckButton
+              style={{ display: "none" }}
+              ref={(c) => {
+                this.checkBtn = c;
+              }}
+            />
+          </Form>
+        </Container>
+      </React.Fragment>
     );
   }
 }

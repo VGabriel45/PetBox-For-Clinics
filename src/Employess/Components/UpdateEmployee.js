@@ -194,6 +194,7 @@ export default function UpdateEmployee(props) {
           </label>
           <input
             value={employee.salary}
+            onChange={onChangeHandler}
             type="number"
             min="1"
             step="any"

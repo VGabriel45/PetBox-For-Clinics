@@ -3,24 +3,14 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080";
 
-class UserService {
-  getPublicContent() {
-    return axios.get("all");
-  }
-
-  getUserBoard() {
-    return axios.get("user", { headers: authHeader() });
-  }
-
-  getModeratorBoard() {
-    return axios.get(API_URL + "mod", { headers: authHeader() });
-  }
-
-  getAdminBoard() {
-    return axios.get(API_URL + "/customers", {
+const UserService = ({ customerId }) => {
+  const getPets = async () => {
+    return await axios.get(`${API_URL}/customers/${customerId}/pets`, {
       headers: authHeader(),
     });
-  }
-}
+  };
 
-export default new UserService();
+  return { getPets };
+};
+
+export default UserService;

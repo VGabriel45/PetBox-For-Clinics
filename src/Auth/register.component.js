@@ -8,6 +8,7 @@ import axios from "axios";
 
 import AuthService from "../Services/auth.service";
 import { Container } from "@material-ui/core";
+import NavigationBar from "../Navbar/NavigationBar";
 
 const required = (value) => {
   if (!value) {
@@ -173,169 +174,166 @@ export default class Register extends Component {
         }
       );
     }
-    let imageData = new FormData();
-    imageData.append("file", this.state.image);
-    axios.post(
-      `http://localhost:8080/upload/customer/${this.state.username}`,
-      imageData
-    );
   }
 
   render() {
     return (
-      <Container
-        style={{
-          border: "white",
-          height: "100%",
-          width: "50%",
-          margin: "auto",
-          marginTop: "5%",
-        }}
-      >
-        <Link to="/dash">Back to dashboard</Link>
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
-        <Form
-          onSubmit={this.handleRegister}
-          ref={(c) => {
-            this.form = c;
+      <div className="container box">
+        <NavigationBar />
+        <Container
+          style={{
+            border: "white",
+            height: "100%",
+            width: "50%",
+            margin: "auto",
+            marginTop: "5%",
           }}
         >
-          {!this.state.successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={this.state.username}
-                  onChange={this.onChangeUsername}
-                  validations={[required, vusername]}
-                />
-              </div>
+          <Link to="/dash">Back to dashboard</Link>
+          <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
 
-              <div className="mb-3">
-                <label htmlFor="firstName" className="form-label">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.firstName}
-                  name="firstName"
-                  onChange={this.onChangeFirstName}
-                  id="firstName"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="lastName" className="form-label">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="lastName"
-                  value={this.state.lastName}
-                  onChange={this.onChangeLastName}
-                  id="lastName"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="phoneNumber" className="form-label">
-                  Phone Number
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.phoneNumber}
-                  onChange={this.onChangePhoneNumber}
-                  id="phoneNumber"
-                  name="phoneNumber"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="gender" className="form-label">
-                  Gender
-                </label>
-                <select
-                  className="form-select form-select-sm mb-3"
-                  value={this.state.gender}
-                  onChange={this.onChangeGender}
-                  name="gender"
-                  aria-label=".form-select-sm example"
-                  id="gender"
-                >
-                  <option defaultValue="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="exampleInputEmail1" className="form-label">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                  id="exampleInputEmail1"
-                  validations={[required, email]}
-                  aria-describedby="emailHelp"
-                  name="email"
-                />
-                <div id="emailHelp" className="form-text">
-                  We'll never share your email with anyone else.
+          <Form
+            onSubmit={this.handleRegister}
+            ref={(c) => {
+              this.form = c;
+            }}
+          >
+            {!this.state.successful && (
+              <div>
+                <div className="form-group">
+                  <label htmlFor="username">Username</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="username"
+                    value={this.state.username}
+                    onChange={this.onChangeUsername}
+                    validations={[required, vusername]}
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="firstName" className="form-label">
+                    First Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.firstName}
+                    name="firstName"
+                    onChange={this.onChangeFirstName}
+                    id="firstName"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="lastName" className="form-label">
+                    Last Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    value={this.state.lastName}
+                    onChange={this.onChangeLastName}
+                    id="lastName"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="phoneNumber" className="form-label">
+                    Phone Number
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.phoneNumber}
+                    onChange={this.onChangePhoneNumber}
+                    id="phoneNumber"
+                    name="phoneNumber"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="gender" className="form-label">
+                    Gender
+                  </label>
+                  <select
+                    className="form-select form-select-sm mb-3"
+                    value={this.state.gender}
+                    onChange={this.onChangeGender}
+                    name="gender"
+                    aria-label=".form-select-sm example"
+                    id="gender"
+                  >
+                    <option defaultValue="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputEmail1" className="form-label">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    value={this.state.email}
+                    onChange={this.onChangeEmail}
+                    id="exampleInputEmail1"
+                    validations={[required, email]}
+                    aria-describedby="emailHelp"
+                    name="email"
+                  />
+                  <div id="emailHelp" className="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={this.state.address}
+                    onChange={this.onChangeAddress}
+                    id="address"
+                    name="address"
+                  />
+                </div>
+                <div className="form-group">
+                  <button className="btn btn-primary btn-block">
+                    Add customer
+                  </button>
                 </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="address" className="form-label">
-                  Address
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.address}
-                  onChange={this.onChangeAddress}
-                  id="address"
-                  name="address"
-                />
-              </div>
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">
-                  Add customer
-                </button>
-              </div>
-            </div>
-          )}
+            )}
 
-          {this.state.message && (
-            <div className="form-group">
-              <div
-                className={
-                  this.state.successful
-                    ? "alert alert-success"
-                    : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {this.state.message}
+            {this.state.message && (
+              <div className="form-group">
+                <div
+                  className={
+                    this.state.successful
+                      ? "alert alert-success"
+                      : "alert alert-danger"
+                  }
+                  role="alert"
+                >
+                  {this.state.message}
+                </div>
               </div>
-            </div>
-          )}
-          <CheckButton
-            style={{ display: "none" }}
-            ref={(c) => {
-              this.checkBtn = c;
-            }}
-          />
-        </Form>
-      </Container>
+            )}
+            <CheckButton
+              style={{ display: "none" }}
+              ref={(c) => {
+                this.checkBtn = c;
+              }}
+            />
+          </Form>
+        </Container>
+      </div>
     );
   }
 }

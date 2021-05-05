@@ -4,9 +4,10 @@ import authHeader from "../../Services/auth-header";
 import { useHistory } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+import EmployeeProfileComponent from "./EmployeeProfileComponent";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 export default function EmployeeProfile(props) {
-
   let API_URL = "http://localhost:8080";
 
   const [employee, setEmployee] = useState({});
@@ -44,33 +45,11 @@ export default function EmployeeProfile(props) {
 
   return (
     <div>
-      First name: {employee.firstName}
-      <br />
-      Last name : {employee.lastName}
-      <br />
-      Email : {employee.email}
-      <br />
-      Gender : {employee.gender}
-      <br />
-      Address: {employee.address}
-      <br />
-      Phone number: {employee.phoneNumber}
-      <br />
-      Contract started on:{" "}
-      {formatDateWithoutTime(employee.contractStartingDate)}
-      <br />
-      Contract ends on: {formatDateWithoutTime(employee.contractEndingDate)}
-      <br />
-      Currently working as a {employee.role}
-      <br />
-      Current salary: {employee.salary}$
-      <br />
+      <NavigationBar />
+      <EmployeeProfileComponent employee={employee} />
       <button className="btn btn-danger" onClick={deleteEmployee}>
         Delete
       </button>
-      <Link to={`/employees/${employeeId}/updateEmployee`}>
-        <button className="btn btn-warning">Edit</button>
-      </Link>
     </div>
   );
 }

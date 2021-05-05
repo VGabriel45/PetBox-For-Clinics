@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
 import { useHistory } from "react-router-dom";
 
 import firebase from "../../Firebase/firebase";
+import CustomerProfileComponent from "./CustomerProfileComponent";
+import NavigationBar from "../../Navbar/NavigationBar";
+
+import "../../Styles/CustomerProfile.css";
 
 export default function CustomerProfile(props) {
-  const history = useHistory();
-  const [customer, setcustomer] = useState({});
-  const [pets, setpets] = useState([]);
-  const [appointments, setappointments] = useState([]);
-  const [customerImage, setcustomerImage] = useState();
-  const [loading, setloading] = useState();
   const {
     match: { params },
   } = props;
+
+  const history = useHistory();
+
+  const [customer, setcustomer] = useState({});
   const customerId = params.customerId;
+  const [customerImage, setcustomerImage] = useState();
+
+  const [pets, setpets] = useState([]);
+  const [appointments, setappointments] = useState([]);
+  const [questions, setquestions] = useState([]);
+
+  const [loading, setloading] = useState();
 
   async function getCustomer() {
     setloading(true);
@@ -48,6 +56,14 @@ export default function CustomerProfile(props) {
         headers: authHeader(),
       })
       .then((res) => setappointments(res.data));
+  }
+
+  async function getCustomerQuestions() {
+    await axios
+      .get(`http://localhost:8080/customers/${customerId}/questions`, {
+        headers: authHeader(),
+      })
+      .then((res) => setquestions(res.data));
   }
 
   async function deleteCustomer() {
@@ -88,51 +104,14 @@ export default function CustomerProfile(props) {
 
   return (
     <div>
-      <Link to="/dash">Back to dashboard</Link>
-      <br />
-      Username: {customer.username}
-      <br />
-      First name: {customer.firstName}
-      <br />
-      Last name : {customer.lastName}
-      <br />
-      Email address : {customer.email}
-      <br />
-      Gender : {customer.gender}
-      <br />
-      Address: {customer.address}
-      <br />
-      Last seen at: {formatDateWithoutTime(customer.lastSeen)}
-      <br />
-      {customerImage ? <img src={customerImage} alt="customerImage" style={{ width: "200px" }} /> : "No image"}
-      <br />
-      <ul>
-        Pets:
-        {pets.map((pet) => (
-          <li>
-            <Link to={`/customers/${customerId}/pets/${pet.id}`}>
-              {pet.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Link to={`/customers/${customer.id}/addPet`}>Add new pet</Link>
-      <ul>
-        Appointments
-        {appointments.map((app) => (
-          <li>
-            <Link to={`/customers/${customer.id}/appointments/${app.id}`}>
-              {app.reason}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <button className="btn btn-danger" onClick={deleteCustomer}>
-        Delete
-      </button>
-      <Link to={`/customers/${customerId}/updateCustomer`}>
-        <button className="btn btn-warning">Edit</button>
-      </Link>
+      <NavigationBar />
+      <CustomerProfileComponent
+        customer={customer}
+        customerImage={customerImage}
+        pets={pets}
+        appointments={appointments}
+        questions={questions}
+      />
     </div>
   );
 }

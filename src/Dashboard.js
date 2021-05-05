@@ -24,6 +24,7 @@ import AddPersons from "./Customers/Components/AddCustomer";
 import SimplePopover from "./Notification/Components/SimplePopover";
 import authService from "./Services/auth.service";
 import Register from "./Auth/register.component";
+import NavigationBar from "./Navbar/NavigationBar";
 
 function Copyright() {
   return (
@@ -158,7 +159,7 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            PetBox <PetsIcon />
+            {currentUser.username} <PetsIcon />
           </Typography>
           <IconButton color="inherit">
             <SimplePopover />

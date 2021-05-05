@@ -14,6 +14,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import authHeader from "../../Services/auth-header";
 import AuthService from "../../Services/auth.service";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -48,7 +49,9 @@ export default function GetAllPets() {
 
   async function getPets() {
     await axios
-      .get(`http://localhost:8080/clinic/${currentUser.id}/pets`, { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/pets`, {
+        headers: authHeader(),
+      })
       .then((res) => setpets(res.data));
   }
 
@@ -145,6 +148,7 @@ export default function GetAllPets() {
 
   return (
     <React.Fragment>
+      <NavigationBar />
       <Container maxWidth="lg">
         <h1>Pets</h1>
         <Link to="/dash">Back to dashboard</Link>

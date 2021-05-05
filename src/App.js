@@ -15,20 +15,21 @@ import AddPet from "./Pets/Components/AddPet";
 import AppointmentPage from "./Appointments/AppointmentPage";
 import AddEmployee from "./Employess/Components/AddEmployee";
 import EmployeeProfile from "./Employess/Components/EmployeeProfile";
-import AddCustomer from "./Customers/Components/AddCustomer";
 import QuestionPage from "./Questions/QuestionPage";
-import SuccesPage from "./SuccessPage/SuccesPage";
+import SuccesPage from "./ConfirmationScreens/SuccesPage";
 import CustomerProfile from "./Customers/Components/CustomerProfile";
 
 import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
 import RegisterCustomer from "./Auth/register.component";
+import RegisterForm from "./Components/Forms/RegisterForm";
 import registerClinic from "./Auth/registerClinic";
 import Login from "./Auth/login.component";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
 import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 import UpdatePet from "./Pets/Components/UpdatePet";
+import LoginForm from "./Components/Forms/LoginForm";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -116,9 +117,9 @@ export default function App() {
 
           <Route path="/" component={WelcomePage} exact />
 
-          <Route path="/register" component={registerClinic} />
+          <Route path="/register" component={RegisterForm} />
 
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={LoginForm} />
 
           <Route path="/myProfile/:id" exact component={Profile} />
         </Switch>
