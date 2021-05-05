@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import FormValidationLogic from "./FormValidationLogic";
-import authService from "../../Services/auth.service";
+import authService from "../../../Services/auth.service";
 import { Grid, Avatar } from "@material-ui/core";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
-import NavigationBar from "../../Navbar/NavigationBar";
+import NavigationBar from "../../../Navbar/NavigationBar";
 
 const avatarStyle = {
   backgroundColor: "#6c93ea",
 };
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [clinicName, setclinicName] = useState("");
+  const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [agreed, setagreed] = useState(false);
   const [error, seterror] = useState("");
@@ -21,38 +21,35 @@ const LoginForm = () => {
   const {
     checkForClinicName,
     checkForPassword,
+    checkForEmail,
     clinicNameValid,
     passwordValid,
+    emailValid,
   } = FormValidationLogic({
     clinicName: clinicName,
     password: password,
-    email: "",
+    email: email,
   });
 
-  //   const { login } = FormSubmitLogic({
-  //     username: username,
-  //     password: password,
-  //   });
-
-  const login = (e) => {
+  const register = (e) => {
     e.preventDefault();
 
     if (agreed === false) {
       seterror("Please accept terms and conditions to continue");
     } else {
       seterror("");
-      clinicNameValid && passwordValid
+      clinicNameValid && passwordValid && emailValid
         ? authService
-            .login(clinicName, password)
+            .registerClinic(clinicName, email, password)
             .then(() => redirectUser())
-            .catch((err) => seterror("Wrong clinic name or password"))
+            .catch((err) => seterror("Clinic name or email already used"))
         : console.log("");
     }
   };
 
   const redirectUser = () => {
-    history.push(`/dash`);
-    window.location.reload("/dash");
+    history.push(`/login`);
+    window.location.reload("/login");
   };
 
   const closeNotification = () => {
@@ -76,6 +73,12 @@ const LoginForm = () => {
     checkForPassword();
   };
 
+  const onChangeEmail = async (e) => {
+    const email = await e.target.value;
+    setemail(await email);
+    checkForEmail();
+  };
+
   return (
     <React.Fragment>
       <NavigationBar />
@@ -93,9 +96,9 @@ const LoginForm = () => {
         </Grid>
         <br />
         <div style={{ textAlign: "center" }}>
-          <p className="title">Login as Clinic</p>
+          <p className="title">Register as Clinic</p>
         </div>
-        <form onSubmit={login}>
+        <form onSubmit={register}>
           <br />
           <div class="field">
             <label class="label">Clinic name</label>
@@ -111,9 +114,15 @@ const LoginForm = () => {
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
+              {clinicNameValid === true ? (
+                <div>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             {clinicNameValid === true ? (
               <p class="help is-success">Valid clinic name</p>
@@ -135,11 +144,17 @@ const LoginForm = () => {
                 value={password}
               />
               <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
+                <i class="fas fa-key"></i>
               </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
+              {passwordValid === true ? (
+                <div>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             {passwordValid ? (
               <p class="help is-success">Valid password</p>
@@ -147,6 +162,37 @@ const LoginForm = () => {
               <p class="help is-danger">
                 Password must contain letters and numbers only.
               </p>
+            )}
+          </div>
+          <br />
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class={emailValid ? "input is-primary" : "input is-danger"}
+                type="email"
+                placeholder="Type your clinic email"
+                onChange={onChangeEmail}
+                value={email}
+                name="email"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              {emailValid === true ? (
+                <div>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            {emailValid === true ? (
+              <p class="help is-success">Valid clinic email</p>
+            ) : (
+              <p class="help is-danger">Must be a valid email</p>
             )}
           </div>
           <br />
@@ -188,4 +234,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

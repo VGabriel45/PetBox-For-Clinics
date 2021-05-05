@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import FormValidationLogic from "./FormValidationLogic";
-import authService from "../../Services/auth.service";
+import authService from "../../../Services/auth.service";
 import { Grid, Avatar } from "@material-ui/core";
-import Navbar from "../../Navbar/Navbar";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
-import NavigationBar from "../../Navbar/NavigationBar";
-import Register from "../../Auth/registerClinic";
+import NavigationBar from "../../../Navbar/NavigationBar";
 
 const avatarStyle = {
   backgroundColor: "#6c93ea",
 };
 
-const RegisterForm = () => {
+const LoginForm = () => {
   const [clinicName, setclinicName] = useState("");
-  const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [agreed, setagreed] = useState(false);
   const [error, seterror] = useState("");
@@ -22,35 +21,38 @@ const RegisterForm = () => {
   const {
     checkForClinicName,
     checkForPassword,
-    checkForEmail,
     clinicNameValid,
     passwordValid,
-    emailValid,
   } = FormValidationLogic({
     clinicName: clinicName,
     password: password,
-    email: email,
+    email: "",
   });
 
-  const register = (e) => {
+  //   const { login } = FormSubmitLogic({
+  //     username: username,
+  //     password: password,
+  //   });
+
+  const login = (e) => {
     e.preventDefault();
 
     if (agreed === false) {
       seterror("Please accept terms and conditions to continue");
     } else {
       seterror("");
-      clinicNameValid && passwordValid && emailValid
+      clinicNameValid && passwordValid
         ? authService
-            .registerClinic(clinicName, email, password)
+            .login(clinicName, password)
             .then(() => redirectUser())
-            .catch((err) => seterror("Clinic name or email already used"))
+            .catch((err) => seterror("Wrong clinic name or password"))
         : console.log("");
     }
   };
 
   const redirectUser = () => {
-    history.push(`/login`);
-    window.location.reload("/login");
+    history.push(`/dash`);
+    window.location.reload("/dash");
   };
 
   const closeNotification = () => {
@@ -74,12 +76,6 @@ const RegisterForm = () => {
     checkForPassword();
   };
 
-  const onChangeEmail = async (e) => {
-    const email = await e.target.value;
-    setemail(await email);
-    checkForEmail();
-  };
-
   return (
     <React.Fragment>
       <NavigationBar />
@@ -97,9 +93,9 @@ const RegisterForm = () => {
         </Grid>
         <br />
         <div style={{ textAlign: "center" }}>
-          <p className="title">Register as Clinic</p>
+          <p className="title">Login as Clinic</p>
         </div>
-        <form onSubmit={register}>
+        <form onSubmit={login}>
           <br />
           <div class="field">
             <label class="label">Clinic name</label>
@@ -112,15 +108,20 @@ const RegisterForm = () => {
                 value={clinicName}
                 name="name"
               />
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
+              {clinicNameValid === true ? (
+                <div>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             {clinicNameValid === true ? (
-              <p class="help is-success">Valid clinic name</p>
+              <div>
+                <p class="help is-success">Valid clinic name</p>
+              </div>
             ) : (
               <p class="help is-danger">
                 Username must be between 3 and 25 characters
@@ -138,12 +139,15 @@ const RegisterForm = () => {
                 onChange={onChangePassword}
                 value={password}
               />
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
+              {passwordValid === true ? (
+                <div>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             {passwordValid ? (
               <p class="help is-success">Valid password</p>
@@ -151,31 +155,6 @@ const RegisterForm = () => {
               <p class="help is-danger">
                 Password must contain letters and numbers only.
               </p>
-            )}
-          </div>
-          <br />
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left has-icons-right">
-              <input
-                class={emailValid ? "input is-primary" : "input is-danger"}
-                type="email"
-                placeholder="Type your clinic email"
-                onChange={onChangeEmail}
-                value={email}
-                name="email"
-              />
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </div>
-            {emailValid === true ? (
-              <p class="help is-success">Valid clinic email</p>
-            ) : (
-              <p class="help is-danger">Must be a valid email</p>
             )}
           </div>
           <br />
@@ -191,7 +170,7 @@ const RegisterForm = () => {
               )}
             </p>
           </div>
-          <div class="field">
+          <div class="field" style={{ marginRight: "50px" }}>
             <div class="control">
               <label class="checkbox">
                 <input type="checkbox" onChange={agreeTerms} />I agree to the{" "}
@@ -217,4 +196,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

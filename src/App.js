@@ -22,14 +22,13 @@ import CustomerProfile from "./Customers/Components/CustomerProfile";
 import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
 import RegisterCustomer from "./Auth/register.component";
-import RegisterForm from "./Components/Forms/RegisterForm";
-import registerClinic from "./Auth/registerClinic";
-import Login from "./Auth/login.component";
+import RegisterForm from "./Components/Forms/Authentication/RegisterForm";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
 import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 import UpdatePet from "./Pets/Components/UpdatePet";
-import LoginForm from "./Components/Forms/LoginForm";
+import LoginForm from "./Components/Forms/Authentication/LoginForm";
+import AddNewCustomerForm from "./Components/Forms/Other/AddNewCustomerForm";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -46,7 +45,7 @@ export default function App() {
             exact
             component={CustomerProfile}
           />
-          <Route path="/addCustomer" exact component={RegisterCustomer} />
+          <Route path="/addCustomer" exact component={AddNewCustomerForm} />
           <Route
             path="/customers/:customerId/pets/:petId"
             exact

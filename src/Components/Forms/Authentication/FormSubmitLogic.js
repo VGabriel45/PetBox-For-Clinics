@@ -1,5 +1,5 @@
 import React from "react";
-import authService from "../Auth/Components/Service/auth-service";
+import authService from "../../Auth/Components/Service/auth-service";
 
 const FormSubmitLogic = ({ username, password }) => {
   const login = () => {

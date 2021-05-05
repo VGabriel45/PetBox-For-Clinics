@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import authHeader from "../../Services/auth-header";
+import authHeader from "../../../Services/auth-header";
 
 const FormValidationLogic = ({ clinicName, password, email }) => {
   const [clinicNameValid, setClinicNameValid] = useState(false);
