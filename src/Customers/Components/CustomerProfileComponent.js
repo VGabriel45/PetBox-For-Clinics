@@ -159,9 +159,6 @@ const CustomerProfileComponent = ({
             <div class="modal is-active">
               <div class="modal-background"></div>
               <div class="modal-content">
-                {/* <div>Are you sure you want to delete this customer data ?</div>
-                <button onClick={confirmDeletion}>Yes, delete.</button>
-                <button onClick={cancelDeletion}>Cancel</button> */}
                 <span
                   onclick="document.getElementById('id01').style.display='none'"
                   class="close"
