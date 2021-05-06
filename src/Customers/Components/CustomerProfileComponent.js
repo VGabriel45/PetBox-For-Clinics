@@ -1,5 +1,6 @@
 import React from "react";
 import "../../Styles/PetDetails.css";
+import CustomerProfileLogic from "./CustomerProfileLogic";
 
 const CustomerProfileComponent = ({
   customer,
@@ -8,6 +9,13 @@ const CustomerProfileComponent = ({
   appointments,
   questions,
 }) => {
+  const {
+    cancelDeletion,
+    showModal,
+    openConfirmationModal,
+    confirmDeletion,
+  } = CustomerProfileLogic({ customer });
+
   return (
     <>
       <div class="container">
@@ -18,7 +26,11 @@ const CustomerProfileComponent = ({
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <img
-                      src={customerImage}
+                      src={
+                        customerImage
+                          ? customerImage
+                          : "https://www.pinclipart.com/picdir/middle/165-1653686_female-user-icon-png-download-user-colorful-icon.png"
+                      }
                       alt="Admin"
                       class="rounded-circle"
                       width="150"
@@ -27,7 +39,7 @@ const CustomerProfileComponent = ({
                       <h4>{customer.username}</h4>
                       <p class="text-secondary mb-1">{customer.email}</p>
                       <p class="text-muted font-size-sm">
-                        Bay Area, San Francisco, CA
+                        {customer.age} years old
                       </p>
                     </div>
                   </div>
@@ -131,6 +143,63 @@ const CustomerProfileComponent = ({
               </div>
             </div>
           </div>
+          <a
+            href={`/customers/${customer.id}/addPet`}
+            style={{ marginRight: "10%" }}
+          >
+            Add pet
+          </a>
+          <a
+            href={`/customers/${customer.id}/updateCustomer`}
+            style={{ marginRight: "10%" }}
+          >
+            Update customer data
+          </a>
+          {showModal ? (
+            <div class="modal is-active">
+              <div class="modal-background"></div>
+              <div class="modal-content">
+                {/* <div>Are you sure you want to delete this customer data ?</div>
+                <button onClick={confirmDeletion}>Yes, delete.</button>
+                <button onClick={cancelDeletion}>Cancel</button> */}
+                <span
+                  onclick="document.getElementById('id01').style.display='none'"
+                  class="close"
+                  title="Close Modal"
+                >
+                  &times;
+                </span>
+                <form class="modal-content" action="/action_page.php">
+                  <div class="container">
+                    <h1>Delete Customer</h1>
+                    <p>Are you sure you want to delete this customer ?</p>
+
+                    <div class="clearfix">
+                      <button
+                        type="button"
+                        class="cancelbtn"
+                        onClick={cancelDeletion}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="deletebtn"
+                        onClick={confirmDeletion}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          <a onClick={openConfirmationModal} className="deleteButton">
+            Delete customer data
+          </a>
         </div>
       </div>
     </>

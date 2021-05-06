@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import authService from "../../../Services/auth.service";
 import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
 import NavigationBar from "../../../Navbar/NavigationBar";
 import FormValidationLogic from "../Authentication/FormValidationLogic";
 import AuthService from "../../../Services/auth.service";
-import { red } from "@material-ui/core/colors";
 import LinearBuffer from "./LinearBuffer";
 
 const AddNewCustomerForm = () => {
@@ -18,6 +17,7 @@ const AddNewCustomerForm = () => {
   const [phoneNumber, setphoneNumber] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
+  const [confirmation, setconfirmation] = useState(false);
   const history = useHistory();
 
   const [currentClinic, setcurrentClinic] = useState(
@@ -79,6 +79,7 @@ const AddNewCustomerForm = () => {
   const addCustomer = (e) => {
     e.preventDefault();
     setloading(true);
+    setconfirmation("");
     if (emailValid === true) {
       authService
         .register(
@@ -93,17 +94,26 @@ const AddNewCustomerForm = () => {
         .catch(() => {
           seterror("Something went wrong, please try again.");
         });
-      setloading(false);
 
-      //   setTimeout(() => {
-      //     setloading(false);
-      //   }, 2500);
+      if (error === "") {
+        setconfirmation("Success !");
+      }
+
+      if (confirmation === "") {
+        seterror("Something went wrong, please try again.");
+      }
+
+      setTimeout(() => {
+        setloading(false);
+      }, 2500);
 
       //   setTimeout(() => {
       //     seterror("");
       //   }, 4000);
     }
   };
+
+  useEffect(() => {}, [error, confirmation]);
 
   return (
     <React.Fragment>
@@ -123,6 +133,13 @@ const AddNewCustomerForm = () => {
             <p>
               {error ? (
                 <div class="notification is-danger is-light">{error}</div>
+              ) : (
+                ""
+              )}
+              {confirmation ? (
+                <div class="notification is-primary is-light">
+                  {confirmation}
+                </div>
               ) : (
                 ""
               )}
@@ -204,9 +221,7 @@ const AddNewCustomerForm = () => {
                 <div class="control has-icons-left has-icons-right">
                   <div class="select">
                     <select onChange={onChangeGender} value={gender}>
-                      <option value="male" defaultValue>
-                        Male
-                      </option>
+                      <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>

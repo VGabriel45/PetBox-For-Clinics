@@ -20,7 +20,11 @@ const PetPageHTML = ({
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <img
-                      src={petImage}
+                      src={
+                        petImage
+                          ? petImage
+                          : "https://img.icons8.com/ios/452/pets--v1.png"
+                      }
                       alt="Admin"
                       class="rounded-circle"
                       width="150"
