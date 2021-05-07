@@ -100,7 +100,7 @@ export default function AlignItemsList() {
         }}
       >
         <List className={classes.root}>
-          {showQuestions()}
+          {questions.length > 0 ? showQuestions() : "No questions"}
           <Divider variant="inset" component="li" />
         </List>
       </Paper>
