@@ -12,7 +12,7 @@ body {
 }
 
 /* Set a style for all buttons */
-button {
+.modalButton {
   background-color: #04aa6d;
   color: white;
   padding: 14px 20px;

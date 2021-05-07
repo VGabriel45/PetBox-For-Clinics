@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import FormValidationLogic from "./FormValidationLogic";
 import authService from "../../../Services/auth.service";
 import { Grid, Avatar } from "@material-ui/core";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
 import NavigationBar from "../../../Navbar/NavigationBar";
+import LinearBuffer from "../Other/LinearBuffer";
 
 const avatarStyle = {
   backgroundColor: "#6c93ea",
@@ -14,8 +13,8 @@ const avatarStyle = {
 const LoginForm = () => {
   const [clinicName, setclinicName] = useState("");
   const [password, setpassword] = useState("");
-  const [agreed, setagreed] = useState(false);
   const [error, seterror] = useState("");
+  const [loading, setloading] = useState(false);
   const history = useHistory();
 
   const {
@@ -29,25 +28,23 @@ const LoginForm = () => {
     email: "",
   });
 
-  //   const { login } = FormSubmitLogic({
-  //     username: username,
-  //     password: password,
-  //   });
-
   const login = (e) => {
+    setloading(true);
     e.preventDefault();
 
-    if (agreed === false) {
-      seterror("Please accept terms and conditions to continue");
-    } else {
-      seterror("");
-      clinicNameValid && passwordValid
-        ? authService
-            .login(clinicName, password)
-            .then(() => redirectUser())
-            .catch((err) => seterror("Wrong clinic name or password"))
-        : console.log("");
-    }
+    clinicNameValid && passwordValid
+      ? authService
+          .login(clinicName, password)
+          .then(() => redirectUser())
+          .catch((err) => {
+            setTimeout(() => {
+              seterror("Wrong clinic name or password");
+            }, 1500);
+          })
+      : console.log("");
+    setTimeout(() => {
+      setloading(false);
+    }, 1000);
   };
 
   const redirectUser = () => {
@@ -57,11 +54,6 @@ const LoginForm = () => {
 
   const closeNotification = () => {
     seterror("");
-  };
-
-  const agreeTerms = () => {
-    let agree = agreed;
-    setagreed(!agree);
   };
 
   const onChangeClinicName = async (e) => {
@@ -80,8 +72,8 @@ const LoginForm = () => {
     <React.Fragment>
       <NavigationBar />
       <div
-        className="container is-max-desktop box mt-5"
-        style={{ width: "35%" }}
+        className="is-max-desktop box mt-5"
+        style={{ width: "35%", margin: "0 auto" }}
       >
         <Grid align="center" className="mt-2">
           <Avatar style={avatarStyle}>
@@ -169,24 +161,14 @@ const LoginForm = () => {
                 ""
               )}
             </p>
-          </div>
-          <div class="field" style={{ marginRight: "50px" }}>
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox" onChange={agreeTerms} />I agree to the{" "}
-                <a href="#">terms and conditions</a>
-              </label>
-            </div>
+            {loading ? <LinearBuffer /> : ""}
           </div>
           <br />
           <div class="field is-grouped">
             <div class="control">
               <button class="button is-link">Submit</button>
             </div>
-            <div
-              class="control"
-              style={{ position: "absolute", right: "10px" }}
-            >
+            <div class="control" style={{ position: "absolute", right: "34%" }}>
               <button class="button is-link is-light">Cancel</button>
             </div>
           </div>

@@ -29,6 +29,7 @@ import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 import UpdatePet from "./Pets/Components/UpdatePet";
 import LoginForm from "./Components/Forms/Authentication/LoginForm";
 import AddNewCustomerForm from "./Components/Forms/Other/AddNewCustomerForm";
+import LinearBuffer from "./Components/Forms/Other/LinearBuffer";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());

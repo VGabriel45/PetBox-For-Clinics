@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PetPageLogic from "./PetPageLogic";
 import "../../Styles/PetDetails.css";
+import PetVaccine from "./MicroComponents/PetVaccine";
+import PetSick from "./MicroComponents/PetSick";
+import PetAlergic from "./MicroComponents/PetAlergic";
+import PetHasInjuries from "./MicroComponents/PetHasInjuries";
 
 const PetPageHTML = ({
   pet,
@@ -10,9 +15,23 @@ const PetPageHTML = ({
   healthProblems,
   customerId,
 }) => {
+  const {
+    toggleVaccine,
+    toggleSick,
+    toggleAlergic,
+    toggleHasInjuries,
+  } = PetPageLogic({
+    pet: pet,
+    customerId: customerId,
+  });
+
   return (
-    <>
-      <div class="container">
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          width: "80%",
+        }}
+      >
         <div class="main-body">
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -31,11 +50,14 @@ const PetPageHTML = ({
                     />
                     <div class="mt-3">
                       <h4>{pet.name}</h4>
+
                       <p class="text-secondary mb-1">{pet.type}</p>
                       <Link
                         to={`/customers/${customerId}/pets/${pet.id}/updatePet`}
                       >
-                        <button className="btn btn-warning">Edit</button>
+                        <button className="btn btn-warning">
+                          Update pet information
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -43,35 +65,31 @@ const PetPageHTML = ({
               </div>
               <div class="card mt-3">
                 <ul class="list-group list-group-flush">
+                  <PetVaccine
+                    hasVaccine={pet.hasVaccine}
+                    toggleVaccine={toggleVaccine}
+                  />
+                  <PetSick isSick={pet.isSick} toggleSick={toggleSick} />
+                  <PetAlergic
+                    isAlergic={pet.isAlergic}
+                    toggleAlergic={toggleAlergic}
+                  />
+                  <PetHasInjuries
+                    hasInjuries={pet.hasInjuries}
+                    toggleHasInjuries={toggleHasInjuries}
+                  />
+                  <br />
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0">Has vaccine:</h6>
-                    <span class="text-secondary">
-                      {pet.hasVaccine ? "Yes" : "No"}
-                    </span>
+                    <h6 class="mb-0">Weight: </h6>
+                    <span class="text-secondary">{pet.weight} kg</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0">Is sick:</h6>
-                    <span class="text-secondary">
-                      {pet.isSick ? "Yes" : "No"}
-                    </span>
+                    <h6 class="mb-0">Age: </h6>
+                    <span class="text-secondary">{pet.age} </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0">Is alergic:</h6>
-                    <span class="text-secondary">
-                      {pet.isAlergic ? "Yes" : "No"}
-                    </span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0">Has injuries:</h6>
-                    <span class="text-secondary">
-                      {pet.hasInjuries ? "Yes" : "No"}
-                    </span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                    <h6 class="mb-0">Had injuries in the past:</h6>
-                    <span class="text-secondary">
-                      {pet.hadInjuries ? "Yes" : "No"}
-                    </span>
+                    <h6 class="mb-0">Color: </h6>
+                    <span class="text-secondary">{pet.color} </span>
                   </li>
                 </ul>
               </div>
@@ -147,7 +165,7 @@ const PetPageHTML = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -111,7 +111,7 @@ const CustomerProfileComponent = ({
                     <div class="card-body">
                       <h6 class="d-flex align-items-center mb-3 title">Pets</h6>
                       {pets.map((pet) => (
-                        <p>
+                        <p style={{ textAlign: "left" }}>
                           -{" "}
                           <a href={`/customers/${customer.id}/pets/${pet.id}`}>
                             {pet.name}
@@ -174,14 +174,14 @@ const CustomerProfileComponent = ({
                     <div class="clearfix">
                       <button
                         type="button"
-                        class="cancelbtn"
+                        class="modalButton cancelbtn"
                         onClick={cancelDeletion}
                       >
                         Cancel
                       </button>
                       <button
                         type="button"
-                        class="deletebtn"
+                        class="modalButton deletebtn"
                         onClick={confirmDeletion}
                       >
                         Delete
