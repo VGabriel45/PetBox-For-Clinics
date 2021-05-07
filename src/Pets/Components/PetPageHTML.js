@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import PetPageLogic from "./PetPageLogic";
 import "../../Styles/PetDetails.css";
@@ -6,6 +6,7 @@ import PetVaccine from "./MicroComponents/PetVaccine";
 import PetSick from "./MicroComponents/PetSick";
 import PetAlergic from "./MicroComponents/PetAlergic";
 import PetHasInjuries from "./MicroComponents/PetHasInjuries";
+import LinearBuffer from "../../Components/Forms/Other/LinearBuffer";
 
 const PetPageHTML = ({
   pet,
@@ -20,6 +21,15 @@ const PetPageHTML = ({
     toggleSick,
     toggleAlergic,
     toggleHasInjuries,
+    toggleMedInput,
+    addMedicament,
+    onChangeMed,
+    showMedInput,
+    toggleProblemInput,
+    addProblem,
+    onChangeProblem,
+    showProblemInput,
+    loading,
   } = PetPageLogic({
     pet: pet,
     customerId: customerId,
@@ -142,9 +152,31 @@ const PetPageHTML = ({
                       <h6 class="d-flex align-items-center mb-3 title">
                         Meds taken:
                       </h6>
-                      {meds.length > 0
-                        ? meds.map((med) => <p>- {med.name}</p>)
-                        : "No meds taken"}
+                      {meds.length > 0 ? (
+                        meds.map((med) => <p>- {med.name}</p>)
+                      ) : (
+                        <div>
+                          No meds taken
+                          <br />
+                        </div>
+                      )}
+
+                      {showMedInput ? (
+                        <input
+                          type="text"
+                          placeholder="Medicament name"
+                          onChange={onChangeMed}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <br />
+                      <button
+                        className="button is-small"
+                        onClick={showMedInput ? addMedicament : toggleMedInput}
+                      >
+                        Add medicament
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -154,9 +186,32 @@ const PetPageHTML = ({
                       <h6 class="d-flex align-items-center mb-3 title">
                         Other problems:
                       </h6>
-                      {healthProblems.length > 0
-                        ? healthProblems.map((hp) => <p>- {hp.name}</p>)
-                        : "No problems"}
+                      {healthProblems.length > 0 ? (
+                        healthProblems.map((hp) => <p>- {hp.name}</p>)
+                      ) : (
+                        <div>
+                          No problems
+                          <br />
+                        </div>
+                      )}
+                      {showProblemInput ? (
+                        <input
+                          type="text"
+                          placeholder="Problem name"
+                          onChange={onChangeProblem}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <br />
+                      <button
+                        className="button is-small"
+                        onClick={
+                          showProblemInput ? addProblem : toggleProblemInput
+                        }
+                      >
+                        Add problem
+                      </button>
                     </div>
                   </div>
                 </div>

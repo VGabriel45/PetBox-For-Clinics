@@ -4,6 +4,7 @@ import { Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import authHeader from "../../Services/auth-header";
 import { useHistory } from "react-router-dom";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 export default function UpdatePet(props) {
   const {
@@ -34,7 +35,7 @@ export default function UpdatePet(props) {
   useEffect(() => {
     setloading(true);
     getPet();
-    setloading(false)
+    setloading(false);
   }, []);
 
   function submitForm(e) {
@@ -62,29 +63,33 @@ export default function UpdatePet(props) {
   }
 
   return (
-    <Container
-      style={{
-        border: "white",
-        height: "100%",
-        width: "50%",
-        margin: "auto",
-        marginTop: "5%",
-      }}
-    >
-      {loading ? (
-        <div>
-          <span className="spinner-border spinner-border-sm"></span>
-          <p>Updating your profile</p>
-        </div>
-      ) : (
+    <div>
+      <NavigationBar />
+      <Container
+        style={{
+          border: "white",
+          height: "100%",
+          width: "50%",
+          margin: "auto",
+          marginTop: "5%",
+        }}
+      >
+        {loading ? (
+          <div>
+            <span className="spinner-border spinner-border-sm"></span>
+            <p>Updating your profile</p>
+          </div>
+        ) : (
           <React.Fragment>
-            <Link to={`/customers/${customerId}/pets/${petId}`}>Back to pet</Link>
+            <Link to={`/customers/${customerId}/pets/${petId}`}>
+              Back to pet
+            </Link>
             <h1>Update pet data</h1>
             <form className="form-signin" method="post" onSubmit={submitForm}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Pet name
-              </label>
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -97,7 +102,7 @@ export default function UpdatePet(props) {
               <div className="mb-3">
                 <label htmlFor="race" className="form-label">
                   Race
-              </label>
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -110,7 +115,7 @@ export default function UpdatePet(props) {
               <div className="mb-3">
                 <label htmlFor="type" className="form-label">
                   Type
-              </label>
+                </label>
                 <select
                   className="form-select form-select-sm mb-3"
                   aria-label=".form-select-sm example"
@@ -130,7 +135,7 @@ export default function UpdatePet(props) {
               <div className="mb-3">
                 <label htmlFor="gender" className="form-label">
                   Gender
-              </label>
+                </label>
                 <select
                   className="form-select form-select-sm mb-3"
                   aria-label=".form-select-sm example"
@@ -146,7 +151,7 @@ export default function UpdatePet(props) {
               <div className="mb-3">
                 <label htmlFor="color" className="form-label">
                   Color
-              </label>
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -159,7 +164,7 @@ export default function UpdatePet(props) {
               <div className="mb-3">
                 <label htmlFor="age" className="form-label">
                   Age
-              </label>
+                </label>
                 <input
                   type="text"
                   className="form-control"
@@ -171,10 +176,11 @@ export default function UpdatePet(props) {
               </div>
               <button type="submit" className="btn btn-primary">
                 Submit
-            </button>
+              </button>
             </form>
           </React.Fragment>
         )}
-    </Container>
+      </Container>
+    </div>
   );
 }
