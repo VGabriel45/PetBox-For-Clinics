@@ -12,6 +12,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import authHeader from "../Services/auth-header";
 import AuthService from "../Services/auth.service";
+import NavigationBar from "../Navbar/NavigationBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,25 +86,37 @@ export default function AlignItemsList() {
   }
 
   return (
-    <React.Fragment>
-      <h1 style={{ textAlign: "center", marginTop: "2%" }}>
-        Questions asked by customers
-      </h1>
-      <Link to="/dash">Back to dashboard</Link>
-      <Paper
-        elevation={3}
-        style={{
-          width: "50%",
-          margin: "auto",
-          marginTop: "5%",
-          backgroundColor: "#3f51b5",
-        }}
-      >
-        <List className={classes.root}>
-          {questions.length > 0 ? showQuestions() : "No questions"}
-          <Divider variant="inset" component="li" />
-        </List>
-      </Paper>
-    </React.Fragment>
+    <div>
+      <NavigationBar />
+      <div style={{ margin: "0 auto", width: "80%" }}>
+        <h1 style={{ textAlign: "center", marginTop: "2%" }} className="title">
+          Questions asked by customers
+        </h1>
+        <Link to="/dash">Back to dashboard</Link>
+
+        {questions.length > 0 ? (
+          <Paper
+            elevation={3}
+            style={{
+              width: "50%",
+              margin: "auto",
+              marginTop: "5%",
+              backgroundColor: "#3f51b5",
+            }}
+          >
+            <List className={classes.root}>
+              {showQuestions()}
+              <Divider variant="inset" component="li" />
+            </List>
+          </Paper>
+        ) : (
+          <div
+            style={{ margin: "0 auto", textAlign: "center", marginTop: "20%" }}
+          >
+            <p className="title">No questions</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
