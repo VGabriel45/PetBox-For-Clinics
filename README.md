@@ -1,4 +1,4 @@
-# Petbox - Admin Side
+# Petbox - For Clinics
 
 PetBox is a platform for veterinarian clinics, it comes as a solution for data management. I encountered a lot of veterinarian clinics that struggle with keeping data of their customers because they were typing everything on paper. With PetBox you can now Register your clinic and have a real time database of your customers, employees, pets, appointments and you can receive and respond to customer questions. PetBox makes it easier to check if a pet has already done a vaccine or if it had any health problems, we can see what type of food they like and what medicine they can take. You can also manage your employee database through PetBox very easily.
 
