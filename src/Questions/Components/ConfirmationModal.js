@@ -48,7 +48,7 @@ const ConfirmationModal = ({
         ""
       )}
       <a onClick={openConfirmationModal} className="btn btn-danger">
-        Delete customer data
+        Delete question
       </a>
     </div>
   );

@@ -7,6 +7,7 @@ import AppointmentComponent from "./AppointmentComponent";
 import firebase from "../Firebase/firebase";
 
 import "../Styles/AppointmentPage.css";
+import NavigationBar from "../Navbar/NavigationBar";
 
 export default function AppointmentPage(props) {
   const {
@@ -80,14 +81,22 @@ export default function AppointmentPage(props) {
 
   return (
     <div>
-      <div className="container box" style={{ width: "40%", marginTop: "10%" }}>
+      <NavigationBar />
+      <div
+        className="box"
+        style={{ width: "40%", margin: "0 auto", marginTop: "10%" }}
+      >
         <br />
         <Link to="/appointments">Back to appointments</Link>
         <br />
         <br />
         <AppointmentComponent
           appointment={appointment}
-          customerImage={customerImage}
+          customerImage={
+            customerImage
+              ? customerImage
+              : "https://www.pinclipart.com/picdir/middle/165-1653686_female-user-icon-png-download-user-colorful-icon.png"
+          }
           date={formatDateWithoutTime(appointment.dateOfAppointment)}
         />
         <br />

@@ -82,7 +82,7 @@ export default function LastCustomer({ clinicId }) {
           <div>
             <Link
               onClick={createNotification(
-                "info",
+                "success",
                 `${lastcustomer.firstName} ${
                   lastcustomer.lastName
                 } was the last added customer in our database on ${formatDateWithoutTime(

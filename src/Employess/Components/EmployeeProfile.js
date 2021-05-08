@@ -30,8 +30,8 @@ export default function EmployeeProfile(props) {
     await axios.delete(`${API_URL}/employees/${employeeId}`, {
       headers: authHeader(),
     });
-    history.push(`${API_URL}/employees/${employeeId}`);
-    window.location.reload(`${API_URL}/employees/${employeeId}`);
+    history.push(`/employees`);
+    window.location.reload(`/employees`);
   }
 
   function formatDateWithoutTime(date) {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authHeader from "../../Services/auth-header";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import AuthService from "../../Services/auth.service";
 
 import firebase from "../../Firebase/firebase";
 import PetPageHTML from "./PetPageHTML";
@@ -21,7 +21,8 @@ export default function PetDetails(props) {
   const [owner, setowner] = useState({});
   const [meds, setmeds] = useState([]);
   const [healthProblems, sethealthProblems] = useState([]);
-  const [petImage, setpetImage] = useState();
+  const [petImage, setpetImage] = useState("");
+  const [clinic, setclinic] = useState(AuthService.getCurrentUser());
 
   async function getPet() {
     await axios
@@ -92,6 +93,7 @@ export default function PetDetails(props) {
   return (
     <React.Fragment>
       <NavigationBar />
+      <br />
       <PetPageHTML
         pet={pet}
         petImage={petImage}

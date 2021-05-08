@@ -48,7 +48,9 @@ export default function Employees() {
 
   async function getEmployees() {
     await axios
-      .get(`http://localhost:8080/clinic/${currentUser.id}/employees`, { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/employees`, {
+        headers: authHeader(),
+      })
       .then((res) => setemployees(res.data));
   }
 
@@ -147,6 +149,8 @@ export default function Employees() {
             <button type="submit" className="btn btn-primary">
               Add employee
             </button>
+            <br />
+            <br />
           </Link>
           {content}
         </Container>
@@ -157,6 +161,7 @@ export default function Employees() {
             <button type="submit" className="btn btn-primary">
               Add employee
             </button>
+            <br />
           </Link>
         </Container>
       )}

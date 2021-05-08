@@ -4,6 +4,7 @@ import { Container } from "@material-ui/core";
 import authHeader from "../../Services/auth-header";
 import { useHistory, useParams, Link } from "react-router-dom";
 import AuthService from "../../Services/auth.service";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 export default function AddEmployee() {
   const history = useHistory();
@@ -34,6 +35,7 @@ export default function AddEmployee() {
 
   return (
     <div>
+      <NavigationBar />
       <Container
         style={{
           border: "white",
