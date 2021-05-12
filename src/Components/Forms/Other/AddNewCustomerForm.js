@@ -118,10 +118,7 @@ const AddNewCustomerForm = () => {
   return (
     <React.Fragment>
       <NavigationBar />
-      <div
-        className="container is-max-desktop box mt-5"
-        style={{ width: "50%" }}
-      >
+      <div className="box mt-5" style={{ width: "50%", margin: "0 auto" }}>
         <br />
         {loading ? (
           <div>

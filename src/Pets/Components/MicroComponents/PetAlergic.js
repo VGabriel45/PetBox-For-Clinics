@@ -2,7 +2,7 @@ import React from "react";
 
 const PetAlergic = ({ isAlergic, toggleAlergic }) => {
   return (
-    <>
+    <div>
       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
         <h6 class="mb-0">Is alergic:</h6>
         {isAlergic ? (
@@ -32,7 +32,7 @@ const PetAlergic = ({ isAlergic, toggleAlergic }) => {
           </div>
         )}
       </li>
-    </>
+    </div>
   );
 };
 

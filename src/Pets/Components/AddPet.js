@@ -31,15 +31,11 @@ export default function AddPet(props) {
         age: data.get("age"),
         color: data.get("color"),
         type: data.get("type"),
+        type: data.get("weight"),
       },
       { headers: authHeader() }
     );
-    let imageData = new FormData();
-    imageData.append("file", data.get("image"));
-    axios.post(
-      `http://localhost:8080/upload/pet/${data.get("name")}`,
-      imageData
-    );
+
     redirect();
   }
 
@@ -142,6 +138,17 @@ export default function AddPet(props) {
                 className="form-control"
                 id="color"
                 name="color"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="weight" className="form-label">
+                Weigth ( in kg )
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="weight"
+                name="weight"
               />
             </div>
             <button type="submit" className="btn btn-primary">

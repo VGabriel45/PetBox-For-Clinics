@@ -291,24 +291,6 @@ export default class Register extends Component {
                     We'll never share your email with anyone else.
                   </div>
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="exampleInputEmail1" className="form-label">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    id="exampleInputEmail1"
-                    validations={[required, email]}
-                    aria-describedby="emailHelp"
-                    name="email"
-                  />
-                  <div id="emailHelp" className="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
-                </div>
 
                 <div className="form-group">
                   <button className="btn btn-primary btn-block">

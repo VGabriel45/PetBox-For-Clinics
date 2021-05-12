@@ -18,20 +18,17 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { mainListItems, secondaryListItems } from "./listItems";
 import LastCustomer from "./LastCustomer";
-import Appointments from "./Appointments/Appointments";
 import PetsIcon from "@material-ui/icons/Pets";
-import AddPersons from "./Customers/Components/AddCustomer";
 import SimplePopover from "./Notification/Components/SimplePopover";
 import authService from "./Services/auth.service";
-import Register from "./Auth/register.component";
-import NavigationBar from "./Navbar/NavigationBar";
+import CustomersTable from "./Components/Customers/CustomersTable";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Petbox
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -203,7 +200,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper} style={{ height: "100%" }}>
-                <Register />
+                <CustomersTable />
               </Paper>
             </Grid>
           </Grid>

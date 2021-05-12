@@ -150,7 +150,7 @@ export default function GetAllPets() {
     <React.Fragment>
       <NavigationBar />
       <Container maxWidth="lg">
-        <h1>Pets</h1>
+        <h1 className="title">Pets</h1>
         <Link to="/dash">Back to dashboard</Link>
         <div>
           <div>{search}</div>

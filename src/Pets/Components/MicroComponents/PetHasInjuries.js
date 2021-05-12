@@ -2,7 +2,7 @@ import React from "react";
 
 const PetHasInjuries = ({ hasInjuries, toggleHasInjuries }) => {
   return (
-    <>
+    <div>
       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
         <h6 class="mb-0">Has injuries: </h6>
         {hasInjuries ? (
@@ -32,7 +32,7 @@ const PetHasInjuries = ({ hasInjuries, toggleHasInjuries }) => {
           </div>
         )}
       </li>
-    </>
+    </div>
   );
 };
 

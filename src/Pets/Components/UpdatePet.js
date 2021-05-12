@@ -52,6 +52,7 @@ export default function UpdatePet(props) {
         race: data.get("race"),
         age: data.get("age"),
         color: data.get("color"),
+        weight: data.get("weight"),
         customer: pet.customer,
         lastSeen: new Date(),
       },
@@ -171,6 +172,19 @@ export default function UpdatePet(props) {
                   id="age"
                   name="age"
                   value={pet.age}
+                  onChange={onChangeHandler}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="weight" className="form-label">
+                  Weight
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="weight"
+                  name="weight"
+                  value={pet.weight}
                   onChange={onChangeHandler}
                 />
               </div>

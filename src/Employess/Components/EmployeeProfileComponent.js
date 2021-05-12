@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import "../../Styles/PetDetails.css";
 
-const EmployeeProfileComponent = ({ employee }) => {
+const EmployeeProfileComponent = ({ employee, dateFunction }) => {
   return (
-    <>
-      <div class="container">
+    <div>
+      <div style={{ width: "80%", margin: "0 auto" }}>
         <div class="main-body">
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -27,9 +27,22 @@ const EmployeeProfileComponent = ({ employee }) => {
                       </p>
                     </div>
                   </div>
-                  <Link to={`/employees/${employee.id}/updateEmployee`}>
-                    <button className="btn btn-warning">Edit</button>
-                  </Link>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "20px",
+                    }}
+                  >
+                    <Link to={`/employees/${employee.id}/updateEmployee`}>
+                      <button
+                        className="btn btn-warning"
+                        style={{ width: "200px" }}
+                      >
+                        Update employee data
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div class="card mt-3">
@@ -45,13 +58,13 @@ const EmployeeProfileComponent = ({ employee }) => {
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">Contract start date:</h6>
                     <span class="text-secondary">
-                      {employee.contractStartingDate}
+                      {dateFunction(employee.contractStartingDate)}
                     </span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">Contract end date:</h6>
                     <span class="text-secondary">
-                      {employee.contractEndingDate}
+                      {dateFunction(employee.contractEndingDate)}
                     </span>
                   </li>
                 </ul>
@@ -96,31 +109,11 @@ const EmployeeProfileComponent = ({ employee }) => {
                   <hr />
                 </div>
               </div>
-              <div class="row gutters-sm">
-                {/* <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3 title">
-                        Issues:
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3 title">
-                        Questions:
-                      </h6>
-                    </div>
-                  </div>
-                </div> */}
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -131,6 +131,7 @@ export default function AppointmentPage(props) {
                 variant="contained"
                 color="primary"
                 onClick={acceptAppointment}
+                style={{ marginRight: "10px" }}
               >
                 Accept
               </Button>

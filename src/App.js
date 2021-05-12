@@ -9,7 +9,6 @@ import Employees from "./Employess/Components/Employees";
 import Appointments from "./Appointments/Appointments";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import PersonProfile from "./Customers/Components/CustomerProfile";
 import PetDetails from "./Pets/Components/PetDetails";
 import AddPet from "./Pets/Components/AddPet";
 import AppointmentPage from "./Appointments/AppointmentPage";
@@ -21,7 +20,6 @@ import CustomerProfile from "./Customers/Components/CustomerProfile";
 
 import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
-import RegisterCustomer from "./Auth/register.component";
 import RegisterForm from "./Components/Forms/Authentication/RegisterForm";
 import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
@@ -29,7 +27,9 @@ import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 import UpdatePet from "./Pets/Components/UpdatePet";
 import LoginForm from "./Components/Forms/Authentication/LoginForm";
 import AddNewCustomerForm from "./Components/Forms/Other/AddNewCustomerForm";
-import LinearBuffer from "./Components/Forms/Other/LinearBuffer";
+import LandingPage from "./LandingPage/LandingPage";
+import ClinicPage from "./LandingPage/ClinicPage";
+import CustomerPage from "./LandingPage/CustomerPage";
 
 export default function App() {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
@@ -39,7 +39,10 @@ export default function App() {
       <Router>
         <Switch>
           <Route path="/dash" exact component={Dashboard} />
-
+          <Route path="/clinicPage" exact component={ClinicPage} />
+          <Route path="/customerPage" exact component={CustomerPage} />
+          <Route path="/landingPage" exact component={LandingPage} />
+          <Route path="/" exact component={LandingPage} />
           <Route path="/customers" exact component={GetAllPersons} />
           <Route
             path="/customers/:customerId"

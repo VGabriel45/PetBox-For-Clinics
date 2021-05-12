@@ -77,7 +77,7 @@ export default function UpdateCustomer(props) {
           ) : (
             <div>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <h1>Update customer data</h1>
+                <h1 className="title">Update customer data</h1>
               </div>
               <Grid align="center" className="mt-2">
                 <Avatar style={avatarStyle}>

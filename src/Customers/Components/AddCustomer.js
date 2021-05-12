@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { Container } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 export default function AddPersons(props) {
   function submitForm(e) {

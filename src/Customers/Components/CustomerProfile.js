@@ -66,20 +66,6 @@ export default function CustomerProfile(props) {
       .then((res) => setquestions(res.data));
   }
 
-  async function deleteCustomer() {
-    await axios.delete(
-      `http://localhost:8080/customers/${customerId}`,
-      { headers: authHeader() },
-      {
-        data: { customer },
-      }
-    );
-    axios.delete(`http://localhost:8080/delete/${customer.username}`, {
-      headers: authHeader(),
-    });
-    history.push("/customers");
-  }
-
   async function updateCustomer() {
     await axios.put(
       `http://localhost:8080/customers/${customerId}`,

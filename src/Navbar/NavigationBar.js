@@ -15,9 +15,9 @@ const NavigationBar = () => {
   return (
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
+        <a class="navbar-item">
           <img
-            src="https://bulma.io/images/bulma-logo.png"
+            src="https://morningbubbles.com/wp-content/uploads/2015/05/PetBox-logo.png"
             width="112"
             height="28"
           />
@@ -71,7 +71,9 @@ const NavigationBar = () => {
       ) : (
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item">Home</a>
+            <a class="navbar-item" href="/landingPage">
+              Home
+            </a>
 
             <a class="navbar-item">Documentation</a>
 
@@ -90,7 +92,11 @@ const NavigationBar = () => {
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary" href="/register">
+                <a
+                  class="button is-primary"
+                  href="/register"
+                  style={{ background: "rgb(163, 96, 226)" }}
+                >
                   <strong>Sign up</strong>
                 </a>
                 <a class="button is-light" href="/login">

@@ -2,7 +2,7 @@ import React from "react";
 
 const PetVaccine = ({ hasVaccine, toggleVaccine }) => {
   return (
-    <>
+    <div>
       <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
         <h6 class="mb-0">Has vaccine:</h6>
         {hasVaccine ? (
@@ -32,7 +32,7 @@ const PetVaccine = ({ hasVaccine, toggleVaccine }) => {
           </div>
         )}
       </li>
-    </>
+    </div>
   );
 };
 

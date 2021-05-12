@@ -46,10 +46,15 @@ export default function EmployeeProfile(props) {
   return (
     <div>
       <NavigationBar />
-      <EmployeeProfileComponent employee={employee} />
-      <button className="btn btn-danger" onClick={deleteEmployee}>
-        Delete
-      </button>
+      <EmployeeProfileComponent
+        employee={employee}
+        dateFunction={formatDateWithoutTime}
+      />
+      <div style={{ marginLeft: "11%" }}>
+        <button className="btn btn-danger" onClick={deleteEmployee}>
+          Delete
+        </button>
+      </div>
     </div>
   );
 }

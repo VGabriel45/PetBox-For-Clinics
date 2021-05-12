@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import authHeader from "../../Services/auth-header";
 import AuthService from "../../Services/auth.service";
+import NavigationBar from "../../Navbar/NavigationBar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -141,9 +142,10 @@ export default function Employees() {
 
   return (
     <div>
+      <NavigationBar />
       {employees.length > 0 ? (
         <Container maxWidth="lg" style={{ marginTop: "5%" }}>
-          <h1>Employees</h1>
+          <h1 className="title">Employees</h1>
           <div>{search}</div>
           <Link to="/addEmployee">
             <button type="submit" className="btn btn-primary">
@@ -156,13 +158,14 @@ export default function Employees() {
         </Container>
       ) : (
         <Container>
-          <h2>No employees yet.</h2>
+          <br />
           <Link to="/addEmployee">
             <button type="submit" className="btn btn-primary">
               Add employee
             </button>
             <br />
           </Link>
+          <h2 style={{ marginTop: "50px" }}>No employees yet.</h2>
         </Container>
       )}
     </div>

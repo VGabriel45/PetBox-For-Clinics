@@ -17,8 +17,8 @@ const CustomerProfileComponent = ({
   } = CustomerProfileLogic({ customer });
 
   return (
-    <>
-      <div class="container">
+    <div>
+      <div style={{ margin: "0 auto", width: "80%" }}>
         <div class="main-body">
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -29,7 +29,9 @@ const CustomerProfileComponent = ({
                       src={
                         customerImage
                           ? customerImage
-                          : "https://www.pinclipart.com/picdir/middle/165-1653686_female-user-icon-png-download-user-colorful-icon.png"
+                          : customer.gender == "male"
+                          ? "https://img.icons8.com/bubbles/2x/user-male.png"
+                          : "https://img.icons8.com/bubbles/2x/audrey-hepburn.png"
                       }
                       alt="Admin"
                       class="rounded-circle"
@@ -143,63 +145,65 @@ const CustomerProfileComponent = ({
               </div>
             </div>
           </div>
-          <a
-            href={`/customers/${customer.id}/addPet`}
-            style={{ marginRight: "10%" }}
-          >
-            Add pet
-          </a>
-          <a
-            href={`/customers/${customer.id}/updateCustomer`}
-            style={{ marginRight: "10%" }}
-          >
-            Update customer data
-          </a>
-          {showModal ? (
-            <div class="modal is-active">
-              <div class="modal-background"></div>
-              <div class="modal-content">
-                <span
-                  onclick="document.getElementById('id01').style.display='none'"
-                  class="close"
-                  title="Close Modal"
-                >
-                  &times;
-                </span>
-                <form class="modal-content" action="/action_page.php">
-                  <div class="container">
-                    <h1>Delete Customer</h1>
-                    <p>Are you sure you want to delete this customer ?</p>
+          <div style={{ width: "40%", margin: "0 auto" }}>
+            <a
+              href={`/customers/${customer.id}/addPet`}
+              style={{ marginRight: "10%" }}
+            >
+              Add pet
+            </a>
+            <a
+              href={`/customers/${customer.id}/updateCustomer`}
+              style={{ marginRight: "10%" }}
+            >
+              Update customer data
+            </a>
+            {showModal ? (
+              <div class="modal is-active">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                  <span
+                    onclick="document.getElementById('id01').style.display='none'"
+                    class="close"
+                    title="Close Modal"
+                  >
+                    &times;
+                  </span>
+                  <form class="modal-content" action="/action_page.php">
+                    <div class="container">
+                      <h1>Delete Customer</h1>
+                      <p>Are you sure you want to delete this customer ?</p>
 
-                    <div class="clearfix">
-                      <button
-                        type="button"
-                        class="modalButton cancelbtn"
-                        onClick={cancelDeletion}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="button"
-                        class="modalButton deletebtn"
-                        onClick={confirmDeletion}
-                      >
-                        Delete
-                      </button>
+                      <div class="clearfix">
+                        <button
+                          type="button"
+                          class="modalButton cancelbtn"
+                          onClick={cancelDeletion}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          class="modalButton deletebtn"
+                          onClick={confirmDeletion}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
-            </div>
-          ) : (
-            ""
-          )}
-          <a onClick={openConfirmationModal} className="deleteButton">
-            Delete customer data
-          </a>
+            ) : (
+              ""
+            )}
+            <a onClick={openConfirmationModal} className="deleteButton">
+              Delete customer data
+            </a>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

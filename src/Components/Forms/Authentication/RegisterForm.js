@@ -82,10 +82,7 @@ const RegisterForm = () => {
   return (
     <React.Fragment>
       <NavigationBar />
-      <div
-        className="container is-max-desktop box mt-5"
-        style={{ width: "35%" }}
-      >
+      <div className="box mt-5" style={{ width: "40%", margin: "0 auto" }}>
         <Grid align="center" className="mt-2">
           <Avatar style={avatarStyle}>
             <img
@@ -223,7 +220,7 @@ const RegisterForm = () => {
             </div>
             <div
               class="control"
-              style={{ position: "absolute", right: "10px" }}
+              // style={{ position: "absolute", right: "10px" }}
             >
               <button class="button is-link is-light">Cancel</button>
             </div>

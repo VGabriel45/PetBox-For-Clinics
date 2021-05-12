@@ -15,7 +15,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import authHeader from "../Services/auth-header";
 import AuthService from "../Services/auth.service";
-
+import NavigationBar from "../Navbar/NavigationBar";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -50,7 +50,9 @@ export default function CustomizedTables() {
 
   async function getAppointments() {
     await axios
-      .get(`http://localhost:8080/clinic/${currentUser.id}/appointments`, { headers: authHeader() })
+      .get(`http://localhost:8080/clinic/${currentUser.id}/appointments`, {
+        headers: authHeader(),
+      })
       .then((res) => setappointments(res.data));
   }
 
@@ -117,8 +119,8 @@ export default function CustomizedTables() {
                   ) : app.accepted ? (
                     <p style={{ color: "green" }}>Accepted</p>
                   ) : (
-                        <p style={{ color: "red" }}>Declined</p>
-                      )}
+                    <p style={{ color: "red" }}>Declined</p>
+                  )}
                 </StyledTableCell>
                 {console.log(app)}
               </StyledTableRow>
@@ -163,10 +165,11 @@ export default function CustomizedTables() {
 
   return (
     <React.Fragment>
+      <NavigationBar />
       <Container maxWidth="lg">
-        <h1>Appointments</h1>
+        <h1 className="title">Appointments</h1>
         <div>{search}</div>
-        {content}
+        {appointments.lengtj > 0 ? content : "No appointments"}
       </Container>
     </React.Fragment>
   );
