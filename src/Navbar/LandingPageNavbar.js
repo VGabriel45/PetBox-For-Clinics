@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import AuthService from "../Services/auth.service";
 
-const NavigationBar = () => {
+const LandingPageNavbar = () => {
   const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
   const history = useHistory();
 
@@ -84,26 +84,10 @@ const NavigationBar = () => {
               Use as Customer
             </a>
           </div>
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a
-                  class="button is-primary"
-                  href="/register"
-                  style={{ background: "rgb(163, 96, 226)" }}
-                >
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light" href="/login">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       )}
     </nav>
   );
 };
 
-export default NavigationBar;
+export default LandingPageNavbar;

@@ -2,6 +2,11 @@
   /* text-align: center; */
 }
 
+body > #root > div {
+  max-height: fit-content;
+  height: 100vh;
+}
+
 a {
   text-decoration: none;
   color: #4370cc;

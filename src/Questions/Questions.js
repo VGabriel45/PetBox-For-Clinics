@@ -89,7 +89,7 @@ export default function AlignItemsList() {
     <div>
       <NavigationBar />
       <div style={{ margin: "0 auto", width: "80%" }}>
-        <h1 style={{ textAlign: "center", marginTop: "2%" }} className="title">
+        <h1 style={{ marginTop: "2%" }} className="title">
           Questions asked by customers
         </h1>
         <Link to="/dash">Back to dashboard</Link>
@@ -111,7 +111,7 @@ export default function AlignItemsList() {
           </Paper>
         ) : (
           <div
-            style={{ margin: "0 auto", textAlign: "center", marginTop: "20%" }}
+            style={{ margin: "0 auto", textAlign: "center", marginTop: "15%" }}
           >
             <p className="title">No questions</p>
           </div>

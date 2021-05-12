@@ -6,9 +6,9 @@ import { useHistory } from "react-router-dom";
 import NavigationBar from "../../../Navbar/NavigationBar";
 import LinearBuffer from "../Other/LinearBuffer";
 
-const avatarStyle = {
-  backgroundColor: "#6c93ea",
-};
+import "../../../Styles/LoginPage.css";
+
+const avatarStyle = {};
 
 const LoginForm = () => {
   const [clinicName, setclinicName] = useState("");
@@ -69,8 +69,9 @@ const LoginForm = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="loginPage">
       <NavigationBar />
+      <div style={{ marginTop: "200px" }}></div>
       <div
         className="is-max-desktop box mt-5"
         style={{ width: "35%", margin: "0 auto" }}
@@ -93,7 +94,13 @@ const LoginForm = () => {
             <label class="label">Clinic name</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class={clinicNameValid ? "input is-primary" : "input is-danger"}
+                class={
+                  clinicName.length > 0
+                    ? clinicNameValid
+                      ? "input is-primary"
+                      : "input is-danger"
+                    : "input"
+                }
                 type="text"
                 placeholder="Type your clinic name"
                 onChange={onChangeClinicName}
@@ -110,14 +117,18 @@ const LoginForm = () => {
                 ""
               )}
             </div>
-            {clinicNameValid === true ? (
-              <div>
-                <p class="help is-success">Valid clinic name</p>
-              </div>
+            {clinicName.length > 0 ? (
+              clinicNameValid === true ? (
+                <div>
+                  <p class="help is-success">Valid clinic name</p>
+                </div>
+              ) : (
+                <p class="help is-danger">
+                  Username must be between 3 and 25 characters
+                </p>
+              )
             ) : (
-              <p class="help is-danger">
-                Username must be between 3 and 25 characters
-              </p>
+              ""
             )}
           </div>
           <br />
@@ -125,7 +136,13 @@ const LoginForm = () => {
             <label class="label">Password</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class={passwordValid ? "input is-primary" : "input is-danger"}
+                class={
+                  password.length > 0
+                    ? passwordValid
+                      ? "input is-primary"
+                      : "input is-danger"
+                    : "input"
+                }
                 type="password"
                 placeholder="Type your password"
                 onChange={onChangePassword}
@@ -141,12 +158,16 @@ const LoginForm = () => {
                 ""
               )}
             </div>
-            {passwordValid ? (
-              <p class="help is-success">Valid password</p>
+            {password.length > 0 ? (
+              passwordValid ? (
+                <p class="help is-success">Valid password</p>
+              ) : (
+                <p class="help is-danger">
+                  Password must contain letters and numbers only.
+                </p>
+              )
             ) : (
-              <p class="help is-danger">
-                Password must contain letters and numbers only.
-              </p>
+              ""
             )}
           </div>
           <br />
@@ -174,7 +195,7 @@ const LoginForm = () => {
           </div>
         </form>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

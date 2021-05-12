@@ -165,7 +165,12 @@ export default function Employees() {
             </button>
             <br />
           </Link>
-          <h2 style={{ marginTop: "50px" }}>No employees yet.</h2>
+          <h2
+            className="title"
+            style={{ marginTop: "15%", width: "100%", textAlign: "center" }}
+          >
+            No employees yet.
+          </h2>
         </Container>
       )}
     </div>

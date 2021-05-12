@@ -85,12 +85,14 @@ export default function CustomizedTables() {
     <React.Fragment>
       <NavigationBar />
       <Container maxWidth="lg" style={{ backgroundColor: "white" }}>
-        <h1>Customers</h1>
+        <h1 className="title">Customers</h1>
         <div>{search}</div>
         <Link to="/addCustomer">
           <button type="submit" className="btn btn-primary">
             Add new customer
           </button>
+          <br />
+          <br />
         </Link>
         {content}
       </Container>

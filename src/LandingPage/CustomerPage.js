@@ -2,12 +2,14 @@ import React from "react";
 import LandingPageLogic from "./LandingPageLogic";
 
 import "../Styles/LandingPage.css";
+import Navbar from "../Navbar/LandingPageNavbar";
 
 const CustomerPage = () => {
   const { redirectToClinicPage, redirectToCustomerPage } = LandingPageLogic();
 
   return (
     <div>
+      <Navbar />
       <section>
         <div className="circle" style={{ background: "orange" }}></div>
         <div className="content">
@@ -22,7 +24,10 @@ const CustomerPage = () => {
               favorite clinic, to make online appointments, to ask questions and
               to see your pet information.
             </p>
-            <a href="http://localhost:3001/" style={{ background: "orange" }}>
+            <a
+              href="http://localhost:3001/login"
+              style={{ background: "orange" }}
+            >
               Login into your customer account
             </a>
           </div>
@@ -32,6 +37,7 @@ const CustomerPage = () => {
                 src="https://cdn.shopify.com/s/files/1/0040/5317/2339/products/printypet9_900x.png?v=1548857905"
                 alt="pet"
                 className="petImage"
+                style={{ marginTop: "-110px", width: "700px" }}
               />
             </div>
           </a>

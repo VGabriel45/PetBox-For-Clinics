@@ -154,7 +154,16 @@ export default function GetAllPets() {
         <Link to="/dash">Back to dashboard</Link>
         <div>
           <div>{search}</div>
-          {content}
+          {pets.length > 0 ? (
+            content
+          ) : (
+            <h1
+              className="title"
+              style={{ width: "100%", textAlign: "center", marginTop: "15%" }}
+            >
+              No pets
+            </h1>
+          )}
         </div>
       </Container>
     </React.Fragment>

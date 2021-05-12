@@ -113,7 +113,10 @@ const CustomersTable = () => {
           </TableContainer>
         </div>
       ) : (
-        <h1 className="title" style={{ margin: "0 auto" }}>
+        <h1
+          className="title"
+          style={{ margin: "0 auto", textAlign: "center", marginTop: "15%" }}
+        >
           No customers yet
         </h1>
       )}

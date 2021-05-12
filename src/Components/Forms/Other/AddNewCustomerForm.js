@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import authService from "../../../Services/auth.service";
-import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
 import NavigationBar from "../../../Navbar/NavigationBar";
 import FormValidationLogic from "../Authentication/FormValidationLogic";
@@ -106,17 +105,13 @@ const AddNewCustomerForm = () => {
       setTimeout(() => {
         setloading(false);
       }, 2500);
-
-      //   setTimeout(() => {
-      //     seterror("");
-      //   }, 4000);
     }
   };
 
   useEffect(() => {}, [error, confirmation]);
 
   return (
-    <React.Fragment>
+    <div>
       <NavigationBar />
       <div className="box mt-5" style={{ width: "50%", margin: "0 auto" }}>
         <br />
@@ -292,7 +287,7 @@ const AddNewCustomerForm = () => {
           </div>
         )}
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

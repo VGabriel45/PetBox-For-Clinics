@@ -101,6 +101,7 @@ export default function SimplePopover() {
           variant="contained"
           color="primary"
           onClick={handleClick}
+          style={{ background: "rgb(117, 68, 209)" }}
         >
           <NotificationsIcon />
         </Button>

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import FormValidationLogic from "./FormValidationLogic";
 import authService from "../../../Services/auth.service";
 import { Grid, Avatar } from "@material-ui/core";
-import Navbar from "../../../Navbar/Navbar";
 import { useHistory } from "react-router-dom";
 import NavigationBar from "../../../Navbar/NavigationBar";
+
+import "../../../Styles/LoginPage.css";
 
 const avatarStyle = {
   backgroundColor: "#6c93ea",
@@ -80,8 +81,12 @@ const RegisterForm = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="loginPage">
       <NavigationBar />
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="box mt-5" style={{ width: "40%", margin: "0 auto" }}>
         <Grid align="center" className="mt-2">
           <Avatar style={avatarStyle}>
@@ -101,7 +106,13 @@ const RegisterForm = () => {
             <label class="label">Clinic name</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class={clinicNameValid ? "input is-primary" : "input is-danger"}
+                class={
+                  clinicName.length > 0
+                    ? clinicNameValid
+                      ? "input is-primary"
+                      : "input is-danger"
+                    : "input"
+                }
                 type="text"
                 placeholder="Type your clinic name"
                 onChange={onChangeClinicName}
@@ -111,22 +122,30 @@ const RegisterForm = () => {
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
-              {clinicNameValid === true ? (
-                <div>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
+              {clinicName.length > 0 ? (
+                clinicNameValid === true ? (
+                  <div>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-check"></i>
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )
               ) : (
                 ""
               )}
             </div>
-            {clinicNameValid === true ? (
-              <p class="help is-success">Valid clinic name</p>
+            {clinicName.length > 0 ? (
+              clinicNameValid === true ? (
+                <p class="help is-success">Valid clinic name</p>
+              ) : (
+                <p class="help is-danger">
+                  Username must be between 3 and 25 characters
+                </p>
+              )
             ) : (
-              <p class="help is-danger">
-                Username must be between 3 and 25 characters
-              </p>
+              ""
             )}
           </div>
           <br />
@@ -134,7 +153,13 @@ const RegisterForm = () => {
             <label class="label">Password</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class={passwordValid ? "input is-primary" : "input is-danger"}
+                class={
+                  password.length
+                    ? passwordValid
+                      ? "input is-primary"
+                      : "input is-danger"
+                    : "input"
+                }
                 type="password"
                 placeholder="Type your password"
                 onChange={onChangePassword}
@@ -153,12 +178,16 @@ const RegisterForm = () => {
                 ""
               )}
             </div>
-            {passwordValid ? (
-              <p class="help is-success">Valid password</p>
+            {password.length > 0 ? (
+              passwordValid ? (
+                <p class="help is-success">Valid password</p>
+              ) : (
+                <p class="help is-danger">
+                  Password must contain letters and numbers only.
+                </p>
+              )
             ) : (
-              <p class="help is-danger">
-                Password must contain letters and numbers only.
-              </p>
+              ""
             )}
           </div>
           <br />
@@ -166,7 +195,13 @@ const RegisterForm = () => {
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class={emailValid ? "input is-primary" : "input is-danger"}
+                class={
+                  email.length > 0
+                    ? emailValid
+                      ? "input is-primary"
+                      : "input is-danger"
+                    : "input"
+                }
                 type="email"
                 placeholder="Type your clinic email"
                 onChange={onChangeEmail}
@@ -186,10 +221,14 @@ const RegisterForm = () => {
                 ""
               )}
             </div>
-            {emailValid === true ? (
-              <p class="help is-success">Valid clinic email</p>
+            {email.length > 0 ? (
+              emailValid === true ? (
+                <p class="help is-success">Valid clinic email</p>
+              ) : (
+                <p class="help is-danger">Must be a valid email</p>
+              )
             ) : (
-              <p class="help is-danger">Must be a valid email</p>
+              ""
             )}
           </div>
           <br />
@@ -218,16 +257,18 @@ const RegisterForm = () => {
             <div class="control">
               <button class="button is-link">Submit</button>
             </div>
-            <div
-              class="control"
-              // style={{ position: "absolute", right: "10px" }}
-            >
-              <button class="button is-link is-light">Cancel</button>
+            <div class="control" style={{ width: "100%" }}>
+              <button
+                class="button is-link is-light"
+                style={{ marginLeft: "70%" }}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </form>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

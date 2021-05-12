@@ -54,11 +54,11 @@ section {
 }
 
 .content .imgBox {
-  width: 800px;
+  width: 750px;
   display: flex;
   justify-content: end;
   padding-right: 50px;
-  margin-top: 25px;
+  margin-top: 22px;
 }
 
 .thumb {
@@ -76,6 +76,7 @@ section {
   margin: 0 20px;
   cursor: pointer;
   transition: 0.5s;
+  margin-top: -100px;
 }
 
 .thumb li:hover {

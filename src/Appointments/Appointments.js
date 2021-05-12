@@ -169,7 +169,16 @@ export default function CustomizedTables() {
       <Container maxWidth="lg">
         <h1 className="title">Appointments</h1>
         <div>{search}</div>
-        {appointments.lengtj > 0 ? content : "No appointments"}
+        {appointments.length > 0 ? (
+          content
+        ) : (
+          <h1
+            className="title"
+            style={{ width: "100%", marginTop: "15%", textAlign: "center" }}
+          >
+            No appointments
+          </h1>
+        )}
       </Container>
     </React.Fragment>
   );
