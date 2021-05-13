@@ -17,9 +17,8 @@ const LandingPageNavbar = () => {
       <div className="navbar-brand">
         <a className="navbar-item">
           <img
-            src="https://morningbubbles.com/wp-content/uploads/2015/05/PetBox-logo.png"
-            width="112"
-            height="28"
+            src="/img/cover.png"
+            style={{ width: "200px", maxHeight: "3em" }}
           />
         </a>
 
