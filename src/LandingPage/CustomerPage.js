@@ -15,7 +15,6 @@ const CustomerPage = () => {
         <div className="content">
           <div className="textBox">
             <h2>
-              {/* <br /> */}
               Welcome to{" "}
               <span style={{ color: "orange" }}>Petbox for customers</span>
             </h2>

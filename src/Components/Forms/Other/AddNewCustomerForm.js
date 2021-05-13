@@ -79,7 +79,6 @@ const AddNewCustomerForm = () => {
       window.location.reload("/dash");
     }, 2000);
     setloading(false);
-    console.log(loading);
   };
 
   const addCustomer = (e) => {
