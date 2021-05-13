@@ -6,6 +6,6 @@ The application is divided in 2 parts, the Admin Side and the Client Side, admin
 
 The project still needs work on the UI part.
 
-![](images/Screenshot%202021-04-29%20at%2013.24.15.png)
+Screenshot 2021-05-12 at 21.41.50![image](https://user-images.githubusercontent.com/56271768/118109667-29cdbb80-b3ea-11eb-983f-b8d1bf2f8ae9.png)
 
 
