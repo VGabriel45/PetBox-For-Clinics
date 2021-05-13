@@ -90,9 +90,7 @@ export default function GetAllPets() {
               ? pets.map((pet) => (
                   <StyledTableRow key={pet.id}>
                     <Link to={`/customers/${pet.customer.id}/pets/${pet.id}`}>
-                      <StyledTableCell component="th" scope="row">
-                        {pet.name}
-                      </StyledTableCell>
+                      <StyledTableCell scope="row">{pet.name}</StyledTableCell>
                     </Link>
                     <StyledTableCell align="right">
                       {pet.gender}

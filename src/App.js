@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React, { useState } from "react";
+import React from "react";
 import GetAllPersons from "./Customers/Components/GetAllCustomers";
 import GetAllPets from "./Pets/Components/GetAllPets";
 import GetPetsOfCustomer from "./Pets/Components/GetPetsOfCustomer";
@@ -18,10 +18,8 @@ import QuestionPage from "./Questions/QuestionPage";
 import SuccesPage from "./ConfirmationScreens/SuccesPage";
 import CustomerProfile from "./Customers/Components/CustomerProfile";
 
-import AuthService from "./Services/auth.service";
 import WelcomePage from "./ClientUI.js/WelcomePage";
 import RegisterForm from "./Components/Forms/Authentication/RegisterForm";
-import Profile from "./ClientUI.js/Profile";
 import UpdateCustomer from "./Customers/Components/UpdateCustomer";
 import UpdateEmployee from "./Employess/Components/UpdateEmployee";
 import UpdatePet from "./Pets/Components/UpdatePet";
@@ -32,8 +30,6 @@ import ClinicPage from "./LandingPage/ClinicPage";
 import CustomerPage from "./LandingPage/CustomerPage";
 
 export default function App() {
-  const [currentUser, setcurrentUser] = useState(AuthService.getCurrentUser());
-
   return (
     <div className="App">
       <Router>
@@ -123,8 +119,6 @@ export default function App() {
           <Route path="/register" component={RegisterForm} />
 
           <Route path="/login" component={LoginForm} />
-
-          <Route path="/myProfile/:id" exact component={Profile} />
         </Switch>
       </Router>
     </div>

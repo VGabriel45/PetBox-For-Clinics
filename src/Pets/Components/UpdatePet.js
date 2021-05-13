@@ -12,8 +12,7 @@ export default function UpdatePet(props) {
   } = props;
   const petId = params.petId;
   const customerId = params.customerId;
-  const [pet, setpet] = useState({});
-  const [customer, setcustomer] = useState({});
+  const [pet, setpet] = useState({ value: "" });
   const [loading, setloading] = useState(false);
   const history = useHistory();
 
@@ -129,7 +128,7 @@ export default function UpdatePet(props) {
                   <option value="Cat">Cat</option>
                   <option value="Hamster">Hamster</option>
                   <option value="Bird">Bird</option>
-                  <option value="Bird">Rabbit</option>
+                  <option value="Rabbit">Rabbit</option>
                   <option value="Other">Other</option>
                 </select>
               </div>

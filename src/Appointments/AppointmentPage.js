@@ -103,7 +103,7 @@ export default function AppointmentPage(props) {
         <div>
           {appointment.accepted ? (
             <div>
-              <div class="notification is-primary">
+              <div className="notification is-primary">
                 <h2>This appointment has been accepted.</h2>
               </div>
               <Button
@@ -111,7 +111,6 @@ export default function AppointmentPage(props) {
                 color="secondary"
                 onClick={declineAppointment}
                 style={{ marginRight: "235px" }}
-                // className="btn btn-primary btn-sm"
               >
                 Change to declined
               </Button>
@@ -146,7 +145,7 @@ export default function AppointmentPage(props) {
           )}
           {appointment.declined ? (
             <div>
-              <div class="notification is-danger">
+              <div className="notification is-danger">
                 <h2>This appointment has been declined.</h2>
               </div>
               <Button
@@ -169,7 +168,6 @@ export default function AppointmentPage(props) {
             ""
           )}
         </div>
-        {console.log(appointment.reason)}
       </div>
     </div>
   );

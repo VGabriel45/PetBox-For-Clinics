@@ -20,13 +20,10 @@ export default function SimplePopover() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [questions, setquestions] = useState([]);
   const [appointments, setappointments] = useState([]);
-  const [numberOfUnseenQuestions, setNumberOfUnseenQuestions] = useState();
-  const [
-    numberOfUnseenAppointments,
-    setNumberOfUnseenAppointments,
-  ] = useState();
-  const [seen, setseen] = useState();
-  var data;
+  const [numberOfUnseenQuestions, setNumberOfUnseenQuestions] = useState("");
+  const [numberOfUnseenAppointments, setNumberOfUnseenAppointments] = useState(
+    ""
+  );
 
   async function getData() {
     await axios
@@ -120,7 +117,6 @@ export default function SimplePopover() {
           }}
         >
           <Typography className={classes.typography}>
-            {console.log(questions)}
             {questions.length > 0
               ? questions.map((q) =>
                   !q.seen ? (

@@ -11,7 +11,6 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Link } from "react-router-dom";
 import authHeader from "../Services/auth-header";
 import AuthService from "../Services/auth.service";
@@ -73,7 +72,7 @@ export default function CustomizedTables() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     );
-    if (event.target.value == "") {
+    if (event.target.value === "") {
       setSearchResults(appointments);
     } else {
       setSearchResults(results);
@@ -122,7 +121,6 @@ export default function CustomizedTables() {
                     <p style={{ color: "red" }}>Declined</p>
                   )}
                 </StyledTableCell>
-                {console.log(app)}
               </StyledTableRow>
             ))}
           </TableBody>

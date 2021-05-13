@@ -45,9 +45,13 @@ export default function CustomerProfile(props) {
   }
 
   async function getCustomerImage() {
-    let storageRef = firebase.storage().ref();
-    let fileRef = storageRef.child(await customerId);
-    setcustomerImage(await fileRef.getDownloadURL());
+    try {
+      let storageRef = firebase.storage().ref();
+      let fileRef = storageRef.child(await customerId);
+      setcustomerImage(await fileRef.getDownloadURL());
+    } catch (error) {
+      console.log("Default image was set for user.");
+    }
   }
 
   async function getCustomerAppointments() {

@@ -11,7 +11,7 @@ export default function UpdateEmployee(props) {
     match: { params },
   } = props;
   const employeeId = params.employeeId;
-  const [employee, setEmployee] = useState({});
+  const [employee, setEmployee] = useState({ value: "" });
   const history = useHistory();
 
   async function getEmployee() {

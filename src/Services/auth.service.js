@@ -4,8 +4,6 @@ const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
   login(username, password) {
-    console.log(username);
-    console.log(password);
     debugger;
     return axios
       .post(`${API_URL}signin`, {
@@ -32,7 +30,8 @@ class AuthService {
     gender,
     firstName,
     lastName,
-    lastSeen
+    lastSeen,
+    age
   ) {
     return axios.post(
       `${API_URL}clinic/${this.getCurrentUser().id}/signupCustomer`,
@@ -45,6 +44,7 @@ class AuthService {
         firstName,
         lastName,
         lastSeen,
+        age,
       }
     );
   }

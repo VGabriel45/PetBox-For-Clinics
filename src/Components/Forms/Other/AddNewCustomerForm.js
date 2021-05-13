@@ -10,9 +10,10 @@ const AddNewCustomerForm = () => {
   const [email, setemail] = useState("");
   const [username, setusername] = useState("");
   const [firstName, setfirstName] = useState("");
+  const [age, setage] = useState("21");
   const [lastName, setlastName] = useState("");
   const [address, setaddress] = useState("");
-  const [gender, setgender] = useState("");
+  const [gender, setgender] = useState("male");
   const [phoneNumber, setphoneNumber] = useState("");
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState("");
@@ -66,6 +67,12 @@ const AddNewCustomerForm = () => {
     checkForEmail();
   };
 
+  const onChangeAge = async (e) => {
+    const age = await e.target.value;
+    setage(await age);
+    console.log(age);
+  };
+
   const redirectUser = () => {
     setTimeout(() => {
       history.push(`/dash`);
@@ -88,7 +95,8 @@ const AddNewCustomerForm = () => {
           phoneNumber,
           gender,
           firstName,
-          lastName
+          lastName,
+          age
         )
         .catch(() => {
           seterror("Something went wrong, please try again.");
@@ -184,6 +192,21 @@ const AddNewCustomerForm = () => {
                     placeholder="Customer last name"
                     onChange={onChangeLastName}
                     value={lastName}
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Age</label>
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    class="input"
+                    type="number"
+                    placeholder="Customer age"
+                    onChange={onChangeAge}
+                    value={age}
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>

@@ -90,11 +90,11 @@ const LoginForm = () => {
         </div>
         <form onSubmit={login}>
           <br />
-          <div class="field">
-            <label class="label">Clinic name</label>
-            <div class="control has-icons-left has-icons-right">
+          <div className="field">
+            <label className="label">Clinic name</label>
+            <div className="control has-icons-left has-icons-right">
               <input
-                class={
+                className={
                   clinicName.length > 0
                     ? clinicNameValid
                       ? "input is-primary"
@@ -109,8 +109,8 @@ const LoginForm = () => {
               />
               {clinicNameValid === true ? (
                 <div>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-check"></i>
                   </span>
                 </div>
               ) : (
@@ -120,10 +120,10 @@ const LoginForm = () => {
             {clinicName.length > 0 ? (
               clinicNameValid === true ? (
                 <div>
-                  <p class="help is-success">Valid clinic name</p>
+                  <p className="help is-success">Valid clinic name</p>
                 </div>
               ) : (
-                <p class="help is-danger">
+                <p className="help is-danger">
                   Username must be between 3 and 25 characters
                 </p>
               )
@@ -132,11 +132,11 @@ const LoginForm = () => {
             )}
           </div>
           <br />
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control has-icons-left has-icons-right">
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control has-icons-left has-icons-right">
               <input
-                class={
+                className={
                   password.length > 0
                     ? passwordValid
                       ? "input is-primary"
@@ -150,8 +150,8 @@ const LoginForm = () => {
               />
               {passwordValid === true ? (
                 <div>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
+                  <span className="icon is-small is-right">
+                    <i className="fas fa-check"></i>
                   </span>
                 </div>
               ) : (
@@ -160,9 +160,9 @@ const LoginForm = () => {
             </div>
             {password.length > 0 ? (
               passwordValid ? (
-                <p class="help is-success">Valid password</p>
+                <p className="help is-success">Valid password</p>
               ) : (
-                <p class="help is-danger">
+                <p className="help is-danger">
                   Password must contain letters and numbers only.
                 </p>
               )
@@ -174,8 +174,11 @@ const LoginForm = () => {
           <div>
             <p>
               {error ? (
-                <div class="notification is-danger is-light">
-                  <button class="delete" onClick={closeNotification}></button>
+                <div className="notification is-danger is-light">
+                  <button
+                    className="delete"
+                    onClick={closeNotification}
+                  ></button>
                   {error}
                 </div>
               ) : (
@@ -185,12 +188,15 @@ const LoginForm = () => {
             {loading ? <LinearBuffer /> : ""}
           </div>
           <br />
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link">Submit</button>
+          <div className="field is-grouped">
+            <div className="control">
+              <button className="button is-link">Submit</button>
             </div>
-            <div class="control" style={{ position: "absolute", right: "34%" }}>
-              <button class="button is-link is-light">Cancel</button>
+            <div
+              className="control"
+              style={{ position: "absolute", right: "34%" }}
+            >
+              <button className="button is-link is-light">Cancel</button>
             </div>
           </div>
         </form>

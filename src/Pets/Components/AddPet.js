@@ -31,7 +31,7 @@ export default function AddPet(props) {
         age: data.get("age"),
         color: data.get("color"),
         type: data.get("type"),
-        type: data.get("weight"),
+        weight: data.get("weight"),
       },
       { headers: authHeader() }
     );
@@ -91,11 +91,11 @@ export default function AddPet(props) {
                 id="type"
                 name="type"
               >
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-                <option value="hamster">Hamster</option>
-                <option value="rabbit">Rabbit</option>
-                <option value="bird">Bird</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Hamster">Hamster</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Bird">Bird</option>
               </select>
             </div>
             <div className="mb-3">

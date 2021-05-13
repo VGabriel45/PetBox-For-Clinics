@@ -17,8 +17,8 @@ export default function PetDetails(props) {
   const customerId = params.customerId;
 
   const history = useHistory();
-  const [pet, setpet] = useState({});
-  const [owner, setowner] = useState({});
+  const [pet, setpet] = useState({ value: "" });
+  const [owner, setowner] = useState({ value: "" });
   const [meds, setmeds] = useState([]);
   const [healthProblems, sethealthProblems] = useState([]);
   const [petImage, setpetImage] = useState("");
@@ -78,9 +78,13 @@ export default function PetDetails(props) {
   }
 
   async function getPetImage(petId) {
-    let storageRef = firebase.storage().ref();
-    let fileRef = storageRef.child(await petId);
-    setpetImage(await fileRef.getDownloadURL());
+    try {
+      let storageRef = firebase.storage().ref();
+      let fileRef = storageRef.child(await petId);
+      setpetImage(await fileRef.getDownloadURL());
+    } catch (error) {
+      console.log("Default image for pet set.");
+    }
   }
 
   useEffect(() => {

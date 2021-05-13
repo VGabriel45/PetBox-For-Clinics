@@ -4,20 +4,20 @@ const AppointmentComponent = ({ appointment, date, customerImage }) => {
   return (
     <div>
       <div>
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <img src={customerImage} alt="Image" />
+        <article className="media">
+          <div className="media-left">
+            <figure className="image is-64x64">
+              <img src={customerImage} alt="customerImg" />
             </figure>
           </div>
-          <div class="">
-            <div class="">
+          <div className="">
+            <div className="">
               <p style={{ textAlign: "left" }}>
                 {appointment.customer ? (
-                  <div>
+                  <>
                     <strong>{appointment.customer.firstName}</strong>{" "}
                     <small>@{appointment.customer.username}</small>{" "}
-                  </div>
+                  </>
                 ) : (
                   "Loading ..."
                 )}
